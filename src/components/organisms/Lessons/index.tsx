@@ -45,7 +45,7 @@ export const Lessons = ({ lessons }: Props) => {
                 }}
                 appearance={{
                   backgroundColor: "grey",
-
+                  backgroundContrastColor: "#FACD2D",
                   accentColor: "#FACD2D",
                 }}
               />

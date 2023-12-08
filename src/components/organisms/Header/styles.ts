@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { styled } from "styled-components";
 
 export const StyledWrapper = styled("header")(() => ({
@@ -14,4 +15,14 @@ export const StyledWrapperInner = styled("div")(() => ({
   margin: "0 auto",
   maxWidth: "800px",
   width: "100%",
+}));
+
+export const StyledWrapperNavigation = styled("nav")(() => ({
+  display: "flex",
+  gap: "20px",
+}));
+
+export const StyledLink = styled(Link)(() => ({
+  textDecoration: "none",
+  color: "black",
 }));

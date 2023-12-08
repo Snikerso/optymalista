@@ -20,7 +20,7 @@ export const Lessons = ({ lessons }: Props) => {
   return (
     <StyledWrapper>
       {lessons.map((lesson) => (
-        <StyledWrapperLesson>
+        <StyledWrapperLesson key={lesson.name}>
           <StyledWrapperLessonTop
             onClick={() =>
               setCurrentLesson((prev) =>

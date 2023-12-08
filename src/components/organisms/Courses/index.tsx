@@ -11,7 +11,7 @@ export const Courses = ({ courses }: Props) => {
   return (
     <StyledWrapper>
       {courses.map((course) => (
-        <CourseCard course={course} />
+        <CourseCard key={course.name} course={course} />
       ))}
     </StyledWrapper>
   );

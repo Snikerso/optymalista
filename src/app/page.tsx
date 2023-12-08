@@ -1,49 +1,27 @@
-'use client'
+"use client";
 
-import { WidgetTest } from 'wordkito-widgets'
-import styles from './page.module.css'
-
+import { Lessons } from "@/components/organisms/Lessons";
+import { reactLessons } from "@/data/lessons";
+import { StyledWrapper } from "./styles";
 
 export default function Home() {
-
-
   return (
-    <main className={styles.main}>
+    <StyledWrapper>
       <div>
         <h3>Witaj na mojej stronie</h3>
-          Co tu możesz zrobić:
-        
-          - zapisać się na mentoring
-          - skorzystać z darmowych lekcji
+        Co tu możesz zrobić: - zapisać się na mentoring - skorzystać z darmowych
+        lekcji
+        <button>Zapisz się na mentoring</button>
       </div>
 
-      
       <div>
-        <h3>Darmowy Kurs React od podstaw</h3>
-        <p>Poznaj mój kurs stworzony na mojej platformie wordkito</p>
-        <div>
+        <h3>React od podstaw - Darmowe interaktywne lekcje </h3>
+        <p>
+          Skorzystaj z moich materiałów do nauki na mojej platformie wordkito
+        </p>
 
-          <h4>1. Jak działa react ?</h4>
-          <WidgetTest
-            deckId="64f181a5a2bd05628b8c06b9"
-            onFinished={({ result }) => console.log('finished', result)}
-            iframeStyle={{
-              height: '600px',
-            }}
-            appearance={{}}
-            />
-
-          <h4>x. Jak działa useState ?</h4>
-          <WidgetTest
-            deckId="64f181a5a2bd05628b8c06b9"
-            onFinished={({ result }) => console.log('finished', result)}
-            iframeStyle={{
-              height: '600px',
-            }}
-            appearance={{}}
-            />
-        </div>
+        <Lessons lessons={reactLessons} />
       </div>
-    </main>
-  )
+    </StyledWrapper>
+  );
 }

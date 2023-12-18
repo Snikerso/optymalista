@@ -18,7 +18,15 @@ export const Modules = ({ modules }: Props) => {
         <StyledWrapperLesson key={module.name}>
           {/* Informacje o modulach */}
           <h3>{module.name}</h3>
-          <Lessons lessons={module.wordkitoLesson} />
+          <Lessons
+            lessons={module.wordkitoLesson}
+            currentLesson={currentLesson}
+            openLesson={(lesson) => {
+              lesson === currentLesson
+                ? setCurrentLesson(undefined)
+                : setCurrentLesson(lesson);
+            }}
+          />
         </StyledWrapperLesson>
       ))}
     </StyledWrapper>

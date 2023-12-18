@@ -1,6 +1,5 @@
 "use client";
 import { Lesson } from "@/data/lessons";
-import { useState } from "react";
 import { WidgetTest } from "wordkito-widgets";
 import {
   StyledWrapper,
@@ -11,24 +10,21 @@ import {
 
 interface Props {
   lessons: Lesson[];
+  currentLesson: Lesson | undefined;
+  openLesson: (lesson: Lesson) => void;
 }
 
-export const Lessons = ({ lessons }: Props) => {
-  const [currentLesson, setCurrentLesson] = useState<Lesson | undefined>(
-    lessons[0]
-  );
+export const Lessons = ({ lessons, currentLesson, openLesson }: Props) => {
   return (
     <StyledWrapper>
       {lessons.map((lesson) => (
         <StyledWrapperLesson key={lesson.name}>
           <StyledWrapperLessonTop
-            onClick={() =>
-              setCurrentLesson((prev) =>
-                prev?.name === lesson.name ? undefined : lesson
-              )
-            }
+            isActive={currentLesson?.name === lesson.name}
+            onClick={() => openLesson(lesson)}
           >
             {lesson.name}
+            {lesson.description}
           </StyledWrapperLessonTop>
 
           {currentLesson?.name === lesson.name && (
@@ -47,6 +43,7 @@ export const Lessons = ({ lessons }: Props) => {
                   backgroundColor: "grey",
                   backgroundContrastColor: "#FACD2D",
                   accentColor: "#FACD2D",
+                  themeCodeMode: "dark",
                 }}
               />
             </StyledWrapperLessonQuiz>

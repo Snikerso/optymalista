@@ -2,7 +2,7 @@
 
 import { Modules } from "@/components/organisms/Modules";
 import { allCourses } from "@/data/courses";
-import { StyledWrapper } from "./styles";
+import { StyledHeaderSection, StyledWrapper } from "./styles";
 
 interface Props {
   params: {
@@ -11,15 +11,18 @@ interface Props {
 }
 export default function MaterialDetails({ params }: Props) {
   const cource = allCourses.find((course) => course.url === params.courseUrl);
-
+  const allLessonsLength = cource?.modules?.reduce(
+    (acc, module) => acc + module.wordkitoLesson.length,
+    0
+  );
   return (
     <StyledWrapper>
-      Ilość modułów: {cource?.modules?.length}
-      {/* Ilość modułów: {cource?.modules.length} */}
-      Czego się nauczysz:
-      {/* React od podstaw  */}
-      {/* Zrobić formularz kontaktowy */}
-      Lekcje:
+      <StyledHeaderSection>
+        <h1>{cource?.name}</h1>
+        <p>{cource?.description}</p>
+        <p>Moduły: {cource?.modules?.length}</p>
+        <p>Lekcje: {allLessonsLength}</p>
+      </StyledHeaderSection>
       <Modules modules={cource?.modules || []} />
     </StyledWrapper>
   );

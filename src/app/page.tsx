@@ -1,19 +1,27 @@
 "use client";
 
 import { PageSection } from "@/components/molecules/PageSection";
-import { Button } from "antd";
+
 import { StyledWrapper } from "./styles";
 
 export default function Home() {
   return (
     <StyledWrapper>
-      <PageSection>
-        <h3>Witaj na mojej stronie</h3>
-        <p>
-          Co tu możesz zrobić: - zapisać się na mentoring - skorzystać z
-          darmowych lekcji
-        </p>
-        <Button type="primary">Umów się na mentoring</Button>
+      <PageSection withBackground>
+        <h1>Czemu jesteś tu gdzie jesteś ?</h1>
+        <p>Możesz odpalić tą stronę bo stworzyłem ją z kilku powodów:</p>
+        <ul>
+          <li>Chce rozsiewać wiedze z programowania</li>
+          <li>
+            Chce pokazać jak wykorzystując programowanie można uczyć się innych
+            dziedzić takich jak fizyka, matematyka, biologia.
+          </li>
+          <li>Pokazać swoją działalność i oferować mentoring</li>
+          <li>
+            Chce dzielić się swoimi przemyśleniami. Nie tylko programistycznymi,
+            a również z zakresu filozofii i kognitywistyki
+          </li>
+        </ul>
       </PageSection>
 
       <PageSection>

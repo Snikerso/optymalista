@@ -3,7 +3,10 @@ import { StyledWrapper } from "./styles";
 
 interface Props {
   children: React.ReactNode;
+  withBackground?: boolean;
 }
-export const PageSection = ({ children }: Props) => {
-  return <StyledWrapper>{children}</StyledWrapper>;
+export const PageSection = ({ children, withBackground }: Props) => {
+  return (
+    <StyledWrapper withBackground={withBackground}>{children}</StyledWrapper>
+  );
 };

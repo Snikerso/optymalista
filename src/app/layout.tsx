@@ -2,10 +2,9 @@ import { Header } from "@/components/organisms/Header";
 import { ConfigProvider, ThemeConfig } from "antd";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import StyledAntDRegistry from "./antRegistry";
+import Script from "next/script";
 import "./globals.css";
 import StyledComponentsRegistry from "./registry";
-
 const inter = Inter({ subsets: ["latin"] });
 
 const theme: ThemeConfig = {
@@ -28,13 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Script
+          data-cookieconsent="ignore"
+          src="https://app.zencal.io/js/zenbed.js?v=1702468090390"
+        />
         <StyledComponentsRegistry>
-          <StyledAntDRegistry>
-            <ConfigProvider theme={theme}>
-              <Header />
-              <main>{children}</main>
-            </ConfigProvider>
-          </StyledAntDRegistry>
+          <ConfigProvider theme={theme}>
+            <Header />
+            <main>{children}</main>
+          </ConfigProvider>
         </StyledComponentsRegistry>
       </body>
     </html>

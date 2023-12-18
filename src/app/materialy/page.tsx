@@ -7,15 +7,16 @@ import { StyledWrapper } from "./styles";
 export default function Materials() {
   return (
     <StyledWrapper>
-      Cześć i czołem !
+      <h1>Korzystaj z darmowej wiedzy</h1>
+
+      <p>Tworze damowe materiały do nauki programowania,</p>
       <p>
-        Podczas mentoringu stworzyłem wiele materiałów które pomogły mi w
-        przeprowadzaniu zajęć.
+        Wszystkimi tymi materiałami dziele się z wami za darmo z kilku powodów:
       </p>
-      <p>Wszystkimi tymi materiałami dziele się z wami za darmo. </p>
+      {/*  */}
       <p>
-        Są one aktualizowane na bierząco im wiecej ja ucze bądź sam zdobywam
-        więcej to taką lekcje ulepszam.
+        Materiały staram się aktualizować po to żebyś nie musiał się uczyć
+        starej często niepraktycznej już wiedzy.
       </p>
       <p></p>
       {/* React od podstaw  */}

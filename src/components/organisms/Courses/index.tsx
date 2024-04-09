@@ -1,6 +1,6 @@
 "use client";
 import { Course } from "@/data/courses";
-import { CourseCard } from "../CourseCard";
+import { CourseCard } from "./CourseCard";
 import { StyledWrapper } from "./styles";
 
 interface Props {

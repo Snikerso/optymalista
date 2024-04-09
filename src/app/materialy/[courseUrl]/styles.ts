@@ -11,6 +11,7 @@ export const StyledHeaderSection = styled("section")(() => ({
   display: "flex",
   flexDirection: "column",
   width: "100%",
+  gap: "20px",
   padding: "20px",
   borderRadius: "10px",
   boxShadow: "rgba(0, 0, 0, 0.19) 0px 0px 3px",

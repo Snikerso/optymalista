@@ -1,6 +1,6 @@
 "use client";
 
-import { Modules } from "@/components/organisms/Modules";
+import { Modules } from "@/components/molecules/Modules";
 import { allCourses } from "@/data/courses";
 import { StyledHeaderSection, StyledWrapper } from "./styles";
 
@@ -15,6 +15,7 @@ export default function MaterialDetails({ params }: Props) {
     (acc, module) => acc + module.wordkitoLesson.length,
     0
   );
+
   return (
     <StyledWrapper>
       <StyledHeaderSection>

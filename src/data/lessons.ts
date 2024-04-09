@@ -92,31 +92,113 @@ export const reactModules: Module[] = [
   // Zarządzanie dziećmi koncepcje zaawansowane
 ];
 
-export const jsLessons: Module[] = [
+export const jsModules: Module[] = [
   {
-    name: "React",
+    name: "Funkcje",
     description: "",
     wordkitoLesson: [
       {
-        name: "Pytania z Reacta",
+        name: "1. Budowanie funkcji",
+        description:
+          "Masz problem z tworzeniem funkcji ? Nie znasz różnicy między funkcją strzałkową, a deklarowaną ?",
+        wordkitoLesson: "661248aa6717f41386231502",
+      },
+      {
+        name: "2. Przekazywanie argumentów i odbieranie parametrów",
+        description:
+          "Nie wiesz czym się różni parametr od argumentu ? Nie widzisz sensu tworzenia funkcji ?",
+        wordkitoLesson: "66124b036717f41386231618",
+      },
+      {
+        name: "3. Zwracanie wartości z funkcji",
+        description: "Chcesz coś zwrócić a nie wiesz co ?",
+        wordkitoLesson: "66124f416717f413862319e1",
+      },
+      {
+        name: "4. Eventy",
+        description:
+          "Nie wiesz jak działają eventy? Jak je wykorzystać do lepszej i ciekawszej interakcji",
+        wordkitoLesson: "6485da0ec7eec85d3f0b9ecd",
+      },
+      {
+        name: "5. Asynchroniczność",
         description: "",
         wordkitoLesson: "6485da0ec7eec85d3f0b9ecd",
       },
     ],
   },
   {
-    name: "JavaScript",
+    name: "Obiekty jako struktura danych",
     description: "",
     wordkitoLesson: [],
   },
   {
-    name: "Logiczne myślenie",
+    name: "Tablice",
+    description: "Przekazywanie funkcji jako argument",
+    wordkitoLesson: [],
+  },
+  {
+    name: "Pętle",
+    description: "",
+    wordkitoLesson: [],
+  },
+];
+
+export const reactNativeModules: Module[] = [
+  {
+    name: "Tworzenie projektu",
+    description: "",
+    wordkitoLesson: [
+      {
+        name: "Budowanie funkcji",
+        description:
+          "Masz problem z tworzeniem funkcji ? Nie znasz różnicy między funkcją strzałkową, a deklarowaną ?",
+        wordkitoLesson: "661248aa6717f41386231502",
+      },
+      {
+        name: "Przekazywanie argumentów i odbieranie parametrów",
+        description:
+          "Nie wiesz czym się różni parametr od argumentu ? Nie widzisz sensu tworzenia funkcji ?",
+        wordkitoLesson: "66124b036717f41386231618",
+      },
+      {
+        name: "Zwracanie wartości z funkcji",
+        description: "Chcesz coś zwrócić a nie wiesz co ?",
+        wordkitoLesson: "66124f416717f413862319e1",
+      },
+      {
+        name: "Eventy",
+        description:
+          "Nie wiesz jak działają eventy? Jak je wykorzystać do lepszej i ciekawszej interakcji",
+        wordkitoLesson: "6485da0ec7eec85d3f0b9ecd",
+      },
+      {
+        name: "Asynchroniczność",
+        description: "",
+        wordkitoLesson: "6485da0ec7eec85d3f0b9ecd",
+      },
+    ],
+  },
+  {
+    name: "Nawigacja",
     description: "",
     wordkitoLesson: [],
   },
   {
-    name: "Myślenie",
-    description: "",
+    name: "Tablice",
+    description: "Przekazywanie funkcji jako argument",
     wordkitoLesson: [],
+  },
+  {
+    name: "Pętle",
+    description: "",
+    wordkitoLesson: [
+      {
+        name: "Co dają pętle",
+        description:
+          "Co możesz zrobić za pomocą pętli i jak usprawniają ci kod",
+        wordkitoLesson: "",
+      },
+    ],
   },
 ];

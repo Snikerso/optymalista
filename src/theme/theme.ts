@@ -1,3 +1,3 @@
 export const theme = {
-  accentColor: "#ff0000",
+  accentColor: "rgba(250, 205, 45, 1)",
 };

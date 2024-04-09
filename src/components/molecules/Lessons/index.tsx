@@ -1,6 +1,9 @@
 "use client";
+import { ExerciseIcon } from "@/components/atoms/icons/Exercise.icon";
+import { QuizIcon } from "@/components/atoms/icons/Quiz.icon";
+import { VideoLessonIcon } from "@/components/atoms/icons/VideoLesson.icon";
 import { Lesson } from "@/data/lessons";
-import { WidgetTest } from "wordkito-widgets";
+import { LessonElement } from "./LessonElement";
 import {
   StyledWrapper,
   StyledWrapperLesson,
@@ -23,13 +26,30 @@ export const Lessons = ({ lessons, currentLesson, openLesson }: Props) => {
             isActive={currentLesson?.name === lesson.name}
             onClick={() => openLesson(lesson)}
           >
-            {lesson.name}
-            {lesson.description}
+            <h5>{lesson.name}</h5>
+            <p>{lesson.description}</p>
           </StyledWrapperLessonTop>
 
           {currentLesson?.name === lesson.name && (
             <StyledWrapperLessonQuiz>
-              <WidgetTest
+              <LessonElement
+                icon={<VideoLessonIcon />}
+                link={`https://app.wordkito.com/decks/${lesson.wordkitoLesson}`}
+                text="Wideo lekcja"
+              />
+              <LessonElement
+                icon={<QuizIcon />}
+                link={`https://app.wordkito.com/decks/${lesson.wordkitoLesson}`}
+                text="Quiz"
+              />
+
+              <LessonElement
+                icon={<ExerciseIcon />}
+                link={`https://app.wordkito.com/decks/${lesson.wordkitoLesson}`}
+                text="Ćwiczenie 1"
+              />
+
+              {/* <WidgetTest
                 deckId={lesson.wordkitoLesson}
                 onFinished={({ result }) => console.log("finished", result)}
                 iframeStyle={{
@@ -45,7 +65,7 @@ export const Lessons = ({ lessons, currentLesson, openLesson }: Props) => {
                   accentColor: "#FACD2D",
                   themeCodeMode: "dark",
                 }}
-              />
+              /> */}
             </StyledWrapperLessonQuiz>
           )}
         </StyledWrapperLesson>

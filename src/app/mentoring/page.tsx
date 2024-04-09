@@ -8,23 +8,26 @@ export default function Mentoring() {
     <StyledWrapper>
       <PageSection>
         <h2>Dlaczego mentoruje ?</h2>
-        <p>Uważam że mentoring jest najlepszą formą nauki.</p>
+        <p>
+          Przyszłość edukacji wyobrażam sobie tak że w kazdej dziedzinie są
+          mentorzy tak jak kiedyś czeladnicy, którzy cię prowadzą i uczą fachu
+          wiedzy i podejścia do tematu.
+        </p>
       </PageSection>
 
       <PageSection>Zobacz moje filmy na youtube</PageSection>
-      <p>Plusy mentoringu:</p>
-      <p>Wszystkimi tymi materiałami dziele się z wami za darmo. </p>
-      <p>
-        Są one aktualizowane na bierząco im wiecej ja ucze bądź sam zdobywam
-        więcej to taką lekcje ulepszam.
-      </p>
-      <div>Zapisz się na pierwsze spotkanie, konsultacyjne</div>
-      <div>Zapisz się na mentoring</div>
 
-      <p>Minusy mentoringu:</p>
+      <PageSection>
+        <p>Plusy mentoringu:</p>
+        <p>Uważam że mentoring jest najlepszą formą nauki. Ponieważ </p>
+        <div>Mogę elastycznie dobrać materiał do osoby i </div>
+        <div>Osoba mentorowana nie musi pędzić z materiałem</div>
+      </PageSection>
 
       <PageSection>
         <h2>Zapisz się na Mentoring</h2>
+
+        <div>Cena</div>
 
         <div
           style={{ width: "100%" }}

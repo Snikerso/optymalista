@@ -6,7 +6,6 @@ export const StyledWrapper = styled("div")(() => ({
   justifyContent: "space-between",
   padding: "20px",
   gap: "10px",
-  maxWidth: "250px",
   width: "100%",
   border: "1px solid #000",
   borderRadius: "10px",

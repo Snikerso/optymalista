@@ -1,7 +1,6 @@
 "use client";
 import { Course } from "@/data/courses";
 import { useRouter } from "next/navigation";
-import { StyledWrapper } from "./styles";
 
 interface Props {
   course: Course;
@@ -14,15 +13,18 @@ export const CourseCard = ({ course }: Props) => {
     0
   );
   return (
-    <StyledWrapper
+    <div
+      className="p-4 bg-white rounded-lg shadow-md cursor-pointer"
       onClick={() => {
         router.push(`/materialy/${course.url}`);
       }}
     >
-      <h3>{course.name}</h3>
-      <div>{course.description.slice(0, 60)}...</div>
-      <div>Ilość modułów: {course.modules.length}</div>
-      <div>Ilość lekcji: {allLessonsLength}</div>
-    </StyledWrapper>
+      <h3 className="text-xl font-bold">{course.name}</h3>
+      <div className="text-gray-700">{course.description.slice(0, 60)}...</div>
+      <div className="text-gray-700">
+        Ilość modułów: {course.modules.length}
+      </div>
+      <div className="text-gray-700">Ilość lekcji: {allLessonsLength}</div>
+    </div>
   );
 };

@@ -2,7 +2,6 @@
 
 import { Modules } from "@/components/molecules/Modules";
 import { allCourses } from "@/data/courses";
-import { StyledHeaderSection, StyledWrapper } from "./styles";
 
 interface Props {
   params: {
@@ -17,14 +16,14 @@ export default function MaterialDetails({ params }: Props) {
   );
 
   return (
-    <StyledWrapper>
-      <StyledHeaderSection>
-        <h1>{cource?.name}</h1>
-        <p>{cource?.description}</p>
-        <p>Moduły: {cource?.modules?.length}</p>
-        <p>Lekcje: {allLessonsLength}</p>
-      </StyledHeaderSection>
+    <div className="p-4 bg-white rounded-lg shadow-md">
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold">{cource?.name}</h1>
+        <p className="text-gray-700">{cource?.description}</p>
+        <p className="text-gray-700">Moduły: {cource?.modules?.length}</p>
+        <p className="text-gray-700">Lekcje: {allLessonsLength}</p>
+      </div>
       <Modules modules={cource?.modules || []} />
-    </StyledWrapper>
+    </div>
   );
 }

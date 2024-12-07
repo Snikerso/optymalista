@@ -1,15 +1,5 @@
 "use client";
-import { ExerciseIcon } from "@/components/atoms/icons/Exercise.icon";
-import { QuizIcon } from "@/components/atoms/icons/Quiz.icon";
-import { VideoLessonIcon } from "@/components/atoms/icons/VideoLesson.icon";
 import { Lesson } from "@/data/lessons";
-import { LessonElement } from "./LessonElement";
-import {
-  StyledWrapper,
-  StyledWrapperLesson,
-  StyledWrapperLessonQuiz,
-  StyledWrapperLessonTop,
-} from "./styles";
 
 interface Props {
   lessons: Lesson[];
@@ -19,20 +9,22 @@ interface Props {
 
 export const Lessons = ({ lessons, currentLesson, openLesson }: Props) => {
   return (
-    <StyledWrapper>
+    <div className="p-4">
       {lessons.map((lesson) => (
-        <StyledWrapperLesson key={lesson.name}>
-          <StyledWrapperLessonTop
-            isActive={currentLesson?.name === lesson.name}
+        <div key={lesson.name} className="mb-4 border-b border-gray-200">
+          <div
+            className={`p-4 cursor-pointer ${
+              currentLesson?.name === lesson.name ? "bg-gray-100" : ""
+            }`}
             onClick={() => openLesson(lesson)}
           >
-            <h5>{lesson.name}</h5>
-            <p>{lesson.description}</p>
-          </StyledWrapperLessonTop>
+            <h5 className="text-lg font-semibold">{lesson.name}</h5>
+            <p className="text-sm text-gray-600">{lesson.description}</p>
+          </div>
 
           {currentLesson?.name === lesson.name && (
-            <StyledWrapperLessonQuiz>
-              <LessonElement
+            <div className="p-4 bg-gray-50">
+              {/* <LessonElement
                 icon={<VideoLessonIcon />}
                 link={`https://app.wordkito.com/decks/${lesson.wordkitoLesson}`}
                 text="Wideo lekcja"
@@ -47,29 +39,11 @@ export const Lessons = ({ lessons, currentLesson, openLesson }: Props) => {
                 icon={<ExerciseIcon />}
                 link={`https://app.wordkito.com/decks/${lesson.wordkitoLesson}`}
                 text="Ćwiczenie 1"
-              />
-
-              {/* <WidgetTest
-                deckId={lesson.wordkitoLesson}
-                onFinished={({ result }) => console.log("finished", result)}
-                iframeStyle={{
-                  height: "400px",
-                  width: "100%",
-                  backgroundColor: "grey",
-                  borderRadius: "10px",
-                  padding: "20px",
-                }}
-                appearance={{
-                  backgroundColor: "grey",
-                  backgroundContrastColor: "#FACD2D",
-                  accentColor: "#FACD2D",
-                  themeCodeMode: "dark",
-                }}
               /> */}
-            </StyledWrapperLessonQuiz>
+            </div>
           )}
-        </StyledWrapperLesson>
+        </div>
       ))}
-    </StyledWrapper>
+    </div>
   );
 };

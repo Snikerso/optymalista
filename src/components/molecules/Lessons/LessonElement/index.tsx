@@ -1,5 +1,4 @@
 "use client";
-import { StyledIcon, StyledWrapper } from "./styles";
 
 interface Props {
   icon: JSX.Element;
@@ -9,9 +8,15 @@ interface Props {
 
 export const LessonElement = ({ icon, link, text }: Props) => {
   return (
-    <StyledWrapper href={link} target="_blank">
-      <StyledIcon>{icon}</StyledIcon>
+    <a
+      href={link}
+      target="_blank"
+      className="flex items-center gap-2.5 cursor-pointer p-1 text-black hover:text-accent"
+    >
+      <div className="flex items-center justify-center text-current border-2 border-current p-1.5 rounded-full">
+        {icon}
+      </div>
       <p>{text}</p>
-    </StyledWrapper>
+    </a>
   );
 };

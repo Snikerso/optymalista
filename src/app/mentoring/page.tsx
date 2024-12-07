@@ -1,36 +1,41 @@
 "use client";
 
 import { PageSection } from "@/components/molecules/PageSection";
-import { StyledWrapper } from "./styles";
 
 export default function Mentoring() {
   return (
-    <StyledWrapper>
+    <div className="flex flex-col space-y-8">
       <PageSection>
-        <h2>Dlaczego mentoruje ?</h2>
-        <p>
+        <h2 className="text-2xl font-bold">Dlaczego mentoruje ?</h2>
+        <p className="mt-2">
           Przyszłość edukacji wyobrażam sobie tak że w kazdej dziedzinie są
           mentorzy tak jak kiedyś czeladnicy, którzy cię prowadzą i uczą fachu
           wiedzy i podejścia do tematu.
         </p>
       </PageSection>
 
-      <PageSection>Zobacz moje filmy na youtube</PageSection>
-
       <PageSection>
-        <p>Plusy mentoringu:</p>
-        <p>Uważam że mentoring jest najlepszą formą nauki. Ponieważ </p>
-        <div>Mogę elastycznie dobrać materiał do osoby i </div>
-        <div>Osoba mentorowana nie musi pędzić z materiałem</div>
+        <h2 className="text-xl font-semibold">Zobacz moje filmy na youtube</h2>
       </PageSection>
 
       <PageSection>
-        <h2>Zapisz się na Mentoring</h2>
+        <p className="text-lg font-medium">Plusy mentoringu:</p>
+        <p className="mt-2">
+          Uważam że mentoring jest najlepszą formą nauki. Ponieważ
+        </p>
+        <div className="mt-2">Mogę elastycznie dobrać materiał do osoby i</div>
+        <div className="mt-1">
+          Osoba mentorowana nie musi pędzić z materiałem
+        </div>
+      </PageSection>
 
-        <div>Cena</div>
+      <PageSection>
+        <h2 className="text-2xl font-bold">Zapisz się na Mentoring</h2>
+
+        <div className="mt-2 text-lg font-medium">Cena</div>
 
         <div
-          style={{ width: "100%" }}
+          className="w-full"
           data-type="u"
           data-owner="optymalista"
           data-slug="mentoring-javascript"
@@ -42,6 +47,6 @@ export default function Mentoring() {
           id="zencal-embed"
         ></div>
       </PageSection>
-    </StyledWrapper>
+    </div>
   );
 }

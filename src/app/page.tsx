@@ -12,7 +12,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -66,8 +66,8 @@ export default function Home() {
             id="email"
             name="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            // value={email}
+            // onChange={(e) => setEmail(e.target.value)}
           />
 
           <Textarea
@@ -75,8 +75,8 @@ export default function Home() {
             name="message"
             placeholder="Wiadomość"
             rows={3}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            // value={message}
+            // onChange={(e) => setMessage(e.target.value)}
           />
 
           <Button type="submit">Wyślij</Button>

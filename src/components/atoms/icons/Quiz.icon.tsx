@@ -1,6 +1,8 @@
-export const QuizIcon = () => (
+import { IconProps } from "../Icon";
+
+export const QuizIcon = ({ size }: IconProps) => (
   <svg
-    width={24}
+    width={size}
     focusable="false"
     aria-hidden="true"
     viewBox="0 0 24 24"

@@ -1,8 +1,11 @@
-export const ExerciseIcon = () => (
+import { IconProps } from "../Icon";
+
+export const ExerciseIcon = ({ size }: IconProps) => (
   <svg
     focusable="false"
     aria-hidden="true"
-    width={24}
+    width={size}
+    height={size}
     viewBox="0 0 24 24"
     data-testid="FitnessCenterOutlinedIcon"
   >

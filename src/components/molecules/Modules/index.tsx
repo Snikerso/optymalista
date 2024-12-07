@@ -2,7 +2,6 @@
 import { Lesson, Module } from "@/data/lessons";
 import { useState } from "react";
 import { Lessons } from "../Lessons";
-import { StyledWrapper, StyledWrapperLesson } from "./styles";
 
 interface Props {
   modules: Module[];
@@ -14,9 +13,9 @@ export const Modules = ({ modules }: Props) => {
   );
 
   return (
-    <StyledWrapper>
+    <div className="flex flex-col justify-between items-center gap-2.5">
       {modules.map((module) => (
-        <StyledWrapperLesson key={module.name}>
+        <div key={module.name} className="flex flex-col w-full">
           <h3>{module.name}</h3>
           <Lessons
             lessons={module.wordkitoLesson}
@@ -27,8 +26,8 @@ export const Modules = ({ modules }: Props) => {
                 : setCurrentLesson(lesson);
             }}
           />
-        </StyledWrapperLesson>
+        </div>
       ))}
-    </StyledWrapper>
+    </div>
   );
 };

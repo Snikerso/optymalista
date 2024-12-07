@@ -1,12 +1,23 @@
 "use client";
-import { StyledWrapper } from "./styles";
 
 interface Props {
   children: React.ReactNode;
-  withBackground?: boolean;
+  isBorder?: boolean;
+  isPadding?: boolean;
+  className?: string;
 }
-export const PageSection = ({ children, withBackground }: Props) => {
+export const PageSection = ({
+  children,
+  isBorder,
+  isPadding,
+  className,
+}: Props) => {
+  const padding = isPadding ? "p-5" : "";
+  const border = isBorder ? "border-2 border-white" : "";
+
   return (
-    <StyledWrapper withBackground={withBackground}>{children}</StyledWrapper>
+    <section className={`rounded-lg ${border} ${padding} ${className}`}>
+      {children}
+    </section>
   );
 };

@@ -1,7 +1,9 @@
-export const VideoLessonIcon = () => (
+import { IconProps } from "../Icon";
+
+export const VideoLessonIcon = ({ size }: IconProps) => (
   <svg
     focusable="false"
-    width={24}
+    width={size}
     aria-hidden="true"
     viewBox="0 0 24 24"
     data-testid="VideocamOutlinedIcon"

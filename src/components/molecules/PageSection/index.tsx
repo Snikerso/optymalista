@@ -16,7 +16,9 @@ export const PageSection = ({
   const border = isBorder ? "border-2 border-white" : "";
 
   return (
-    <section className={`rounded-lg ${border} ${padding} ${className}`}>
+    <section
+      className={`flex flex-col rounded-lg ${border} ${padding} ${className}`}
+    >
       {children}
     </section>
   );

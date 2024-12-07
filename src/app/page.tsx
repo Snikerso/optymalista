@@ -1,41 +1,13 @@
 "use client";
 
-import { Button } from "@/components/atoms/Button";
 import { InlineLink } from "@/components/atoms/InlineLink";
-import { Input } from "@/components/atoms/Input";
-import { Textarea } from "@/components/atoms/Textarea";
 import { PageSection } from "@/components/molecules/PageSection";
+import { ContactForm } from "@/components/organisms/forms/ContactForm";
 import { PageTemplate } from "@/components/templates/PageTemplate";
-import { useState } from "react";
 
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch("/api/sendEmail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, message }),
-      });
-
-      if (response.ok) {
-        alert("Email sent successfully!");
-      } else {
-        alert("Failed to send email.");
-      }
-    } catch (error) {
-      console.error("Error sending email:", error);
-    }
-  };
-
   return (
-    <PageTemplate title="Siemanko!">
+    <PageTemplate title="Siemanko!" className="gap-12">
       <PageSection className="flex flex-col gap-4">
         <p>
           Najprościej będzie jak napiszesz do mnie na{" "}
@@ -57,30 +29,10 @@ export default function Home() {
         </p>
       </PageSection>
 
-      <PageSection isBorder>
+      <PageSection isBorder className="gap-4">
         <h2 className="text-2xl font-bold">Masz do mnie sprawę?</h2>
 
-        <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            // value={email}
-            // onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <Textarea
-            id="message"
-            name="message"
-            placeholder="Wiadomość"
-            rows={3}
-            // value={message}
-            // onChange={(e) => setMessage(e.target.value)}
-          />
-
-          <Button type="submit">Wyślij</Button>
-        </form>
+        <ContactForm />
       </PageSection>
     </PageTemplate>
   );

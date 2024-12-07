@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/cssinjs": "^1.18.1",
     "@notionhq/client": "^2.2.15",
+    "@react-email/components": "^0.0.30",
     "@types/axios": "^0.14.4",
     "@types/node": "20.5.0",
     "@types/react": "18.2.20",
@@ -23,6 +24,7 @@
     "notion-client": "^7.1.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.54.0",
     "react-notion-x": "^7.2.5",
     "resend": "^4.0.1",
     "typescript": "5.1.6",

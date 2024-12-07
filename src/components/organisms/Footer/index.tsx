@@ -8,7 +8,7 @@ export const Footer = () => {
         <p>Optymalista</p>
         <nav className="flex flex-col gap-5">
           <NavLink href="/blog">BLOG</NavLink>
-          <NavLink href="/kontakt">KONTAKT</NavLink>
+          <NavLink href="/contact">KONTAKT</NavLink>
         </nav>
       </div>
     </footer>

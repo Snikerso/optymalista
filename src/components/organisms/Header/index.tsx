@@ -12,7 +12,7 @@ export const Header = () => {
         </Link>
         <nav className="flex gap-5">
           <NavLink href={"/blog"}>BLOG</NavLink>
-          <NavLink href={"/kontakt"}>KONTAKT</NavLink>
+          <NavLink href={"/contact"}>KONTAKT</NavLink>
         </nav>
       </div>
     </header>

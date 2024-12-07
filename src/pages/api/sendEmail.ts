@@ -1,3 +1,4 @@
+import { ContactTemplate } from "@/components/emailTemplates/ContactTemplate";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Resend } from "resend";
 
@@ -8,14 +9,19 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { email, message } = req.body;
+    console.log(req.body);
+    const { email, message } = JSON.parse(req.body);
 
     try {
       await resend.emails.send({
         to: "kontakt@optymalista.pro",
         from: "kontakt@optymalista.pro",
         subject: "Nowa wiadomość z formularza kontaktowego",
-        text: message,
+        react: ContactTemplate({
+          senderName: email,
+          message: message,
+          senderEmail: email,
+        }),
       });
 
       res.status(200).json({ success: true });

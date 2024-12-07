@@ -6,7 +6,7 @@ import { PageTemplate } from "@/components/templates/PageTemplate";
 
 export default function AboutMe() {
   return (
-    <PageTemplate title="Cześć i czołem !">
+    <PageTemplate title="Cześć i czołem !" className="gap-12">
       <PageSection>
         <ContactForm />
       </PageSection>

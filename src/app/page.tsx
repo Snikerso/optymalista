@@ -34,6 +34,21 @@ export default function Home() {
 
         <ContactForm />
       </PageSection>
+
+      <PageSection isBorder className="gap-4">
+        <h2 className="text-2xl font-bold">Moja ulubiona piosenka</h2>
+
+        <iframe
+          style={{ borderRadius: "12px" }}
+          src="https://open.spotify.com/embed/track/0OE4BlNBPUxNbMjdCnW0Hu?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          frameBorder="0"
+          allowFullScreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </PageSection>
     </PageTemplate>
   );
 }

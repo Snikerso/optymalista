@@ -13,6 +13,7 @@ export const Header = () => {
         </Link>
         <nav className="flex gap-5">
           <NavLink href={"/blog"}>BLOG</NavLink>
+          <NavLink href={"/portfolio"}>PORTFOLIO</NavLink>
           <NavLink href={"/contact"}>KONTAKT</NavLink>
           <NavLinkWithMenu
             href={"/courses"}

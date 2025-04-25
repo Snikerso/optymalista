@@ -1,15 +1,21 @@
-import { PortfolioType, Technologies } from "@/app/portfolio/page";
+import { PortfolioType, Technologies } from "@/types";
 import React from "react";
 import { ReactIcon } from "../atoms/icons/technologies/React.icon";
 
-type PortfolioItemProps = {
+export type PortfolioItem = {
+  title: string;
+  description: string;
+  technologies: Technologies[];
+  type: PortfolioType[];
+};
+type Props = {
   title: string;
   description: string;
   types: PortfolioType[];
   technologies: Technologies[];
 };
 
-export const PortfolioItem: React.FC<PortfolioItemProps> = ({
+export const PortfolioItem: React.FC<Props> = ({
   title,
   description,
   types,

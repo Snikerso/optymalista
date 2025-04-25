@@ -2,29 +2,9 @@
 
 import { Select } from "@/components/atoms/Select";
 import { PortfolioItem } from "@/components/molecules/PortfolioItem";
+import { PortfolioType, Technologies } from "@/types";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
-export enum Technologies {
-  REACT_NATIVE = "React Native",
-  EXPO = "Expo",
-  TYPESCRIPT = "TypeScript",
-  TAILWIND_CSS = "Tailwind CSS",
-  REACT = "React",
-}
-
-export enum PortfolioType {
-  MOBILE_APP = "Mobile App",
-  WEB_APP = "Web App",
-  BUSINESS_CARD = "Business Card",
-  WORK_EXPERIENCE = "Work Experience",
-}
-
-export type PortfolioItem = {
-  title: string;
-  description: string;
-  technologies: Technologies[];
-  type: PortfolioType[];
-};
 
 const portfolioItems: PortfolioItem[] = [
   {

@@ -2,7 +2,6 @@
 
 import { InlineLink } from "@/components/atoms/InlineLink";
 import { PageSection } from "@/components/molecules/PageSection";
-import { ContactForm } from "@/components/organisms/forms/ContactForm";
 import { PageTemplate } from "@/components/templates/PageTemplate";
 
 export default function Home() {
@@ -27,12 +26,6 @@ export default function Home() {
           </InlineLink>
           .
         </p>
-      </PageSection>
-
-      <PageSection isBorder className="gap-4">
-        <h2 className="text-2xl font-bold">Masz do mnie sprawę?</h2>
-
-        <ContactForm />
       </PageSection>
 
       <PageSection isBorder className="gap-4">

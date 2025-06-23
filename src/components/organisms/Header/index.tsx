@@ -1,7 +1,6 @@
 "use client";
 import { Logo } from "@/components/atoms/Logo";
 import { NavLink } from "@/components/atoms/NavLink";
-import { NavLinkWithMenu } from "@/components/atoms/NavLinkWithMenu";
 import Link from "next/link";
 
 export const Header = () => {
@@ -15,14 +14,6 @@ export const Header = () => {
           <NavLink href={"/blog"}>BLOG</NavLink>
           <NavLink href={"/portfolio"}>PORTFOLIO</NavLink>
           <NavLink href={"/contact"}>KONTAKT</NavLink>
-          <NavLinkWithMenu
-            href={"/courses"}
-            menuItems={[
-              { label: "TRENING POZNAWCZY", href: "/cognitive-training" },
-            ]}
-          >
-            KURSY
-          </NavLinkWithMenu>
         </nav>
       </div>
     </header>

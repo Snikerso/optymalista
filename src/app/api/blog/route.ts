@@ -1,12 +1,11 @@
-import { Client } from "@notionhq/client";
 import {
   BlockObjectResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { NextResponse } from "next/server";
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
-const databaseId = "1570154ea79a80c6bd41e79b884d74af";
+// const notion = new Client({ auth: process.env.NOTION_API_KEY });
+// const databaseId = "1570154ea79a80c6bd41e79b884d74af";
 
 export type Post = {
   id: string;
@@ -17,35 +16,35 @@ export type Post = {
 };
 
 export async function GET() {
-  const response = await notion.databases.query({
-    database_id: databaseId,
-  });
+  // const response = await notion.databases.query({
+  //   database_id: databaseId,
+  // });
 
-  const posts = await Promise.all(
-    response.results.map(async (page: any) => {
-      if ("properties" in page) {
-        const properties = getProperties(page);
+  // const posts = await Promise.all(
+  //   response.results.map(async (page: any) => {
+  //     if ("properties" in page) {
+  //       const properties = getProperties(page);
 
-        // // Pobierz dzieci strony
-        const childrenResponse = await notion.blocks.children.list({
-          block_id: page.id,
-        });
+  //       // // Pobierz dzieci strony
+  //       const childrenResponse = await notion.blocks.children.list({
+  //         block_id: page.id,
+  //       });
 
-        const children = mapChildren(
-          childrenResponse.results as BlockObjectResponse[]
-        );
+  //       const children = mapChildren(
+  //         childrenResponse.results as BlockObjectResponse[]
+  //       );
 
-        return {
-          id: page.id,
-          ...properties,
-          children,
-        };
-      }
-    })
-  );
+  //       return {
+  //         id: page.id,
+  //         ...properties,
+  //         children,
+  //       };
+  //     }
+  //   })
+  // );
 
-  console.log(posts);
-  return NextResponse.json(posts);
+  // console.log(posts);
+  return NextResponse.json([]);
 }
 
 const getProperties = <T extends Record<string, any>>(

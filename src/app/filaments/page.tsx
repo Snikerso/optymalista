@@ -40,64 +40,92 @@ const myFilaments: FilamentProfile[] = [
       topBottomLayers: "8",
       fanSpeed: "80%",
     },
-    notes: "Heavy filament with metallic finish. Can be post-processed with magnets. Requires slower print speeds."
-  }
+    notes:
+      "Heavy filament with metallic finish. Can be post-processed with magnets. Requires slower print speeds.",
+  },
+  {
+    name: "BambuLab PLA Basic",
+    brand: "BambuLab",
+    material: "PLA",
+    settings: {
+      layerHeight: "0.2mm",
+      infillDensity: "15%",
+      printTemperature: "200°C",
+      bedTemperature: "60°C",
+      printSpeed: "60mm/s",
+      support: "Tree",
+      adhesionType: "Brim",
+      wallLineCount: "4",
+      topBottomLayers: "8",
+      fanSpeed: "80%",
+    },
+    notes: "Basic PLA filament for beginners. Good for first prints.",
+  },
 ];
 
 const MyFilaments = () => {
-  const [selectedFilament, setSelectedFilament] = useState<FilamentProfile | null>(null);
-  const [viewMode, setViewMode] = useState<'list' | 'detailed'>('list');
+  const [selectedFilament, setSelectedFilament] =
+    useState<FilamentProfile | null>(null);
+  const [viewMode, setViewMode] = useState<"list" | "detailed">("list");
 
   return (
     <div className="w-full p-6 max-w-7xl mx-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">My Filaments</h1>
-        <p className="text-gray-600">Manage your 3D printing filament collection and settings</p>
+        <p className="text-gray-600">
+          Manage your 3D printing filament collection and settings
+        </p>
       </div>
 
       <div className="mb-6 flex gap-4 items-center">
         <div className="flex bg-gray-100 rounded-lg p-1">
           <button
-            onClick={() => setViewMode('list')}
+            onClick={() => setViewMode("list")}
             className={`px-4 py-2 rounded-md transition-colors ${
-              viewMode === 'list' 
-                ? 'bg-white shadow-sm text-blue-600' 
-                : 'text-gray-600 hover:text-gray-800'
+              viewMode === "list"
+                ? "bg-white shadow-sm text-blue-600"
+                : "text-gray-600 hover:text-gray-800"
             }`}
           >
             List View
           </button>
           <button
-            onClick={() => setViewMode('detailed')}
+            onClick={() => setViewMode("detailed")}
             className={`px-4 py-2 rounded-md transition-colors ${
-              viewMode === 'detailed' 
-                ? 'bg-white shadow-sm text-blue-600' 
-                : 'text-gray-600 hover:text-gray-800'
+              viewMode === "detailed"
+                ? "bg-white shadow-sm text-blue-600"
+                : "text-gray-600 hover:text-gray-800"
             }`}
           >
             Detailed View
           </button>
         </div>
-        
+
         <div className="ml-auto text-sm text-gray-500">
-          {myFilaments.length} filament{myFilaments.length !== 1 ? 's' : ''} in collection
+          {myFilaments.length} filament{myFilaments.length !== 1 ? "s" : ""} in
+          collection
         </div>
       </div>
 
-      {viewMode === 'list' ? (
+      {viewMode === "list" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {myFilaments.map((filament, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow">
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg transition-shadow"
+            >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-800">{filament.name}</h3>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    {filament.name}
+                  </h3>
                   <p className="text-gray-600">{filament.brand}</p>
                 </div>
                 <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
                   {filament.material}
                 </span>
               </div>
-              
+
               {filament.color && (
                 <div className="mb-3">
                   <span className="text-sm text-gray-500">Color: </span>
@@ -108,19 +136,27 @@ const MyFilaments = () => {
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
                   <span className="text-gray-500">Print Temp:</span>
-                  <span className="ml-1 font-mono">{filament.settings.printTemperature}</span>
+                  <span className="ml-1 font-mono">
+                    {filament.settings.printTemperature}
+                  </span>
                 </div>
                 <div>
                   <span className="text-gray-500">Bed Temp:</span>
-                  <span className="ml-1 font-mono">{filament.settings.bedTemperature}</span>
+                  <span className="ml-1 font-mono">
+                    {filament.settings.bedTemperature}
+                  </span>
                 </div>
                 <div>
                   <span className="text-gray-500">Layer Height:</span>
-                  <span className="ml-1 font-mono">{filament.settings.layerHeight}</span>
+                  <span className="ml-1 font-mono">
+                    {filament.settings.layerHeight}
+                  </span>
                 </div>
                 <div>
                   <span className="text-gray-500">Speed:</span>
-                  <span className="ml-1 font-mono">{filament.settings.printSpeed}</span>
+                  <span className="ml-1 font-mono">
+                    {filament.settings.printSpeed}
+                  </span>
                 </div>
               </div>
 
@@ -142,13 +178,20 @@ const MyFilaments = () => {
       ) : (
         <div className="space-y-6">
           {myFilaments.map((filament, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-md p-6 border border-gray-200"
+            >
               <div className="flex items-start justify-between mb-6">
                 <div>
-                  <h3 className="text-2xl font-semibold text-gray-800">{filament.name}</h3>
+                  <h3 className="text-2xl font-semibold text-gray-800">
+                    {filament.name}
+                  </h3>
                   <p className="text-gray-600 text-lg">{filament.brand}</p>
                   {filament.color && (
-                    <p className="text-sm text-gray-500 mt-1">Color: {filament.color}</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Color: {filament.color}
+                    </p>
                   )}
                 </div>
                 <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
@@ -160,9 +203,13 @@ const MyFilaments = () => {
                 {Object.entries(filament.settings).map(([key, value]) => (
                   <div key={key} className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="font-medium text-gray-700 mb-1">
-                      {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                      {key
+                        .replace(/([A-Z])/g, " $1")
+                        .replace(/^./, (str) => str.toUpperCase())}
                     </h4>
-                    <span className="text-lg font-mono text-gray-900">{value}</span>
+                    <span className="text-lg font-mono text-gray-900">
+                      {value}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -183,7 +230,9 @@ const MyFilaments = () => {
           <div className="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <h3 className="text-2xl font-semibold">{selectedFilament.name}</h3>
+                <h3 className="text-2xl font-semibold">
+                  {selectedFilament.name}
+                </h3>
                 <p className="text-gray-600">{selectedFilament.brand}</p>
               </div>
               <button
@@ -198,7 +247,9 @@ const MyFilaments = () => {
               {Object.entries(selectedFilament.settings).map(([key, value]) => (
                 <div key={key} className="bg-gray-50 p-3 rounded">
                   <h4 className="font-medium text-gray-700">
-                    {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                    {key
+                      .replace(/([A-Z])/g, " $1")
+                      .replace(/^./, (str) => str.toUpperCase())}
                   </h4>
                   <span className="text-lg font-mono">{value}</span>
                 </div>

@@ -16,34 +16,6 @@ export type Post = {
 };
 
 export async function GET() {
-  // const response = await notion.databases.query({
-  //   database_id: databaseId,
-  // });
-
-  // const posts = await Promise.all(
-  //   response.results.map(async (page: any) => {
-  //     if ("properties" in page) {
-  //       const properties = getProperties(page);
-
-  //       // // Pobierz dzieci strony
-  //       const childrenResponse = await notion.blocks.children.list({
-  //         block_id: page.id,
-  //       });
-
-  //       const children = mapChildren(
-  //         childrenResponse.results as BlockObjectResponse[]
-  //       );
-
-  //       return {
-  //         id: page.id,
-  //         ...properties,
-  //         children,
-  //       };
-  //     }
-  //   })
-  // );
-
-  // console.log(posts);
   return NextResponse.json([]);
 }
 

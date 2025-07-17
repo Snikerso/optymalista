@@ -10,7 +10,9 @@ const portfolioItems: PortfolioItem[] = [
   {
     title: "CleanStrategy",
     description: "Apka mobilna rozwiazujaca kłotnie o sprzątanie.",
-    type: [PortfolioType.MOBILE_APP],
+    types: [PortfolioType.MOBILE_APP],
+    startDate: new Date("2024-01-01"),
+    endDate: new Date(),
     technologies: [
       Technologies.REACT_NATIVE,
       Technologies.EXPO,
@@ -20,8 +22,10 @@ const portfolioItems: PortfolioItem[] = [
   },
   {
     title: "Royal Mint",
-    description: "Strona internetowa Royal Mint",
-    type: [PortfolioType.WEB_APP, PortfolioType.WORK_EXPERIENCE],
+    description: "Sklep intertetowy z złotem srebrem platyną",
+    types: [PortfolioType.WEB_APP, PortfolioType.WORK_EXPERIENCE],
+    startDate: new Date("2024-07-01"),
+    endDate: new Date(),
     technologies: [
       Technologies.REACT,
       Technologies.TYPESCRIPT,
@@ -30,8 +34,10 @@ const portfolioItems: PortfolioItem[] = [
   },
   {
     title: "WillCodeAcademy",
-    description: "Strona internetowa Royal Mint",
-    type: [PortfolioType.WEB_APP, PortfolioType.WORK_EXPERIENCE],
+    description: "Strona internetowa z kursami programowania",
+    types: [PortfolioType.WEB_APP, PortfolioType.WORK_EXPERIENCE],
+    startDate: new Date("2024-01-01"),
+    endDate: new Date("2024-01-01"),
     technologies: [
       Technologies.REACT,
       Technologies.TYPESCRIPT,
@@ -40,8 +46,10 @@ const portfolioItems: PortfolioItem[] = [
   },
   {
     title: "Swarmcheck",
-    description: "Strona internetowa Royal Mint",
-    type: [PortfolioType.WEB_APP, PortfolioType.WORK_EXPERIENCE],
+    description: "Aplikacja do argumentacyjnej dyskusji",
+    types: [PortfolioType.WEB_APP, PortfolioType.WORK_EXPERIENCE],
+    startDate: new Date("2024-01-01"),
+    endDate: new Date("2024-01-01"),
     technologies: [
       Technologies.REACT,
       Technologies.TYPESCRIPT,
@@ -63,7 +71,7 @@ export default function PortfolioPage() {
         if (watch("portfolioType") === "") {
           return true;
         }
-        return item.type.includes(
+        return item.types.includes(
           watch("portfolioType") as unknown as PortfolioType
         );
       }),
@@ -102,9 +110,11 @@ export default function PortfolioPage() {
             <PortfolioItem
               key={item.title}
               title={item.title}
-              types={item.type}
+              types={item.types}
               description={item.description}
               technologies={item.technologies}
+              startDate={item.startDate}
+              endDate={item.endDate}
             />
           ))}
         </div>

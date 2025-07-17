@@ -3,6 +3,17 @@ import { Logo } from "@/components/atoms/Logo";
 import { NavLink } from "@/components/atoms/NavLink";
 import Link from "next/link";
 
+const links = [
+  {
+    href: "/portfolio",
+    label: "PORTFOLIO",
+  },
+  {
+    href: "/3d-prints",
+    label: "3D PRINTS",
+  },
+];
+
 export const Header = () => {
   return (
     <header className="flex justify-between items-center p-2.5">
@@ -11,9 +22,11 @@ export const Header = () => {
           <Logo color="black" />
         </Link>
         <nav className="flex gap-5">
-          <NavLink href={"/blog"}>BLOG</NavLink>
-          <NavLink href={"/portfolio"}>PORTFOLIO</NavLink>
-          <NavLink href={"/contact"}>KONTAKT</NavLink>
+          {links.map((link) => (
+            <NavLink key={link.href} href={link.href}>
+              {link.label}
+            </NavLink>
+          ))}
         </nav>
       </div>
     </header>

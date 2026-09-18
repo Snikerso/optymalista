@@ -9,15 +9,24 @@ interface BlogPostProps {
 
 const BlogPost = ({ title, tags, mediumLink }: BlogPostProps) => {
   return (
-    <div className="relative border rounded-lg shadow-md p-4 w-full">
-      <Icon iconName="medium" />
-      <h2 className="post-title text-xl font-bold mt-2">{title}</h2>
-      <div className="flex justify-between">
-        <div className="post-tags flex space-x-2 mt-2">
+    <article className="relative flex w-full flex-col gap-4 rounded-md border-2 border-black p-5">
+      <div className="flex items-start gap-3">
+        <Icon iconName="medium" size={28} />
+        <div className="flex flex-col gap-2">
+          <h2 className="text-xl font-bold">{title}</h2>
+          <p className="text-sm leading-6 text-gray-600">
+            Krótki tekst techniczny o narzędziach i decyzjach, które sprawdzam
+            przy budowaniu aplikacji.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-wrap gap-2">
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="tag bg-gray-200 text-gray-800 px-2 py-1 rounded-full"
+              className="rounded-md bg-gray-200 px-2 py-1 text-sm text-gray-800"
             >
               {tag}
             </span>
@@ -28,7 +37,7 @@ const BlogPost = ({ title, tags, mediumLink }: BlogPostProps) => {
           Czytaj w Medium
         </InlineLink>
       </div>
-    </div>
+    </article>
   );
 };
 

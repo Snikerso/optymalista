@@ -9,8 +9,8 @@ const links = [
     label: "PORTFOLIO",
   },
   {
-    href: "/3d-prints",
-    label: "3D PRINTS",
+    href: "/blog",
+    label: "BLOG",
   },
 ];
 

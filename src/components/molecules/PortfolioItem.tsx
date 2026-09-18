@@ -3,9 +3,14 @@ import React from "react";
 import { Icon } from "../atoms/Icon";
 
 export type PortfolioItemProps = {
+  id?: string;
   title: string;
   role?: string;
   companyLink?: string;
+  relatedProject?: {
+    name: string;
+    link: string;
+  };
   status?: string;
   description: React.ReactNode;
   types: PortfolioType[];
@@ -17,9 +22,11 @@ export type PortfolioItemProps = {
 };
 
 export const PortfolioItem: React.FC<PortfolioItemProps> = ({
+  id,
   title,
   role,
   companyLink,
+  relatedProject,
   status,
   description,
   types,
@@ -30,7 +37,10 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   highlights,
 }) => {
   return (
-    <article className="group flex flex-col gap-4 rounded-md border-2 border-black bg-white p-4 transition-colors hover:bg-gray-50 sm:gap-5 sm:p-5">
+    <article
+      id={id}
+      className="group flex scroll-mt-28 flex-col gap-4 rounded-md border-2 border-black bg-white p-4 transition-colors hover:bg-gray-50 sm:gap-5 sm:p-5"
+    >
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-wrap items-center gap-2">
@@ -61,6 +71,15 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
           ) : (
             <p className="text-sm font-bold text-gray-600">{role}</p>
           ))}
+        {relatedProject && (
+          <a
+            href={relatedProject.link}
+            className="inline-flex w-fit items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-sm font-bold text-gray-700 hover:text-accent"
+          >
+            <span>Projekt: {relatedProject.name}</span>
+            <Icon iconName="globe" size={14} />
+          </a>
+        )}
       </div>
       <p className="text-sm leading-6 text-gray-800">{description}</p>
       {highlights && highlights.length > 0 && (

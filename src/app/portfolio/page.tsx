@@ -34,20 +34,12 @@ const experienceItems: PortfolioItemProps[] = [
     title: "Frontend Web Developer",
     role: "NoA Ignite Poland · Samozatrudnienie",
     companyLink: "https://noaignite.com/",
-    description: (
-      <>
-        Praca frontendowa dla{" "}
-        <a
-          href="https://www.royalmint.com/"
-          target="_blank"
-          rel="noreferrer"
-          className="font-bold underline decoration-2 underline-offset-4 hover:text-accent"
-        >
-          The Royal Mint Project
-        </a>{" "}
-        przy utrzymaniu i rozwoju systemów dla klienta z UK.
-      </>
-    ),
+    relatedProject: {
+      name: "The Royal Mint",
+      link: "#projekt-royal-mint",
+    },
+    description:
+      "Praca frontendowa przy utrzymaniu i rozwoju systemów dla klienta z UK.",
     types: [PortfolioType.WORK_EXPERIENCE],
     startDate: new Date("2024-07-01"),
     endDate: undefined,
@@ -255,6 +247,7 @@ const projectItems: PortfolioItemProps[] = [
     ],
   },
   {
+    id: "projekt-royal-mint",
     title: "Royal Mint",
     role: "Frontend developer at NoA Ignite",
     description:

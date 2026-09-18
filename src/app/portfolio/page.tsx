@@ -2,14 +2,14 @@
 
 import {
   PortfolioItem,
-  type PortfolioItem as PortfolioItemData,
+  type PortfolioItemProps,
 } from "@/components/molecules/PortfolioItem";
 import { Icon } from "@/components/atoms/Icon";
 import { PortfolioType, Technologies } from "@/types";
 import { useState } from "react";
 import { FaLinkedin } from "react-icons/fa";
 
-const experienceItems: PortfolioItemData[] = [
+const experienceItems: PortfolioItemProps[] = [
   {
     title: "Właściciel",
     role: "TrisztiLab · Samozatrudnienie",
@@ -149,7 +149,7 @@ const experienceItems: PortfolioItemData[] = [
   },
 ];
 
-const projectItems: PortfolioItemData[] = [
+const projectItems: PortfolioItemProps[] = [
   {
     title: "Juli Jogi",
     role: "Backend developer / DevOps",
@@ -548,7 +548,7 @@ const PortfolioSection = ({
   items,
 }: {
   title: string;
-  items: PortfolioItemData[];
+  items: PortfolioItemProps[];
 }) => (
   <section className="flex flex-col gap-4">
     <div className="flex flex-col gap-1">

@@ -2,7 +2,6 @@ import { PageSection } from "@/components/molecules/PageSection";
 import { PageTemplate } from "@/components/templates/PageTemplate";
 import ColourAlphabet from "./components/ColourAlphabet";
 export default function SzybkieCzytanie() {
-  console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV !== "development") {
     return (
       <div className="flex flex-col items-center justify-center h-screen">

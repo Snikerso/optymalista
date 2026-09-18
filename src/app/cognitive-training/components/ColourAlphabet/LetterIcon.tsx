@@ -9,7 +9,6 @@ export const LetterIcon = ({
   shape?: shapes;
   letter: string;
 }) => {
-  console.log(shape);
   if (!shape) return <>{letter}</>;
   switch (shape) {
     case shapes.triangle:

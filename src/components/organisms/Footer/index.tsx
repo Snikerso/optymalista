@@ -11,8 +11,8 @@ export const Footer = () => {
       </div>
 
       <nav className="flex flex-wrap gap-4 text-sm font-bold">
+        <NavLink href="/portfolio">PORTFOLIO</NavLink>
         <NavLink href="/blog">BLOG</NavLink>
-        <NavLink href="/contact">KONTAKT</NavLink>
       </nav>
 
       <div className="flex flex-wrap gap-4 text-sm font-bold">

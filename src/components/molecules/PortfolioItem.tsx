@@ -2,7 +2,7 @@ import { PortfolioType, Technologies } from "@/types";
 import React from "react";
 import { Icon } from "../atoms/Icon";
 
-export type PortfolioItem = {
+export type PortfolioItemProps = {
   title: string;
   role?: string;
   companyLink?: string;
@@ -16,7 +16,7 @@ export type PortfolioItem = {
   highlights?: string[];
 };
 
-export const PortfolioItem: React.FC<PortfolioItem> = ({
+export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   title,
   role,
   companyLink,

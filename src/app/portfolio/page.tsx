@@ -34,8 +34,20 @@ const experienceItems: PortfolioItemProps[] = [
     title: "Frontend Web Developer",
     role: "NoA Ignite Poland · Samozatrudnienie",
     companyLink: "https://noaignite.com/",
-    description:
-      "Praca frontendowa dla The Royal Mint Project przy utrzymaniu i rozwoju systemów dla klienta z UK.",
+    description: (
+      <>
+        Praca frontendowa dla{" "}
+        <a
+          href="https://www.royalmint.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="font-bold underline decoration-2 underline-offset-4 hover:text-accent"
+        >
+          The Royal Mint Project
+        </a>{" "}
+        przy utrzymaniu i rozwoju systemów dla klienta z UK.
+      </>
+    ),
     types: [PortfolioType.WORK_EXPERIENCE],
     startDate: new Date("2024-07-01"),
     endDate: undefined,
@@ -422,6 +434,14 @@ const skillGroups = [
 
 const visibleSkillsCount = 4;
 
+const portfolioNavItems = [
+  { label: "Intro", href: "#intro" },
+  { label: "Firmy", href: "#firmy" },
+  { label: "Stack", href: "#stack" },
+  { label: "Doświadczenie", href: "#doswiadczenie" },
+  { label: "Projekty", href: "#projekty" },
+];
+
 export default function PortfolioPage() {
   const [expandedSkillGroups, setExpandedSkillGroups] = useState<string[]>([]);
 
@@ -434,9 +454,10 @@ export default function PortfolioPage() {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col pb-20 md:pb-0">
+      <PortfolioQuickNav />
       <div className="flex flex-col gap-12">
-        <div className="flex flex-col gap-2">
+        <section id="intro" className="flex scroll-mt-28 flex-col gap-2">
           <h1 className="text-2xl font-bold">Portfolio</h1>
           <p className="text-md leading-7">
             Jestem Paweł Drojecki. Projektuję i buduję aplikacje webowe,
@@ -462,9 +483,9 @@ export default function PortfolioPage() {
             <FaLinkedin size={18} />
             LinkedIn
           </a>
-        </div>
+        </section>
 
-        <section className="flex flex-col gap-4">
+        <section id="firmy" className="flex scroll-mt-28 flex-col gap-4">
           <div className="flex flex-col gap-1">
             <h2 className="text-xl font-bold">Firmy</h2>
             <p className="text-sm text-gray-600">
@@ -516,7 +537,7 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section id="stack" className="flex scroll-mt-28 flex-col gap-4">
           <div className="flex flex-col gap-1">
             <h2 className="text-xl font-bold">Stack</h2>
             <p className="text-sm text-gray-600">
@@ -536,21 +557,47 @@ export default function PortfolioPage() {
           </div>
         </section>
 
-        <PortfolioSection title="Doświadczenie" items={experienceItems} />
-        <PortfolioSection title="Projekty" items={projectItems} />
+        <PortfolioSection
+          id="doswiadczenie"
+          title="Doświadczenie"
+          items={experienceItems}
+        />
+        <PortfolioSection id="projekty" title="Projekty" items={projectItems} />
       </div>
     </div>
   );
 }
 
+const PortfolioQuickNav = () => (
+  <nav
+    aria-label="Szybka nawigacja po portfolio"
+    className="fixed bottom-4 left-4 right-4 z-20 overflow-x-auto rounded-md border-2 border-black bg-white/95 p-2 shadow-[4px_4px_0_0_#000] backdrop-blur md:left-6 md:right-auto md:top-1/2 md:-translate-y-1/2 md:overflow-visible md:p-3"
+  >
+    <ul className="flex min-w-max gap-2 md:min-w-0 md:flex-col">
+      {portfolioNavItems.map((item) => (
+        <li key={item.href}>
+          <a
+            href={item.href}
+            className="block rounded-md px-3 py-2 text-xs font-bold text-gray-700 hover:bg-accent hover:text-black sm:text-sm"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+);
+
 const PortfolioSection = ({
+  id,
   title,
   items,
 }: {
+  id: string;
   title: string;
   items: PortfolioItemProps[];
 }) => (
-  <section className="flex flex-col gap-4">
+  <section id={id} className="flex scroll-mt-28 flex-col gap-4">
     <div className="flex flex-col gap-1">
       <h2 className="text-xl font-bold">{title}</h2>
       <p className="text-sm text-gray-600">{items.length} pozycji</p>

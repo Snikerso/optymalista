@@ -54,7 +54,7 @@ export const Logo = ({ color = "white" }: { color?: string }) => {
           strokeLinejoin="round"
         />
       </svg>
-      <span className="text-lg font-semibold uppercase tracking-[0.18em]">
+      <span className="text-sm font-semibold uppercase tracking-[0.16em] sm:text-lg sm:tracking-[0.18em]">
         Drojecki
       </span>
     </span>

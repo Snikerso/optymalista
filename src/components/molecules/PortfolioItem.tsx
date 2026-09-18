@@ -7,7 +7,7 @@ export type PortfolioItemProps = {
   role?: string;
   companyLink?: string;
   status?: string;
-  description: string;
+  description: React.ReactNode;
   types: PortfolioType[];
   technologies: Technologies[];
   startDate: Date;
@@ -30,18 +30,20 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   highlights,
 }) => {
   return (
-    <article className="group flex flex-col gap-5 rounded-md border-2 border-black bg-white p-5 transition-colors hover:bg-gray-50">
+    <article className="group flex flex-col gap-4 rounded-md border-2 border-black bg-white p-4 transition-colors hover:bg-gray-50 sm:gap-5 sm:p-5">
       <div className="flex flex-col gap-3">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-xl font-bold leading-tight">{title}</h2>
+            <h2 className="text-xl font-bold leading-tight sm:text-2xl">
+              {title}
+            </h2>
             {status && (
               <span className="rounded-md bg-accent px-2 py-1 text-xs font-bold uppercase text-black">
                 {status}
               </span>
             )}
           </div>
-          <p className="shrink-0 rounded-md bg-gray-100 px-2 py-1 text-sm font-bold text-gray-700">
+          <p className="w-fit rounded-md bg-gray-100 px-2 py-1 text-xs font-bold text-gray-700 sm:text-sm md:shrink-0">
             {formatDateRange(startDate, endDate)}
           </p>
         </div>
@@ -95,8 +97,8 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-4">
-        <span className="h-px flex-1 bg-gray-200" />
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <span className="h-px w-full bg-gray-200 sm:flex-1" />
         {link && (
           <a
             href={link}

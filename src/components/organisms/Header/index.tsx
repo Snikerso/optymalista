@@ -16,12 +16,12 @@ const links = [
 
 export const Header = () => {
   return (
-    <header className="flex justify-between items-center p-2.5">
-      <div className="flex justify-between items-center mx-auto max-w-2xl w-full">
+    <header className="flex items-center justify-between p-3 sm:p-2.5">
+      <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-4">
         <Link href={"/"} className="no-underline">
           <Logo color="black" />
         </Link>
-        <nav className="flex gap-5">
+        <nav className="flex shrink-0 gap-3 text-xs sm:gap-5 sm:text-sm">
           {links.map((link) => (
             <NavLink key={link.href} href={link.href}>
               {link.label}

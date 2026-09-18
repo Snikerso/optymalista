@@ -564,9 +564,9 @@ export default function PortfolioPage() {
 const PortfolioQuickNav = () => (
   <nav
     aria-label="Szybka nawigacja po portfolio"
-    className="fixed bottom-4 left-4 right-4 z-20 overflow-x-auto rounded-md border-2 border-black bg-white/95 p-2 shadow-[4px_4px_0_0_#000] backdrop-blur md:left-6 md:right-auto md:top-1/2 md:-translate-y-1/2 md:overflow-visible md:p-3"
+    className="fixed bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 overflow-x-auto rounded-md border-2 border-black bg-white/95 p-2 shadow-[4px_4px_0_0_#000] backdrop-blur"
   >
-    <ul className="flex min-w-max gap-2 md:min-w-0 md:flex-col">
+    <ul className="flex min-w-max justify-center gap-2">
       {portfolioNavItems.map((item) => (
         <li key={item.href}>
           <a

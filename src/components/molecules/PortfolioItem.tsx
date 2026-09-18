@@ -36,6 +36,10 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   link,
   highlights,
 }) => {
+  const visibleTypes = types.filter(
+    (type) => type !== PortfolioType.WORK_EXPERIENCE
+  );
+
   return (
     <article
       id={id}
@@ -94,16 +98,18 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
       )}
 
       <div className="flex flex-col gap-3 border-t border-gray-200 pt-4">
-        <div className="flex flex-wrap gap-2">
-          {types?.map((type) => (
-            <span
-              key={type}
-              className="rounded-md bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-700"
-            >
-              {type}
-            </span>
-          ))}
-        </div>
+        {visibleTypes.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {visibleTypes.map((type) => (
+              <span
+                key={type}
+                className="rounded-md bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-700"
+              >
+                {type}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="flex flex-wrap gap-2">
           {technologies.map((technology) => (
             <span

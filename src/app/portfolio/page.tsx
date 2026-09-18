@@ -6,7 +6,7 @@ import {
 } from "@/components/molecules/PortfolioItem";
 import { Icon } from "@/components/atoms/Icon";
 import { PortfolioType, Technologies } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaLinkedin } from "react-icons/fa";
 
 const experienceItems: PortfolioItemProps[] = [
@@ -428,15 +428,16 @@ const skillGroups = [
 const visibleSkillsCount = 4;
 
 const portfolioNavItems = [
-  { label: "Intro", href: "#intro" },
-  { label: "Firmy", href: "#firmy" },
-  { label: "Stack", href: "#stack" },
-  { label: "Doświadczenie", href: "#doswiadczenie" },
-  { label: "Projekty", href: "#projekty" },
+  { id: "intro", label: "Intro" },
+  { id: "firmy", label: "Firmy" },
+  { id: "stack", label: "Stack" },
+  { id: "doswiadczenie", label: "Doświadczenie" },
+  { id: "projekty", label: "Projekty" },
 ];
 
 export default function PortfolioPage() {
   const [expandedSkillGroups, setExpandedSkillGroups] = useState<string[]>([]);
+  const [activeSection, setActiveSection] = useState(portfolioNavItems[0].id);
 
   const toggleSkillGroup = (title: string) => {
     setExpandedSkillGroups((currentGroups) =>
@@ -446,9 +447,61 @@ export default function PortfolioPage() {
     );
   };
 
+  useEffect(() => {
+    const sectionIds = portfolioNavItems.map((item) => item.id);
+
+    const setSectionFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+
+      if (sectionIds.includes(hash)) {
+        setActiveSection(hash);
+      }
+    };
+
+    setSectionFromHash();
+    window.addEventListener("hashchange", setSectionFromHash);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((firstEntry, secondEntry) => {
+            return (
+              firstEntry.boundingClientRect.top -
+              secondEntry.boundingClientRect.top
+            );
+          })[0];
+
+        if (visibleEntry) {
+          setActiveSection(visibleEntry.target.id);
+        }
+      },
+      {
+        rootMargin: "-30% 0px -55% 0px",
+        threshold: 0,
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+
+      if (section) {
+        observer.observe(section);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("hashchange", setSectionFromHash);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="flex min-h-screen w-full flex-col pb-20 md:pb-0">
-      <PortfolioQuickNav />
+      <PortfolioQuickNav
+        activeSection={activeSection}
+        onSelect={setActiveSection}
+      />
       <div className="flex flex-col gap-12">
         <section id="intro" className="flex scroll-mt-28 flex-col gap-2">
           <h1 className="text-2xl font-bold">Portfolio</h1>
@@ -561,17 +614,29 @@ export default function PortfolioPage() {
   );
 }
 
-const PortfolioQuickNav = () => (
+const PortfolioQuickNav = ({
+  activeSection,
+  onSelect,
+}: {
+  activeSection: string;
+  onSelect: (sectionId: string) => void;
+}) => (
   <nav
     aria-label="Szybka nawigacja po portfolio"
     className="fixed bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 overflow-x-auto rounded-md border-2 border-black bg-white/95 p-2 shadow-[4px_4px_0_0_#000] backdrop-blur"
   >
     <ul className="flex min-w-max justify-center gap-2">
       {portfolioNavItems.map((item) => (
-        <li key={item.href}>
+        <li key={item.id}>
           <a
-            href={item.href}
-            className="block rounded-md px-3 py-2 text-xs font-bold text-gray-700 hover:bg-accent hover:text-black sm:text-sm"
+            href={`#${item.id}`}
+            aria-current={activeSection === item.id ? "true" : undefined}
+            onClick={() => onSelect(item.id)}
+            className={`block rounded-md px-3 py-2 text-xs font-bold transition-colors sm:text-sm ${
+              activeSection === item.id
+                ? "bg-accent text-black"
+                : "text-gray-700 hover:bg-accent hover:text-black"
+            }`}
           >
             {item.label}
           </a>

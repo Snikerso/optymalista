@@ -18,6 +18,7 @@ export type PortfolioItemProps = {
   startDate: Date;
   endDate?: Date;
   link?: string;
+  caseStudyLink?: string;
   highlights?: string[];
 };
 
@@ -34,6 +35,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   startDate,
   endDate,
   link,
+  caseStudyLink,
   highlights,
 }) => {
   const visibleTypes = types.filter(
@@ -124,6 +126,15 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <span className="h-px w-full bg-gray-200 sm:flex-1" />
+        {caseStudyLink && (
+          <a
+            href={caseStudyLink}
+            className="inline-flex w-fit items-center gap-1 text-sm font-bold hover:text-accent"
+          >
+            <span>Case study</span>
+            <Icon iconName="openTab" size={16} />
+          </a>
+        )}
         {link && (
           <a
             href={link}

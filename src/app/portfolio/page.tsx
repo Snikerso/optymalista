@@ -7,7 +7,7 @@ import {
 import { Icon } from "@/components/atoms/Icon";
 import { PortfolioType, Technologies } from "@/types";
 import { useEffect, useState } from "react";
-import { FaLinkedin } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
 const experienceItems: PortfolioItemProps[] = [
   {
@@ -36,7 +36,7 @@ const experienceItems: PortfolioItemProps[] = [
     companyLink: "https://noaignite.com/",
     relatedProject: {
       name: "The Royal Mint",
-      link: "#projekt-royal-mint",
+      link: "/projekty/royal-mint/",
     },
     description:
       "Praca frontendowa przy utrzymaniu i rozwoju systemów dla klienta z UK.",
@@ -155,6 +155,86 @@ const experienceItems: PortfolioItemProps[] = [
 
 const projectItems: PortfolioItemProps[] = [
   {
+    id: "projekt-royal-mint",
+    title: "Royal Mint",
+    role: "Frontend developer at NoA Ignite",
+    status: "Wyróżniony",
+    description:
+      "Enterprise e-commerce dla rynku metali szlachetnych: złota, srebra i platyny, rozwijany przy NoA Ignite dla klienta z UK.",
+    types: [PortfolioType.WEB_APP],
+    startDate: new Date("2024-07-01"),
+    endDate: undefined,
+    technologies: [
+      Technologies.REACT,
+      Technologies.TYPESCRIPT,
+      Technologies.BOOTSTRAP,
+      Technologies.AZURE,
+    ],
+    highlights: [
+      "Problem: utrzymanie i rozwój dużego systemu e-commerce w środowisku legacy.",
+      "Rozwiązanie: rozwój komponentów produktowych, debugowanie i optymalizacja frontendu.",
+      "Efekt: stabilne zmiany w komercyjnym projekcie enterprise bez naruszania istniejących przepływów.",
+    ],
+    link: "https://www.royalmint.com/",
+    caseStudyLink: "/projekty/royal-mint/",
+  },
+  {
+    id: "projekt-cleanstrategy",
+    title: "CleanStrategy",
+    role: "Mobile developer / product builder",
+    status: "Wyróżniony",
+    description:
+      "Produkt mobile/web pomagający domownikom dzielić obowiązki i ograniczać konflikty wokół sprzątania.",
+    types: [PortfolioType.MOBILE_APP, PortfolioType.WEB_APP],
+    startDate: new Date("2024-01-01"),
+    endDate: undefined,
+    technologies: [
+      Technologies.REACT_NATIVE,
+      Technologies.REACT,
+      Technologies.NEST_JS,
+      Technologies.MONGODB,
+      Technologies.EXPO,
+      Technologies.TYPESCRIPT,
+      Technologies.TAILWIND_CSS,
+    ],
+    highlights: [
+      "Problem: domowe obowiązki były rozproszone między rozmowami, notatkami i domysłami.",
+      "Rozwiązanie: aplikacja z zadaniami, harmonogramami i odpowiedzialnością domowników.",
+      "Efekt: produktowy fundament pod aplikację mobilną i webową rozwijaną iteracyjnie.",
+    ],
+    link: "https://app.clean-strategy.com/web",
+    caseStudyLink: "/projekty/cleanstrategy/",
+  },
+  {
+    id: "projekt-moment-studio",
+    title: "Moment Studio",
+    role: "Fullstack developer",
+    status: "Wyróżniony",
+    description:
+      "Kompletny sklep internetowy dla Moment Studio, łączący markę, sprzedaż produktów, płatności i zaplecze backendowe.",
+    types: [PortfolioType.WEB_APP, PortfolioType.ECOMMERCE],
+    startDate: new Date("2024-01-01"),
+    endDate: new Date("2024-01-01"),
+    technologies: [
+      Technologies.REACT,
+      Technologies.NEST_JS,
+      Technologies.MONGODB,
+      Technologies.STRIPE,
+      Technologies.RESEND,
+      Technologies.JAVASCRIPT,
+      Technologies.HTML5,
+      Technologies.TAILWIND_CSS,
+    ],
+    highlights: [
+      "Problem: marka potrzebowała sklepu, a nie tylko estetycznej wizytówki.",
+      "Rozwiązanie: frontend, backend w Nest.js, MongoDB, płatności Stripe i wiadomości przez Resend.",
+      "Efekt: pełny proces sprzedażowy spięty z czytelnym doświadczeniem użytkownika.",
+    ],
+    link: "https://www.ismomentstudio.com/",
+    caseStudyLink: "/projekty/moment-studio/",
+  },
+  {
+    id: "projekt-juli-jogi",
     title: "Juli Jogi",
     role: "Backend developer / DevOps",
     status: "In progress",
@@ -177,53 +257,7 @@ const projectItems: PortfolioItemProps[] = [
       "Prace obejmują frontend, backend w Nest.js, bazę MongoDB oraz przygotowanie środowiska pod wdrożenie.",
     ],
     link: "https://test.julijogi.com/",
-  },
-  {
-    title: "CleanStrategy",
-    role: "Mobile developer / product builder",
-    description:
-      "Aplikacja mobilna pomagająca domownikom dzielić obowiązki i ograniczać konflikty wokół sprzątania.",
-    types: [PortfolioType.MOBILE_APP, PortfolioType.WEB_APP],
-    startDate: new Date("2024-01-01"),
-    endDate: undefined,
-    technologies: [
-      Technologies.REACT_NATIVE,
-      Technologies.REACT,
-      Technologies.NEST_JS,
-      Technologies.MONGODB,
-      Technologies.EXPO,
-      Technologies.TYPESCRIPT,
-      Technologies.TAILWIND_CSS,
-    ],
-    highlights: [
-      "Projektowanie przepływów użytkownika dla zadań, harmonogramów i odpowiedzialności domowników.",
-      "Budowa aplikacji w React Native i Expo z naciskiem na szybkie iterowanie produktu.",
-    ],
-    link: "https://app.clean-strategy.com/web",
-  },
-  {
-    title: "Moment Studio",
-    role: "Fullstack developer",
-    description:
-      "Kompletny sklep internetowy dla Moment Studio, łączący warstwę prezentacyjną marki, sprzedaż produktów i zaplecze backendowe.",
-    types: [PortfolioType.WEB_APP, PortfolioType.ECOMMERCE],
-    startDate: new Date("2024-01-01"),
-    endDate: new Date("2024-01-01"),
-    technologies: [
-      Technologies.REACT,
-      Technologies.NEST_JS,
-      Technologies.MONGODB,
-      Technologies.STRIPE,
-      Technologies.RESEND,
-      Technologies.JAVASCRIPT,
-      Technologies.HTML5,
-      Technologies.TAILWIND_CSS,
-    ],
-    highlights: [
-      "Budowa sklepu z obsługą produktów, zamówień i płatności Stripe.",
-      "Połączenie responsywnego frontendu z backendem w Nest.js i bazą MongoDB.",
-    ],
-    link: "https://www.ismomentstudio.com/",
+    caseStudyLink: "/projekty/juli-jogi/",
   },
   {
     title: "Jambo - e-commerce app",
@@ -245,27 +279,7 @@ const projectItems: PortfolioItemProps[] = [
       "Przygotowanie materiałów i wymagań do projektu graficznego.",
       "Przeniesienie projektu graficznego z Figmy do kodu.",
     ],
-  },
-  {
-    id: "projekt-royal-mint",
-    title: "Royal Mint",
-    role: "Frontend developer at NoA Ignite",
-    description:
-      "E-commerce dla rynku metali szlachetnych: złota, srebra i platyny.",
-    types: [PortfolioType.WEB_APP],
-    startDate: new Date("2024-07-01"),
-    endDate: undefined,
-    technologies: [
-      Technologies.REACT,
-      Technologies.TYPESCRIPT,
-      Technologies.BOOTSTRAP,
-      Technologies.AZURE,
-    ],
-    highlights: [
-      "Rozwój interfejsu sklepu i komponentów produktowych dla użytkowników kupujących online.",
-      "Utrzymanie legacy systems oraz optymalizacja frontendu.",
-    ],
-    link: "https://www.royalmint.com/",
+    caseStudyLink: "/projekty/jambo/",
   },
   {
     title: "Swarmcheck",
@@ -287,6 +301,7 @@ const projectItems: PortfolioItemProps[] = [
       "Interfejsy oraz wizualizacje grafowe dla pracy z argumentami.",
     ],
     link: "https://app.swarmcheck.ai/public",
+    caseStudyLink: "/projekty/swarmcheck/",
   },
 ];
 
@@ -426,9 +441,13 @@ const skillGroups = [
 ];
 
 const visibleSkillsCount = 4;
+const featuredProjectItems = projectItems.filter(
+  (project) => project.status === "Wyróżniony"
+);
 
 const portfolioNavItems = [
   { id: "intro", label: "Intro" },
+  { id: "wyroznione", label: "Wyróżnione" },
   { id: "firmy", label: "Firmy" },
   { id: "stack", label: "Stack" },
   { id: "doswiadczenie", label: "Doświadczenie" },
@@ -438,12 +457,25 @@ const portfolioNavItems = [
 export default function PortfolioPage() {
   const [expandedSkillGroups, setExpandedSkillGroups] = useState<string[]>([]);
   const [activeSection, setActiveSection] = useState(portfolioNavItems[0].id);
+  const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
 
   const toggleSkillGroup = (title: string) => {
     setExpandedSkillGroups((currentGroups) =>
       currentGroups.includes(title)
         ? currentGroups.filter((groupTitle) => groupTitle !== title)
         : [...currentGroups, title]
+    );
+  };
+
+  const showPreviousFeaturedProject = () => {
+    setActiveFeaturedIndex((currentIndex) =>
+      currentIndex === 0 ? featuredProjectItems.length - 1 : currentIndex - 1
+    );
+  };
+
+  const showNextFeaturedProject = () => {
+    setActiveFeaturedIndex((currentIndex) =>
+      currentIndex === featuredProjectItems.length - 1 ? 0 : currentIndex + 1
     );
   };
 
@@ -505,13 +537,16 @@ export default function PortfolioPage() {
       <div className="flex flex-col gap-12">
         <section id="intro" className="flex scroll-mt-28 flex-col gap-2">
           <h1 className="text-2xl font-bold">Portfolio</h1>
+          <p className="text-sm font-bold uppercase text-gray-500">
+            React · Next.js · Nest.js · Product development
+          </p>
           <p className="text-md leading-7">
             Jestem Paweł Drojecki. Projektuję i buduję aplikacje webowe,
             mobile oraz zaplecze techniczne produktów, które mają działać nie
             tylko w demo, ale też w prawdziwym użyciu. Najczęściej pracuję z
-            React.js, Next.js, React Native, Node.js i TypeScriptem, a obok
-            kodu ogarniam też architekturę, integracje, DevOps i sensowny flow
-            produktu.
+            React.js, Next.js, Nest.js, React Native i TypeScriptem, a obok
+            kodu ogarniam też backend, architekturę, integracje, DevOps i
+            sensowny flow produktu.
           </p>
           <p className="text-md leading-7">
             Mam doświadczenie w projektach edukacyjnych, e-commerce,
@@ -529,7 +564,36 @@ export default function PortfolioPage() {
             <FaLinkedin size={18} />
             LinkedIn
           </a>
+          <div className="grid gap-3 pt-3 sm:grid-cols-2">
+            <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
+              <p className="text-xs font-bold uppercase text-gray-500">
+                Bio PL
+              </p>
+              <p className="mt-1 text-sm leading-6 text-gray-800">
+                Buduję aplikacje webowe i produktowe od interfejsu po backend.
+                Łączę React, Next.js, Nest.js i myślenie produktowe, żeby
+                szybko dowozić działające rozwiązania.
+              </p>
+            </div>
+            <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
+              <p className="text-xs font-bold uppercase text-gray-500">
+                Bio EN
+              </p>
+              <p className="mt-1 text-sm leading-6 text-gray-800">
+                I build web and product applications from interface to backend,
+                combining React, Next.js, Nest.js and product thinking to ship
+                useful, working software.
+              </p>
+            </div>
+          </div>
         </section>
+
+        <FeaturedProjectsCarousel
+          activeIndex={activeFeaturedIndex}
+          onPrevious={showPreviousFeaturedProject}
+          onNext={showNextFeaturedProject}
+          onSelect={setActiveFeaturedIndex}
+        />
 
         <section id="firmy" className="flex scroll-mt-28 flex-col gap-4">
           <div className="flex flex-col gap-1">
@@ -645,6 +709,141 @@ const PortfolioQuickNav = ({
     </ul>
   </nav>
 );
+
+const FeaturedProjectsCarousel = ({
+  activeIndex,
+  onPrevious,
+  onNext,
+  onSelect,
+}: {
+  activeIndex: number;
+  onPrevious: () => void;
+  onNext: () => void;
+  onSelect: (index: number) => void;
+}) => {
+  const activeProject = featuredProjectItems[activeIndex];
+  const projectSummary = activeProject.highlights?.[2]?.replace(
+    "Efekt: ",
+    ""
+  );
+
+  return (
+    <section
+      id="wyroznione"
+      className="flex scroll-mt-28 flex-col gap-4 rounded-md border-2 border-black bg-white p-4 sm:p-5"
+    >
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex flex-col gap-1">
+          <p className="text-xs font-bold uppercase text-gray-500">
+            Case studies
+          </p>
+          <h2 className="text-xl font-bold">Wyróżnione projekty</h2>
+          <p className="text-sm leading-6 text-gray-600">
+            Najmocniejsze realizacje pokazujące enterprise e-commerce, produkt
+            mobile/web i pełny sklep internetowy.
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            aria-label="Poprzedni wyróżniony projekt"
+            onClick={onPrevious}
+            className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-white hover:bg-accent"
+          >
+            <FaArrowLeft size={14} />
+          </button>
+          <button
+            type="button"
+            aria-label="Następny wyróżniony projekt"
+            onClick={onNext}
+            className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-accent hover:bg-accent/80"
+          >
+            <FaArrowRight size={14} />
+          </button>
+        </div>
+      </div>
+
+      <article className="grid gap-4 rounded-md bg-gray-50 p-4 md:grid-cols-[1fr_1.2fr]">
+        <div className="relative flex min-h-48 flex-col justify-between overflow-hidden rounded-md border-2 border-black bg-gray-950 p-4 text-white">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {activeProject.types.map((type) => (
+                <span
+                  key={type}
+                  className="rounded-md bg-accent px-2 py-1 text-xs font-bold uppercase text-black"
+                >
+                  {type}
+                </span>
+              ))}
+            </div>
+            <span className="text-xs font-bold text-white/70">
+              {activeIndex + 1}/{featuredProjectItems.length}
+            </span>
+          </div>
+          <div className="grid gap-2">
+            <span className="h-2 w-16 rounded-full bg-accent" />
+            <h3 className="text-2xl font-bold leading-tight">
+              {activeProject.title}
+            </h3>
+            <p className="text-sm font-bold text-white/70">
+              {activeProject.role}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-between gap-4">
+          <div className="flex flex-col gap-3">
+            <p className="text-sm leading-6 text-gray-800">
+              {activeProject.description}
+            </p>
+            {projectSummary && (
+              <p className="text-sm leading-6 text-gray-700">
+                <strong>Efekt:</strong> {projectSummary}
+              </p>
+            )}
+            <div className="flex flex-wrap gap-2">
+              {activeProject.technologies.slice(0, 5).map((technology) => (
+                <span
+                  key={technology}
+                  className="rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-800"
+                >
+                  {technology}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            {activeProject.caseStudyLink && (
+              <a
+                href={activeProject.caseStudyLink}
+                className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
+              >
+                <span>Zobacz case study</span>
+                <Icon iconName="openTab" size={16} />
+              </a>
+            )}
+            <div className="flex gap-1">
+              {featuredProjectItems.map((project, index) => (
+                <button
+                  key={project.title}
+                  type="button"
+                  aria-label={`Pokaż projekt ${project.title}`}
+                  onClick={() => onSelect(index)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    activeIndex === index
+                      ? "w-8 bg-accent"
+                      : "w-2.5 bg-gray-300 hover:bg-gray-500"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  );
+};
 
 const PortfolioSection = ({
   id,

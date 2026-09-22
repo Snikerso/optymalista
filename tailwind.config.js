@@ -6,6 +6,9 @@ module.exports = {
       colors: {
         accent: "#FACD2D",
       },
+      fontFamily: {
+        sans: ["var(--font-inter)", "Arial", "Helvetica", "sans-serif"],
+      },
     },
   },
   plugins: [],

@@ -5,6 +5,7 @@ import {
   type PortfolioItemProps,
 } from "@/components/molecules/PortfolioItem";
 import { Icon } from "@/components/atoms/Icon";
+import { projectDetailsBySlug } from "@/data/projectDetails";
 import { PortfolioType, Technologies } from "@/types";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
@@ -48,11 +49,13 @@ const experienceItems: PortfolioItemProps[] = [
       Technologies.TYPESCRIPT,
       Technologies.BOOTSTRAP,
       Technologies.AZURE,
+      Technologies.GOOGLE_ANALYTICS,
     ],
     highlights: [
       "Praca zdalna.",
       "Usprawnianie i utrzymywanie legacy systems, debugowanie oraz optymalizacja codebase.",
       "Dbanie o zgodność z nowoczesnymi standardami przy użyciu React i technologii Azure.",
+      "Wsparcie integracji Google Analytics i analityki dla środowiska e-commerce.",
     ],
     link: "https://www.royalmint.com/",
   },
@@ -169,11 +172,12 @@ const projectItems: PortfolioItemProps[] = [
       Technologies.TYPESCRIPT,
       Technologies.BOOTSTRAP,
       Technologies.AZURE,
+      Technologies.GOOGLE_ANALYTICS,
     ],
     highlights: [
       "Problem: utrzymanie i rozwój dużego systemu e-commerce w środowisku legacy.",
-      "Rozwiązanie: rozwój komponentów produktowych, debugowanie i optymalizacja frontendu.",
-      "Efekt: stabilne zmiany w komercyjnym projekcie enterprise bez naruszania istniejących przepływów.",
+      "Rozwiązanie: rozwój komponentów produktowych, debugowanie, optymalizacja frontendu i wsparcie Google Analytics.",
+      "Efekt: stabilne zmiany w komercyjnym projekcie enterprise oraz lepsze podstawy pod analizę zachowań użytkowników.",
     ],
     link: "https://www.royalmint.com/",
     caseStudyLink: "/projekty/royal-mint/",
@@ -249,12 +253,14 @@ const projectItems: PortfolioItemProps[] = [
       Technologies.NEST_JS,
       Technologies.MONGODB,
       Technologies.RESEND,
+      Technologies.GOOGLE_ANALYTICS,
       Technologies.TYPESCRIPT,
       Technologies.TAILWIND_CSS,
     ],
     highlights: [
       "Projekt jest aktualnie w trakcie realizacji i rozwijany na środowisku testowym.",
       "Prace obejmują frontend, backend w Nest.js, bazę MongoDB oraz przygotowanie środowiska pod wdrożenie.",
+      "Wykonałem pełny setup Google Analytics i integracji analitycznych pod mierzenie ruchu oraz zachowań użytkowników.",
     ],
     link: "https://test.julijogi.com/",
     caseStudyLink: "/projekty/juli-jogi/",
@@ -405,6 +411,7 @@ const skillGroups = [
       "Stripe",
       "SendGrid",
       "Resend",
+      "Google Analytics",
       "RBAC",
     ],
   },
@@ -722,10 +729,19 @@ const FeaturedProjectsCarousel = ({
   onSelect: (index: number) => void;
 }) => {
   const activeProject = featuredProjectItems[activeIndex];
-  const projectSummary = activeProject.highlights?.[2]?.replace(
-    "Efekt: ",
-    ""
+  const activeProjectDetails = Object.values(projectDetailsBySlug).find(
+    (project) => activeProject.caseStudyLink === `/projekty/${project.slug}/`
   );
+  const activeProjectImage = activeProjectDetails?.gallery[0];
+  const caseStudyPoints =
+    activeProject.highlights?.slice(0, 3).map((highlight) => {
+      const [label, ...rest] = highlight.split(": ");
+
+      return {
+        label,
+        value: rest.join(": "),
+      };
+    }) ?? [];
 
   return (
     <section
@@ -764,9 +780,9 @@ const FeaturedProjectsCarousel = ({
       </div>
 
       <article className="grid gap-4 rounded-md bg-gray-50 p-4 md:grid-cols-[1fr_1.2fr]">
-        <div className="relative flex min-h-48 flex-col justify-between overflow-hidden rounded-md border-2 border-black bg-gray-950 p-4 text-white">
+        <div className="relative overflow-hidden rounded-md border-2 border-black bg-gray-950">
           <div className="flex items-start justify-between gap-3">
-            <div className="flex flex-wrap gap-2">
+            <div className="absolute z-10 flex flex-wrap gap-2 p-4">
               {activeProject.types.map((type) => (
                 <span
                   key={type}
@@ -776,31 +792,40 @@ const FeaturedProjectsCarousel = ({
                 </span>
               ))}
             </div>
-            <span className="text-xs font-bold text-white/70">
+            <span className="absolute right-4 top-4 z-10 rounded-md bg-black/70 px-2 py-1 text-xs font-bold text-white">
               {activeIndex + 1}/{featuredProjectItems.length}
             </span>
           </div>
-          <div className="grid gap-2">
-            <span className="h-2 w-16 rounded-full bg-accent" />
-            <h3 className="text-2xl font-bold leading-tight">
-              {activeProject.title}
-            </h3>
-            <p className="text-sm font-bold text-white/70">
-              {activeProject.role}
-            </p>
-          </div>
+          {activeProjectImage?.imageSrc ? (
+            <img
+              src={activeProjectImage.imageSrc}
+              alt={activeProjectImage.imageAlt ?? activeProject.title}
+              className="aspect-[16/10] w-full object-cover"
+            />
+          ) : null}
         </div>
 
         <div className="flex flex-col justify-between gap-4">
           <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-1">
+              <h3 className="text-2xl font-bold leading-tight">
+                {activeProject.title}
+              </h3>
+              <p className="text-sm font-bold text-gray-600">
+                {activeProject.role}
+              </p>
+            </div>
             <p className="text-sm leading-6 text-gray-800">
               {activeProject.description}
             </p>
-            {projectSummary && (
-              <p className="text-sm leading-6 text-gray-700">
-                <strong>Efekt:</strong> {projectSummary}
-              </p>
-            )}
+            <div className="grid gap-2 text-sm leading-6">
+              {caseStudyPoints.map((point) => (
+                <p key={point.label} className="text-gray-700">
+                  <strong className="text-black">{point.label}:</strong>{" "}
+                  {point.value}
+                </p>
+              ))}
+            </div>
             <div className="flex flex-wrap gap-2">
               {activeProject.technologies.slice(0, 5).map((technology) => (
                 <span

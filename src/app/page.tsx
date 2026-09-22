@@ -15,6 +15,7 @@ const featuredProjects = [
 export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const activeProject = featuredProjects[activeProjectIndex];
+  const activeProjectImage = activeProject.gallery[0];
 
   const showPreviousProject = () => {
     setActiveProjectIndex((currentIndex) =>
@@ -47,11 +48,10 @@ export default function Home() {
             w prawdziwym użyciu.
           </p>
           <p className="text-gray-700">
-            Pracuję z React.js, Next.js, React Native, Node.js i TypeScriptem.
-            Lubię łączyć dobry frontend z backendem, integracjami, DevOpsem i
-            myśleniem produktowym. Jestem miłośnikiem technologii i nauki, a
-            w TrisztiLab tworzę różne ciekawe projekty, eksperymenty i
-            warsztaty.
+            Najczęściej pracuję z React.js, Next.js, React Native, Node.js,
+            Nest.js i TypeScriptem. Łączę frontend z backendem, integracjami,
+            analityką, DevOpsem i myśleniem produktowym, żeby dowozić
+            rozwiązania gotowe do realnego użycia.
           </p>
         </div>
 
@@ -114,10 +114,10 @@ export default function Home() {
           </div>
         </div>
 
-        <article className="grid gap-4 rounded-md bg-gray-50 p-4 md:grid-cols-[0.9fr_1.1fr]">
-          <div className="flex min-h-44 flex-col justify-between rounded-md border-2 border-black bg-gray-950 p-4 text-white">
+        <article className="grid gap-4 rounded-md bg-gray-50 p-4 md:grid-cols-[0.95fr_1.05fr]">
+          <div className="relative overflow-hidden rounded-md border-2 border-black bg-gray-950">
             <div className="flex items-start justify-between gap-3">
-              <div className="flex flex-wrap gap-2">
+              <div className="absolute z-10 flex flex-wrap gap-2 p-4">
                 {activeProject.categories.map((category) => (
                   <span
                     key={category}
@@ -127,29 +127,43 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              <span className="text-xs font-bold text-white/70">
+              <span className="absolute right-4 top-4 z-10 rounded-md bg-black/70 px-2 py-1 text-xs font-bold text-white">
                 {activeProjectIndex + 1}/{featuredProjects.length}
               </span>
             </div>
-            <div className="grid gap-2">
-              <span className="h-2 w-16 rounded-full bg-accent" />
-              <h3 className="text-2xl font-bold leading-tight">
-                {activeProject.title}
-              </h3>
-              <p className="text-sm font-bold text-white/70">
-                {activeProject.role}
-              </p>
-            </div>
+            {activeProjectImage?.imageSrc ? (
+              <img
+                src={activeProjectImage.imageSrc}
+                alt={activeProjectImage.imageAlt ?? activeProject.title}
+                className="aspect-[16/10] w-full object-cover"
+              />
+            ) : null}
           </div>
 
           <div className="flex flex-col justify-between gap-4">
             <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-1">
+                <h3 className="text-2xl font-bold leading-tight">
+                  {activeProject.title}
+                </h3>
+                <p className="text-sm font-bold text-gray-600">
+                  {activeProject.role}
+                </p>
+              </div>
               <p className="text-sm leading-6 text-gray-800">
                 {activeProject.summary}
               </p>
-              <p className="text-sm leading-6 text-gray-700">
-                <strong>Efekt:</strong> {activeProject.effects[0]}
-              </p>
+              <div className="grid gap-2 text-sm leading-6">
+                <p>
+                  <strong>Problem:</strong> {activeProject.problem}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Rozwiązanie:</strong> {activeProject.solution}
+                </p>
+                <p className="text-gray-700">
+                  <strong>Efekt:</strong> {activeProject.effects[0]}
+                </p>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {activeProject.technologies.slice(0, 5).map((technology) => (
                   <span

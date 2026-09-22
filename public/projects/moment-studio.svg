@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Moment Studio online store screenshot</title>
+  <desc id="desc">A stylized screenshot of a fullstack online store for a creative studio.</desc>
+  <rect width="1200" height="750" fill="#f7efe8"/>
+  <rect x="72" y="64" width="1056" height="622" rx="18" fill="#fffaf5" stroke="#111827" stroke-width="4"/>
+  <text x="120" y="136" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#111827">Moment Studio</text>
+  <text x="120" y="176" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#6b7280">Fullstack e-commerce</text>
+  <rect x="120" y="232" width="316" height="346" rx="16" fill="#111827"/>
+  <rect x="156" y="270" width="244" height="180" rx="12" fill="#facc15"/>
+  <rect x="156" y="482" width="184" height="26" rx="6" fill="#ffffff" opacity="0.85"/>
+  <rect x="156" y="526" width="120" height="34" rx="8" fill="#ffffff"/>
+  <rect x="512" y="232" width="260" height="156" rx="14" fill="#ffffff" stroke="#e5e7eb" stroke-width="3"/>
+  <text x="548" y="298" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#111827">Stripe</text>
+  <rect x="548" y="322" width="150" height="18" rx="5" fill="#e5e7eb"/>
+  <rect x="820" y="232" width="260" height="156" rx="14" fill="#ffffff" stroke="#e5e7eb" stroke-width="3"/>
+  <text x="856" y="298" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#111827">Resend</text>
+  <rect x="856" y="322" width="150" height="18" rx="5" fill="#e5e7eb"/>
+  <rect x="512" y="430" width="568" height="148" rx="14" fill="#111827"/>
+  <text x="548" y="498" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#ffffff">Products, orders and backend</text>
+  <rect x="548" y="526" width="228" height="22" rx="6" fill="#facc15"/>
+  <text x="120" y="654" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#334155">Next.js / Nest.js / MongoDB / Stripe / Resend</text>
+</svg>

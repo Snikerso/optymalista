@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Royal Mint e-commerce case study screenshot</title>
+  <desc id="desc">A stylized screenshot of an enterprise e-commerce dashboard for precious metals.</desc>
+  <rect width="1200" height="750" fill="#0b0f19"/>
+  <rect x="56" y="52" width="1088" height="646" rx="18" fill="#f8fafc"/>
+  <rect x="96" y="92" width="1008" height="72" rx="12" fill="#111827"/>
+  <text x="128" y="139" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Royal Mint</text>
+  <text x="884" y="137" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#facc15">Enterprise e-commerce</text>
+  <rect x="96" y="204" width="456" height="380" rx="14" fill="#ffffff" stroke="#d1d5db" stroke-width="3"/>
+  <text x="128" y="260" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#111827">Product components</text>
+  <rect x="128" y="300" width="360" height="44" rx="8" fill="#f3f4f6"/>
+  <rect x="128" y="364" width="302" height="44" rx="8" fill="#f3f4f6"/>
+  <rect x="128" y="428" width="396" height="44" rx="8" fill="#f3f4f6"/>
+  <rect x="128" y="512" width="168" height="44" rx="8" fill="#facc15"/>
+  <text x="152" y="541" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#111827">Buy flow</text>
+  <rect x="612" y="204" width="492" height="380" rx="14" fill="#111827"/>
+  <text x="648" y="260" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#ffffff">Analytics and stability</text>
+  <polyline points="652,488 728,420 806,444 888,326 984,356 1060,276" fill="none" stroke="#facc15" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="728" cy="420" r="12" fill="#facc15"/>
+  <circle cx="888" cy="326" r="12" fill="#facc15"/>
+  <circle cx="1060" cy="276" r="12" fill="#facc15"/>
+  <rect x="648" y="522" width="128" height="30" rx="7" fill="#ffffff" opacity="0.14"/>
+  <rect x="796" y="522" width="128" height="30" rx="7" fill="#ffffff" opacity="0.14"/>
+  <rect x="944" y="522" width="104" height="30" rx="7" fill="#ffffff" opacity="0.14"/>
+  <text x="96" y="650" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#334155">React / TypeScript / Azure / Google Analytics</text>
+</svg>

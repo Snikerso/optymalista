@@ -2,6 +2,8 @@
 
 Portfolio ma działać jak główne CV Pawła Drojeckiego: krótko tłumaczyć pozycjonowanie, pokazywać najmocniejsze projekty i prowadzić odbiorcę do konkretnych case studies.
 
+Pełniejsza wersja strategii jest w pliku [`STRATEGIA_ROZWOJU.md`](./STRATEGIA_ROZWOJU.md).
+
 ## Pozycjonowanie
 
 Główna narracja:
@@ -23,13 +25,14 @@ Najważniejsze słowa kluczowe:
 - e-commerce
 - backend
 - DevOps
+- Google Analytics
 
 ## Priorytetowe projekty
 
 Najmocniejsze case studies powinny być widoczne na stronie głównej i na początku sekcji projektów w portfolio.
 
 1. Royal Mint
-   Komercyjny projekt enterprise/e-commerce. Pokazuje doświadczenie w pracy z dużym systemem, legacy codebase, Reactem, TypeScriptem i Azure.
+   Komercyjny projekt enterprise/e-commerce. Pokazuje doświadczenie w pracy z dużym systemem, legacy codebase, Reactem, TypeScriptem, Azure i Google Analytics.
 
 2. CleanStrategy
    Produkt mobile/web. Pokazuje myślenie produktowe, React Native, Expo, web app, backend w Nest.js i MongoDB.
@@ -37,7 +40,7 @@ Najmocniejsze case studies powinny być widoczne na stronie głównej i na pocz�
 3. Moment Studio
    Fullstackowy sklep internetowy. Pokazuje e-commerce, backend, MongoDB, Stripe, Resend i przejście od marki do realnej sprzedaży.
 
-Juli Jogi może być traktowane jako projekt rosnący: platforma edukacyjno-usługowa, która z czasem może wejść do top 3, jeśli będzie miała mocniejsze efekty, zrzuty ekranów i publiczny opis funkcji.
+Juli Jogi może być traktowane jako projekt rosnący: platforma edukacyjno-usługowa z pełnym setupem Google Analytics i integracji analitycznych, która z czasem może wejść do top 3, jeśli będzie miała mocniejsze efekty, zrzuty ekranów i publiczny opis funkcji.
 
 ## Schemat opisu projektu
 
@@ -99,6 +102,7 @@ Aktualna baza SEO:
 - `sitemap.xml` w `src/app/sitemap.ts`,
 - metadane dla portfolio, bloga, materiałów, filamentów, treningu kognitywnego i projektów,
 - JSON-LD `Person` oraz `CreativeWork` dla case studies.
+- Google Analytics jako podstawę pomiaru ruchu i zachowań użytkowników.
 
 Kolejne kroki SEO:
 

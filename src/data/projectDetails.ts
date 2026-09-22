@@ -17,6 +17,8 @@ export type ProjectDetail = {
     title: string;
     caption: string;
     theme: "commerce" | "mobile" | "platform" | "studio" | "data" | "brand";
+    imageSrc?: string;
+    imageAlt?: string;
   }[];
   externalLink?: string;
 };
@@ -38,6 +40,7 @@ export const projectDetails: ProjectDetail[] = [
       Technologies.NEST_JS,
       Technologies.MONGODB,
       Technologies.RESEND,
+      Technologies.GOOGLE_ANALYTICS,
       Technologies.TYPESCRIPT,
       Technologies.TAILWIND_CSS,
     ],
@@ -48,18 +51,21 @@ export const projectDetails: ProjectDetail[] = [
     responsibilities: [
       "Projektowanie architektury aplikacji i podziału na warstwę frontendową oraz backendową.",
       "Przygotowanie backendu pod treści, formularze i integracje komunikacyjne.",
+      "Pełny setup Google Analytics i integracji analitycznych pod mierzenie ruchu oraz zachowań użytkowników.",
       "Budowa responsywnych widoków i środowiska testowego dla dalszego rozwoju.",
     ],
     effects: [
       "Platforma jest gotowa do rozbudowy o kolejne moduły produktowe.",
       "Projekt ma spójne zaplecze techniczne zamiast jednorazowej strony.",
-      "Komunikacja i dane użytkowników mogą być rozwijane w kontrolowany sposób.",
+      "Komunikacja, dane użytkowników i analityka mogą być rozwijane w kontrolowany sposób.",
     ],
     gallery: [
       {
         title: "Platforma zajęć",
         caption: "Widok oferty i treści przygotowany pod spokojną, czytelną prezentację.",
         theme: "platform",
+        imageSrc: "/projects/juli-jogi.png",
+        imageAlt: "Kadr projektu Juli Jogi z widokiem platformy do jogi.",
       },
       {
         title: "Zaplecze aplikacyjne",
@@ -107,6 +113,8 @@ export const projectDetails: ProjectDetail[] = [
         title: "Aplikacja mobilna",
         caption: "Widok zadań, harmonogramów i odpowiedzialności domowników.",
         theme: "mobile",
+        imageSrc: "/projects/cleanstrategy.png",
+        imageAlt: "Kadr projektu CleanStrategy z widokiem aplikacji mobile i web.",
       },
       {
         title: "Panel webowy",
@@ -155,6 +163,8 @@ export const projectDetails: ProjectDetail[] = [
         title: "Sklep internetowy",
         caption: "Widok produktu i ścieżki zakupowej dla marki kreatywnej.",
         theme: "studio",
+        imageSrc: "/projects/moment-studio.png",
+        imageAlt: "Kadr projektu Moment Studio z widokiem sklepu internetowego.",
       },
       {
         title: "Proces płatności",
@@ -200,6 +210,8 @@ export const projectDetails: ProjectDetail[] = [
         title: "Lista produktów",
         caption: "Kompozycja sklepu z naciskiem na produkt i czytelne CTA.",
         theme: "commerce",
+        imageSrc: "/projects/jambo.png",
+        imageAlt: "Kadr projektu Jambo z widokiem e-commerce.",
       },
       {
         title: "Frontend z Figmy",
@@ -223,6 +235,7 @@ export const projectDetails: ProjectDetail[] = [
       Technologies.TYPESCRIPT,
       Technologies.BOOTSTRAP,
       Technologies.AZURE,
+      Technologies.GOOGLE_ANALYTICS,
     ],
     problem:
       "Rozwijany system e-commerce wymagał utrzymania istniejących rozwiązań, poprawy doświadczenia użytkownika i pracy w ramach legacy codebase.",
@@ -231,11 +244,13 @@ export const projectDetails: ProjectDetail[] = [
     responsibilities: [
       "Usprawnianie i utrzymywanie legacy systems.",
       "Debugowanie, optymalizacja oraz dopasowanie frontendu do aktualnych standardów.",
+      "Wsparcie wdrożenia i utrzymania elementów Google Analytics w środowisku e-commerce.",
       "Praca z komponentami produktowymi i środowiskiem opartym o Azure.",
     ],
     effects: [
       "Projekt był utrzymywany i rozwijany bez destabilizowania istniejących przepływów.",
       "Kod frontendu był porządkowany i dostosowywany do wymagań klienta enterprise.",
+      "Analityka wspierała lepsze rozumienie ruchu i zachowań użytkowników w sklepie.",
       "Doświadczenie użytkownika w częściach sklepowych było stopniowo ulepszane.",
     ],
     gallery: [
@@ -243,6 +258,8 @@ export const projectDetails: ProjectDetail[] = [
         title: "Enterprise e-commerce",
         caption: "Komponenty produktowe i ścieżki zakupowe dla dużego systemu.",
         theme: "commerce",
+        imageSrc: "/projects/royal-mint.png",
+        imageAlt: "Kadr projektu Royal Mint z widokiem enterprise e-commerce.",
       },
       {
         title: "Utrzymanie systemu",
@@ -288,6 +305,8 @@ export const projectDetails: ProjectDetail[] = [
         title: "Mapa argumentów",
         caption: "Wizualizacja relacji i struktury dyskusji oparta o grafy.",
         theme: "data",
+        imageSrc: "/projects/swarmcheck.png",
+        imageAlt: "Kadr projektu Swarmcheck z widokiem mapy argumentów.",
       },
       {
         title: "Kontrola dostępu",

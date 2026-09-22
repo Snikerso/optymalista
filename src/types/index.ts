@@ -66,6 +66,7 @@ export enum Technologies {
   JAVASCRIPT = "JavaScript",
   CSHARP = "C#",
   RESEND = "Resend",
+  GOOGLE_ANALYTICS = "Google Analytics",
   SANITY = "Sanity",
   NOTION = "Notion",
   MENTORING = "Mentoring",

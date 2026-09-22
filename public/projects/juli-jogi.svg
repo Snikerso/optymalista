@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Juli Jogi platform screenshot</title>
+  <desc id="desc">A stylized screenshot of a yoga platform with analytics and backend integrations.</desc>
+  <rect width="1200" height="750" fill="#f8fafc"/>
+  <rect x="72" y="62" width="1056" height="626" rx="22" fill="#ffffff" stroke="#111827" stroke-width="4"/>
+  <text x="120" y="136" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#111827">Juli Jogi</text>
+  <text x="120" y="176" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#64748b">Yoga platform setup</text>
+  <rect x="120" y="230" width="430" height="356" rx="18" fill="#fefce8" stroke="#eab308" stroke-width="3"/>
+  <circle cx="240" cy="366" r="72" fill="#facc15"/>
+  <path d="M240 296 C222 340 222 392 240 436 C258 392 258 340 240 296Z" fill="#111827" opacity="0.9"/>
+  <rect x="344" y="314" width="150" height="24" rx="7" fill="#111827"/>
+  <rect x="344" y="358" width="118" height="20" rx="6" fill="#64748b"/>
+  <rect x="344" y="410" width="104" height="36" rx="9" fill="#111827"/>
+  <rect x="620" y="230" width="420" height="158" rx="16" fill="#111827"/>
+  <text x="656" y="294" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#ffffff">Analytics setup</text>
+  <polyline points="658,340 730,310 804,326 884,278 996,304" fill="none" stroke="#facc15" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="620" y="428" width="420" height="158" rx="16" fill="#f8fafc" stroke="#e5e7eb" stroke-width="3"/>
+  <text x="656" y="492" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#111827">Nest.js + MongoDB</text>
+  <rect x="656" y="526" width="208" height="24" rx="7" fill="#e5e7eb"/>
+  <text x="120" y="654" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#334155">Next.js / Nest.js / MongoDB / Resend / Google Analytics</text>
+</svg>

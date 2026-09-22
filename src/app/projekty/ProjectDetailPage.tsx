@@ -123,7 +123,15 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
               key={`${project.slug}-${image.title}`}
               className="overflow-hidden rounded-md border-2 border-black bg-white"
             >
-              <ProjectVisual title={image.title} theme={image.theme} />
+              {image.imageSrc ? (
+                <img
+                  src={image.imageSrc}
+                  alt={image.imageAlt ?? image.title}
+                  className="aspect-[16/10] w-full object-cover"
+                />
+              ) : (
+                <ProjectVisual title={image.title} theme={image.theme} />
+              )}
               <figcaption className="border-t border-gray-200 p-3 text-sm leading-6 text-gray-700">
                 <strong className="text-black">{image.title}.</strong>{" "}
                 {image.caption}

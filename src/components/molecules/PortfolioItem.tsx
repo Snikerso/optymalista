@@ -1,4 +1,5 @@
-import { PortfolioType, Technologies } from "@/types";
+import { Technologies } from "@/data/technologies";
+import { PortfolioType } from "@/types";
 import React from "react";
 import { Icon } from "../atoms/Icon";
 

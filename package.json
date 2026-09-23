@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3002",
+    "dev:3000": "next dev",
+    "dev:clean": "node -e \"require('fs').rmSync('.next-dev',{recursive:true,force:true})\" && next dev -p 3002",
+    "clean": "node -e \"for (const dir of ['.next', '.next-dev', 'out']) require('fs').rmSync(dir,{recursive:true,force:true})\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

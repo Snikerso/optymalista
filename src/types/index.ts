@@ -47,33 +47,9 @@ export interface GameRoundMove {
   deckCardId: number;
 }
 
-export enum Technologies {
-  REACT_NATIVE = "React Native",
-  EXPO = "Expo",
-  TYPESCRIPT = "TypeScript",
-  TAILWIND_CSS = "Tailwind CSS",
-  REACT = "React.js",
-  NEXT_JS = "Next.js",
-  NEST_JS = "Nest.js",
-  BOOTSTRAP = "Bootstrap",
-  AZURE = "Azure",
-  NODE_JS = "Node.js",
-  EXPRESS = "Express.js",
-  MONGODB = "MongoDB",
-  D3_JS = "D3.js",
-  STRIPE = "Stripe",
-  HTML5 = "HTML5",
-  JAVASCRIPT = "JavaScript",
-  CSHARP = "C#",
-  RESEND = "Resend",
-  GOOGLE_ANALYTICS = "Google Analytics",
-  SANITY = "Sanity",
-  NOTION = "Notion",
-  MENTORING = "Mentoring",
-}
-
 export enum PortfolioType {
   MOBILE_APP = "Mobile App",
+  WATCH_APP = "Watch App",
   WEB_APP = "Web App",
   ECOMMERCE = "E-commerce",
   BUSINESS_CARD = "Business Card",

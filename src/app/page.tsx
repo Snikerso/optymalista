@@ -7,6 +7,7 @@ import { useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
 const featuredProjects = [
+  projectDetailsBySlug["knitting-counter-pro"],
   projectDetailsBySlug["royal-mint"],
   projectDetailsBySlug.cleanstrategy,
   projectDetailsBySlug["moment-studio"],
@@ -30,8 +31,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-[60vh] flex-col justify-center gap-10">
-      <section className="flex flex-col gap-6">
+    <div className="flex min-h-[60vh] w-full min-w-0 flex-col justify-center gap-10">
+      <section className="flex min-w-0 flex-col gap-6">
         <div className="flex flex-col gap-3">
           <p className="text-sm font-bold uppercase text-gray-500">
             Frontend / Fullstack / Product
@@ -41,7 +42,7 @@ export default function Home() {
           </h1>
         </div>
 
-        <div className="flex max-w-2xl flex-col gap-4 text-lg leading-8">
+        <div className="flex max-w-2xl min-w-0 flex-col gap-4 text-lg leading-8">
           <p>
             Projektuję i buduję aplikacje webowe, mobile oraz zaplecze
             techniczne produktów, które mają działać nie tylko w demo, ale też
@@ -55,7 +56,13 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex min-w-0 flex-wrap gap-3">
+          <Link
+            href="#zatrudnij-mnie"
+            className="rounded-md border-2 border-black bg-accent px-4 py-2 font-bold text-black shadow-[3px_3px_0_0_#000] hover:bg-accent/80"
+          >
+            ZATRUDNIJ MNIE
+          </Link>
           <Link
             href="/portfolio"
             className="rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
@@ -74,7 +81,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid gap-3 sm:grid-cols-3">
+      <section className="grid min-w-0 gap-3 sm:grid-cols-3">
         {["Web apps", "Mobile apps", "Backend & DevOps"].map((item) => (
           <div key={item} className="rounded-md border-2 border-black p-4">
             <p className="text-sm font-bold uppercase text-gray-600">{item}</p>
@@ -82,7 +89,7 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="flex flex-col gap-4 rounded-md border-2 border-black p-4 sm:p-5">
+      <section className="flex min-w-0 flex-col gap-4 rounded-md border-2 border-black p-4 sm:p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex flex-col gap-1">
             <p className="text-sm font-bold uppercase text-gray-500">
@@ -114,7 +121,7 @@ export default function Home() {
           </div>
         </div>
 
-        <article className="grid gap-4 rounded-md bg-gray-50 p-4 md:grid-cols-[0.95fr_1.05fr]">
+        <article className="grid min-w-0 gap-4 rounded-md bg-gray-50 p-3 sm:p-4 md:grid-cols-[0.95fr_1.05fr]">
           <div className="relative overflow-hidden rounded-md border-2 border-black bg-gray-950">
             <div className="flex items-start justify-between gap-3">
               <div className="absolute z-10 flex flex-wrap gap-2 p-4">
@@ -140,7 +147,7 @@ export default function Home() {
             ) : null}
           </div>
 
-          <div className="flex flex-col justify-between gap-4">
+          <div className="flex min-w-0 flex-col justify-between gap-4">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-1">
                 <h3 className="text-2xl font-bold leading-tight">
@@ -202,6 +209,81 @@ export default function Home() {
             </div>
           </div>
         </article>
+      </section>
+
+      <section
+        id="zatrudnij-mnie"
+        className="min-w-0 scroll-mt-28 rounded-md border-2 border-black p-4 sm:p-6"
+      >
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-bold uppercase text-gray-500">
+            Odwrócona rekrutacja
+          </p>
+          <h2 className="text-3xl font-bold leading-tight">Zatrudnij mnie</h2>
+          <p className="max-w-2xl text-sm leading-6 text-gray-700">
+            Tym razem to nie ja składam papiery. Jeśli masz produkt, sklep,
+            aplikację albo trudny frontend do ogarnięcia, zostaw sobie szybki
+            brief i odezwij się do mnie na LinkedInie.
+          </p>
+        </div>
+
+        <form className="mt-5 grid gap-4" aria-label="Formularz zatrudnienia">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="flex flex-col gap-2 text-sm font-bold">
+              Firma albo projekt
+              <input
+                name="company"
+                type="text"
+                placeholder="np. sklep, SaaS, aplikacja mobile"
+                className="rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
+              />
+            </label>
+            <label className="flex flex-col gap-2 text-sm font-bold">
+              Tryb współpracy
+              <select
+                name="workMode"
+                className="rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Wybierz najlepszą opcję
+                </option>
+                <option>Frontend / React / Next.js</option>
+                <option>Fullstack / Nest.js / MongoDB</option>
+                <option>Mobile / React Native</option>
+                <option>Produkt, audyt i dowożenie</option>
+              </select>
+            </label>
+          </div>
+
+          <label className="flex flex-col gap-2 text-sm font-bold">
+            Dlaczego właśnie ja mam wejść do gry?
+            <textarea
+              name="brief"
+              rows={4}
+              placeholder="Krótko: problem, cel, deadline, stack i co ma działać lepiej."
+              className="resize-none rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
+            />
+          </label>
+
+          <div className="flex flex-wrap items-center gap-3 border-t border-gray-200 pt-4">
+            <a
+              href="https://www.linkedin.com/in/pawel-drojecki/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
+            >
+              <FaLinkedin size={18} />
+              Wyślij zaproszenie
+            </a>
+            <Link
+              href="/portfolio"
+              className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
+            >
+              Sprawdź dowody
+            </Link>
+          </div>
+        </form>
       </section>
     </div>
   );

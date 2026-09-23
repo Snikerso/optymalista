@@ -6,7 +6,8 @@ import {
 } from "@/components/molecules/PortfolioItem";
 import { Icon } from "@/components/atoms/Icon";
 import { projectDetailsBySlug } from "@/data/projectDetails";
-import { PortfolioType, Technologies } from "@/types";
+import { Technologies, technologyGroups } from "@/data/technologies";
+import { PortfolioType } from "@/types";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
@@ -49,6 +50,7 @@ const experienceItems: PortfolioItemProps[] = [
       Technologies.TYPESCRIPT,
       Technologies.BOOTSTRAP,
       Technologies.AZURE,
+      Technologies.AUTH0,
       Technologies.GOOGLE_ANALYTICS,
     ],
     highlights: [
@@ -158,6 +160,27 @@ const experienceItems: PortfolioItemProps[] = [
 
 const projectItems: PortfolioItemProps[] = [
   {
+    id: "projekt-knitting-counter-pro",
+    title: "Knitting Counter Pro",
+    role: "Garmin Connect IQ developer / product builder",
+    status: "Wyróżniony",
+    description:
+      "Aplikacja na zegarki Garmin do liczenia rzędów w robótkach ręcznych, z projektami, rundami, daily goal, streakiem i vintage interfejsem dopasowanym do okrągłej tarczy.",
+    types: [PortfolioType.WATCH_APP],
+    startDate: new Date("2026-09-01"),
+    endDate: undefined,
+    technologies: [
+      Technologies.GARMIN_CONNECT_IQ,
+      Technologies.MONKEY_C,
+    ],
+    highlights: [
+      "Problem: licznik rzędów musiał działać szybko na nadgarstku, bez telefonu i bez gubienia kontekstu projektów.",
+      "Rozwiązanie: aplikacja Garmin Connect IQ z lokalnym zapisem, rundami, daily goal, streakiem i dużymi łukowymi przyciskami.",
+      "Efekt: dopracowany licznik w stylu vintage, testowany na kilku modelach zegarka i przygotowany pod publikację w Garmin Connect IQ Store.",
+    ],
+    caseStudyLink: "/projekty/knitting-counter-pro/",
+  },
+  {
     id: "projekt-royal-mint",
     title: "Royal Mint",
     role: "Frontend developer at NoA Ignite",
@@ -172,6 +195,7 @@ const projectItems: PortfolioItemProps[] = [
       Technologies.TYPESCRIPT,
       Technologies.BOOTSTRAP,
       Technologies.AZURE,
+      Technologies.AUTH0,
       Technologies.GOOGLE_ANALYTICS,
     ],
     highlights: [
@@ -353,97 +377,6 @@ const companyItems = [
     period: "cze 2020",
     status: "Wczesniej",
     link: "https://icnt.umk.pl/",
-  },
-];
-
-const skillGroups = [
-  {
-    title: "Frontend",
-    skills: [
-      "React.js",
-      "Next.js",
-      "TypeScript",
-      "JavaScript",
-      "HTML5",
-      "CSS",
-      "Tailwind CSS",
-      "Bootstrap",
-      "MUI",
-      "Styled Components",
-      "Razor Pages",
-    ],
-  },
-  {
-    title: "Frontend tooling",
-    skills: [
-      "React Query",
-      "React Hook Form",
-      "React Formik",
-      "D3.js",
-      "Figma",
-    ],
-  },
-  {
-    title: "Backend i API",
-    skills: [
-      "Node.js",
-      "Nest.js",
-      "Express.js",
-      "MongoDB",
-      "REST",
-      "gRPC",
-      "Swagger API",
-      "Sockets",
-      "Inversify context",
-      "C#",
-      "Django",
-    ],
-  },
-  {
-    title: "Cloud, DevOps i auth",
-    skills: [
-      "DevOps",
-      "Docker",
-      "Microsoft Azure",
-      "AWS",
-      "DigitalOcean",
-      "Descope",
-      "Stripe",
-      "SendGrid",
-      "Resend",
-      "Google Analytics",
-      "RBAC",
-    ],
-  },
-  {
-    title: "Edukacja i produkt",
-    skills: [
-      "Mentoring",
-      "Nauczanie programowania",
-      "Nauczanie na odległość",
-      "Szkolenie prowadzone przez instruktora",
-      "Prowadzenie wykładów",
-      "Nagrywanie",
-      "E-commerce",
-      "Scrum",
-      "Zarządzanie projektem",
-      "Realizowanie projektów",
-    ],
-  },
-  {
-    title: "Dane, UX i inne",
-    skills: [
-      "Python",
-      "R",
-      "Analiza danych",
-      "Analiza danych statystycznych",
-      "Statystyka",
-      "Nauczanie maszynowe",
-      "Badania UX",
-      "Eyetracking",
-      "Tworzenie witryn internetowych",
-      "Projektowanie witryn internetowych",
-    ],
   },
 ];
 
@@ -662,7 +595,7 @@ export default function PortfolioPage() {
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
-            {skillGroups.map((group) => (
+            {technologyGroups.map((group) => (
               <SkillGroup
                 key={group.title}
                 title={group.title}
@@ -755,8 +688,8 @@ const FeaturedProjectsCarousel = ({
           </p>
           <h2 className="text-xl font-bold">Wyróżnione projekty</h2>
           <p className="text-sm leading-6 text-gray-600">
-            Najmocniejsze realizacje pokazujące enterprise e-commerce, produkt
-            mobile/web i pełny sklep internetowy.
+            Najmocniejsze realizacje pokazujące aplikację na zegarki Garmin,
+            enterprise e-commerce, produkt mobile/web i pełny sklep internetowy.
           </p>
         </div>
         <div className="flex gap-2">
@@ -899,7 +832,7 @@ const SkillGroup = ({
   onToggle,
 }: {
   title: string;
-  skills: string[];
+  skills: Technologies[];
   isExpanded: boolean;
   onToggle: () => void;
 }) => {

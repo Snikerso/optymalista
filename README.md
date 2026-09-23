@@ -130,13 +130,28 @@ npm run dev
 Lokalny adres:
 
 ```text
-http://localhost:3000
+http://localhost:3002
 ```
 
-W tym projekcie często używany jest też port `3002`:
+Jeśli cache dev servera zacznie wariować po zmianach, uruchom wersję z czyszczeniem `.next-dev`:
 
 ```bash
-npm run dev -- -p 3002
+npm run dev:clean
+```
+
+Dev server używa osobnego katalogu `.next-dev`, a build produkcyjny używa `.next`.
+Dzięki temu `npm run build` nie nadpisuje plików używanych przez działający dev server.
+
+Do pełnego wyczyszczenia lokalnych artefaktów służy:
+
+```bash
+npm run clean
+```
+
+Do uruchomienia na domyślnym porcie Nexta służy osobny skrypt:
+
+```bash
+npm run dev:3000
 ```
 
 ## Build

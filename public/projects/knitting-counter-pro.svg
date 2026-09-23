@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">Knitting Counter Pro Garmin watch app</title>
+  <desc id="desc">A stylized preview of a vintage row counter app running on a round Garmin watch.</desc>
+  <rect width="1200" height="750" fill="#130f0c"/>
+  <rect x="78" y="70" width="1044" height="610" rx="22" fill="#fff8ea" stroke="#111827" stroke-width="4"/>
+  <text x="128" y="138" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#17120e">Knitting Counter Pro</text>
+  <text x="128" y="176" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#79543a">Garmin Connect IQ / Monkey C</text>
+  <g transform="translate(700 374)">
+    <circle r="235" fill="#0b0805" stroke="#d3b786" stroke-width="14"/>
+    <circle r="198" fill="#070805" stroke="#5b321e" stroke-width="8"/>
+    <circle r="154" fill="#21120b" stroke="#a26a42" stroke-width="4"/>
+    <circle r="103" fill="#321b12" stroke="#c99361" stroke-width="5"/>
+    <rect x="-128" y="-202" width="256" height="54" rx="26" fill="#2a160f" stroke="#efc996" stroke-width="4"/>
+    <text x="0" y="-164" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" fill="#fff5d8">Project 1</text>
+    <rect x="-74" y="-106" width="148" height="34" rx="10" fill="#2a160f" stroke="#d8a46e" stroke-width="3"/>
+    <text x="0" y="-82" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#fff1c6">R5 / 200</text>
+    <text x="0" y="60" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="124" font-weight="700" fill="#efad74">57</text>
+    <path d="M -184 -64 A 196 196 0 0 0 -184 92" fill="none" stroke="#7b4c2f" stroke-width="58" stroke-linecap="round"/>
+    <path d="M 184 -64 A 196 196 0 0 1 184 92" fill="none" stroke="#a9693c" stroke-width="58" stroke-linecap="round"/>
+    <path d="M -184 -64 A 196 196 0 0 0 -184 92" fill="none" stroke="#e1b47d" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 184 -64 A 196 196 0 0 1 184 92" fill="none" stroke="#f0c38a" stroke-width="4" stroke-linecap="round"/>
+    <text x="-194" y="34" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" fill="#fff5df">-</text>
+    <text x="194" y="34" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" fill="#fff5df">+</text>
+    <rect x="-78" y="158" width="156" height="52" rx="26" fill="#32180e" stroke="#dfb278" stroke-width="4"/>
+    <text x="0" y="195" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="37" fill="#fff5df">RND</text>
+    <g fill="#d8b573">
+      <circle cx="0" cy="-218" r="8"/>
+      <circle cx="0" cy="218" r="8"/>
+      <circle cx="-218" cy="0" r="8"/>
+      <circle cx="218" cy="0" r="8"/>
+      <circle cx="-154" cy="-154" r="7"/>
+      <circle cx="154" cy="-154" r="7"/>
+      <circle cx="-154" cy="154" r="7"/>
+      <circle cx="154" cy="154" r="7"/>
+    </g>
+  </g>
+  <g transform="translate(128 242)">
+    <rect width="384" height="310" rx="18" fill="#17120e"/>
+    <text x="32" y="64" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" fill="#fff5df">Watch-first row counter</text>
+    <text x="32" y="112" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#d8c1a4">Projects, rounds and daily progress</text>
+    <rect x="32" y="154" width="256" height="28" rx="8" fill="#a9693c"/>
+    <rect x="32" y="205" width="312" height="28" rx="8" fill="#6d4329"/>
+    <rect x="32" y="256" width="220" height="28" rx="8" fill="#d8b573"/>
+  </g>
+</svg>

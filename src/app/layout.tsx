@@ -1,5 +1,6 @@
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
+import { ProjectAdRail } from "@/components/organisms/ProjectAdRail";
 import { defaultDescription, siteUrl } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -94,6 +95,7 @@ export default function RootLayout({
         />
         <div className="flex flex-col w-full">
           <Header />
+          <ProjectAdRail />
           <main className="flex-1 h-full">{children}</main>
           <Footer />
         </div>

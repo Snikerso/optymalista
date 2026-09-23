@@ -97,6 +97,17 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         </div>
       </section>
 
+      {project.insideStory ? (
+        <section className="flex flex-col gap-3 rounded-md border-2 border-black bg-gray-50 p-4 sm:p-5">
+          <p className="text-sm font-bold uppercase text-gray-500">
+            Inside story
+          </p>
+          <p className="text-base leading-8 text-gray-800">
+            {project.insideStory}
+          </p>
+        </section>
+      ) : null}
+
       <section className="grid gap-4 md:grid-cols-2">
         <ProjectTextBlock title="Problem" text={project.problem} />
         <ProjectTextBlock title="Rozwiązanie" text={project.solution} />

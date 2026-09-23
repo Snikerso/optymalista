@@ -1,4 +1,5 @@
-import { PortfolioType, Technologies } from "@/types";
+import { Technologies } from "@/data/technologies";
+import { PortfolioType } from "@/types";
 
 export type ProjectDetail = {
   slug: string;
@@ -7,6 +8,7 @@ export type ProjectDetail = {
   period: string;
   summary: string;
   lead: string;
+  insideStory?: string;
   categories: PortfolioType[];
   technologies: Technologies[];
   problem: string;
@@ -23,7 +25,65 @@ export type ProjectDetail = {
   externalLink?: string;
 };
 
+export const featuredProjectSlugs = [
+  "knitting-counter-pro",
+  "royal-mint",
+  "cleanstrategy",
+] as const;
+
+export const isFeaturedProject = (slug: string) =>
+  featuredProjectSlugs.includes(slug as (typeof featuredProjectSlugs)[number]);
+
 export const projectDetails: ProjectDetail[] = [
+  {
+    slug: "knitting-counter-pro",
+    title: "Knitting Counter Pro",
+    role: "Garmin Connect IQ developer / product builder",
+    period: "wrz 2026 - obecnie",
+    summary:
+      "Aplikacja na zegarki Garmin do liczenia rzędów w robótkach ręcznych, zaprojektowana jako dopracowany licznik z projektami, rundami, daily goal i streakiem.",
+    lead:
+      "Knitting Counter Pro powstał jako praktyczna aplikacja na nadgarstek: szybka w obsłudze, czytelna na okrągłej tarczy i wygodna w użyciu podczas dziergania lub szydełkowania.",
+    insideStory:
+      "Pomysł narodził się bardzo domowo: moja dziewczyna miała ręczny licznik rzędów, który często się gubił. Zegarek ma za to zawsze przy sobie, więc naturalnym krokiem było przeniesienie licznika na Garmina.",
+    categories: [PortfolioType.WATCH_APP],
+    technologies: [
+      Technologies.GARMIN_CONNECT_IQ,
+      Technologies.MONKEY_C,
+    ],
+    problem:
+      "Osoby pracujące z wzorami rzędowymi potrzebują licznika, który jest zawsze pod ręką, nie wymaga telefonu i nie gubi kontekstu między projektami oraz rundami.",
+    solution:
+      "Zbudowałem aplikację Garmin Connect IQ z lokalnym zapisem projektów, dużymi łukowymi przyciskami dopasowanymi do tarczy, obsługą rund, celem dziennym i licznikiem streak days.",
+    responsibilities: [
+      "Projektowanie interfejsu pod małą, okrągłą tarczę zegarka i obsługę dotykową.",
+      "Implementacja logiki projektów, liczników, rund, daily goal, streak days i zabezpieczenia przed odejmowaniem poniżej zera.",
+      "Testowanie w symulatorze Garmin oraz na kilku modelach zegarka.",
+      "Dopracowanie publikacyjnego opisu, prywatności i zakresu funkcji pod Garmin Connect IQ Store.",
+    ],
+    effects: [
+      "Aplikacja działa na zegarku i zapisuje postęp lokalnie bez uprawnień sieciowych.",
+      "Interfejs ma vintage charakter, duży licznik i łatwe do trafienia przyciski na bokach tarczy.",
+      "Menu projektu pokazuje dzisiejszy postęp względem celu oraz aktualny streak.",
+    ],
+    gallery: [
+      {
+        title: "Vintage watch UI",
+        caption:
+          "Okrągła tarcza z dużym licznikiem, łukowymi przyciskami plus/minus i przyciskiem RND.",
+        theme: "mobile",
+        imageSrc: "/projects/knitting-counter-pro.svg",
+        imageAlt:
+          "Kadr projektu Knitting Counter Pro z vintage interfejsem na zegarku Garmin.",
+      },
+      {
+        title: "Lokalny licznik projektów",
+        caption:
+          "Projekty, rundy, daily goal i streak są przechowywane lokalnie na zegarku.",
+        theme: "data",
+      },
+    ],
+  },
   {
     slug: "juli-jogi",
     title: "Juli Jogi",
@@ -235,6 +295,7 @@ export const projectDetails: ProjectDetail[] = [
       Technologies.TYPESCRIPT,
       Technologies.BOOTSTRAP,
       Technologies.AZURE,
+      Technologies.AUTH0,
       Technologies.GOOGLE_ANALYTICS,
     ],
     problem:

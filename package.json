@@ -7,6 +7,7 @@
     "dev:3000": "next dev",
     "dev:clean": "node -e \"require('fs').rmSync('.next-dev',{recursive:true,force:true})\" && next dev -p 3002",
     "clean": "node -e \"for (const dir of ['.next', '.next-dev', 'out']) require('fs').rmSync(dir,{recursive:true,force:true})\"",
+    "resume:pdf": "node scripts/generate_resume_pdf.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -30,6 +31,7 @@
     "next": "^14.2.26",
     "next-sanity": "^9.10.2",
     "notion-client": "^7.1.5",
+    "pdfkit": "^0.20.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.0",

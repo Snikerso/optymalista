@@ -53,3 +53,25 @@ main > * {
     padding: 6rem;
   }
 }
+
+@media print {
+  header,
+  footer {
+    display: none !important;
+  }
+
+  main {
+    max-width: none;
+    padding: 0;
+  }
+
+  .resume-page {
+    gap: 1rem;
+    color: black;
+  }
+
+  .resume-page section,
+  .resume-page article {
+    break-inside: avoid;
+  }
+}

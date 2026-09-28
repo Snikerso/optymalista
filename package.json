@@ -8,6 +8,9 @@
     "dev:clean": "node -e \"require('fs').rmSync('.next-dev',{recursive:true,force:true})\" && next dev -p 3002",
     "clean": "node -e \"for (const dir of ['.next', '.next-dev', 'out']) require('fs').rmSync(dir,{recursive:true,force:true})\"",
     "resume:pdf": "node scripts/generate_resume_pdf.mjs",
+    "resume:pdf:en": "node scripts/generate_resume_pdf.mjs netguru-react-native-developer-freelance en",
+    "resume:pdf:pl": "node scripts/generate_resume_pdf.mjs netguru-react-native-developer-freelance pl",
+    "resume:pdf:empik:pl": "node scripts/generate_resume_pdf.mjs empik-frontend-developer pl",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

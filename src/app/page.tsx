@@ -7,7 +7,6 @@ import { useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
 const featuredProjects = [
-  projectDetailsBySlug["knitting-counter-pro"],
   projectDetailsBySlug["royal-mint"],
   projectDetailsBySlug.cleanstrategy,
   projectDetailsBySlug["moment-studio"],
@@ -121,8 +120,8 @@ export default function Home() {
           </div>
         </div>
 
-        <article className="grid min-w-0 gap-4 rounded-md bg-gray-50 p-3 sm:p-4 md:grid-cols-[0.95fr_1.05fr]">
-          <div className="relative overflow-hidden rounded-md border-2 border-black bg-gray-950">
+        <article className="flex min-w-0 flex-col gap-4 rounded-md bg-gray-50 p-3 sm:p-4">
+          <div className="relative overflow-hidden rounded-md border-2 border-black bg-white">
             <div className="flex items-start justify-between gap-3">
               <div className="absolute z-10 flex flex-wrap gap-2 p-4">
                 {activeProject.categories.map((category) => (
@@ -134,20 +133,21 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-              <span className="absolute right-4 top-4 z-10 rounded-md bg-black/70 px-2 py-1 text-xs font-bold text-white">
-                {activeProjectIndex + 1}/{featuredProjects.length}
-              </span>
             </div>
             {activeProjectImage?.imageSrc ? (
               <img
                 src={activeProjectImage.imageSrc}
                 alt={activeProjectImage.imageAlt ?? activeProject.title}
-                className="aspect-[16/10] w-full object-cover"
+                className={
+                  activeProjectImage.imageFit === "contain"
+                    ? "mx-auto block h-auto max-h-[22rem] max-w-full bg-white object-contain"
+                    : "block aspect-[16/10] w-full bg-white object-cover"
+                }
               />
             ) : null}
           </div>
 
-          <div className="flex min-w-0 flex-col justify-between gap-4">
+          <div className="grid min-w-0 gap-4 md:grid-cols-[1fr_1.1fr] md:items-start">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-1">
                 <h3 className="text-2xl font-bold leading-tight">
@@ -160,17 +160,9 @@ export default function Home() {
               <p className="text-sm leading-6 text-gray-800">
                 {activeProject.summary}
               </p>
-              <div className="grid gap-2 text-sm leading-6">
-                <p>
-                  <strong>Problem:</strong> {activeProject.problem}
-                </p>
-                <p className="text-gray-700">
-                  <strong>Rozwiązanie:</strong> {activeProject.solution}
-                </p>
-                <p className="text-gray-700">
-                  <strong>Efekt:</strong> {activeProject.effects[0]}
-                </p>
-              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
               <div className="flex flex-wrap gap-2">
                 {activeProject.technologies.slice(0, 5).map((technology) => (
                   <span
@@ -181,9 +173,8 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
               <Link
                 href={`/projekty/${activeProject.slug}/`}
                 className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
@@ -205,6 +196,7 @@ export default function Home() {
                     }`}
                   />
                 ))}
+              </div>
               </div>
             </div>
           </div>

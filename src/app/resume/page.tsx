@@ -29,10 +29,9 @@ export default function ResumeIndexPage() {
 
       <div className="grid gap-4">
         {resumeTargets.map((target) => (
-          <Link
+          <div
             key={target.slug}
-            href={`/resume/${target.slug}`}
-            className="rounded-md border-2 border-black p-4 transition-colors hover:bg-accent"
+            className="rounded-md border-2 border-black p-4"
           >
             <div className="flex flex-col gap-1">
               <h2 className="text-xl font-bold">{target.role}</h2>
@@ -41,7 +40,21 @@ export default function ResumeIndexPage() {
               </p>
               <p className="text-sm text-gray-600">{target.summary}</p>
             </div>
-          </Link>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                href={`/resume/${target.slug}?lang=en`}
+                className="rounded-md border border-black px-3 py-2 text-sm font-bold transition-colors hover:bg-accent"
+              >
+                English
+              </Link>
+              <Link
+                href={`/resume/${target.slug}?lang=pl`}
+                className="rounded-md border border-black px-3 py-2 text-sm font-bold transition-colors hover:bg-accent"
+              >
+                Polski
+              </Link>
+            </div>
+          </div>
         ))}
       </div>
     </div>

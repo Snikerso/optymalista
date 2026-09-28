@@ -163,7 +163,7 @@ const projectItems: PortfolioItemProps[] = [
     id: "projekt-knitting-counter-pro",
     title: "Knitting Counter Pro",
     role: "Garmin Connect IQ developer / product builder",
-    status: "Wyróżniony",
+    status: "In progress",
     description:
       "Aplikacja na zegarki Garmin do liczenia rzędów w robótkach ręcznych, z projektami, rundami, daily goal, streakiem i vintage interfejsem dopasowanym do okrągłej tarczy.",
     types: [PortfolioType.WATCH_APP],
@@ -309,6 +309,7 @@ const projectItems: PortfolioItemProps[] = [
       "Przygotowanie materiałów i wymagań do projektu graficznego.",
       "Przeniesienie projektu graficznego z Figmy do kodu.",
     ],
+    link: "https://jamboathletic.com/shop",
     caseStudyLink: "/projekty/jambo/",
   },
   {
@@ -666,15 +667,6 @@ const FeaturedProjectsCarousel = ({
     (project) => activeProject.caseStudyLink === `/projekty/${project.slug}/`
   );
   const activeProjectImage = activeProjectDetails?.gallery[0];
-  const caseStudyPoints =
-    activeProject.highlights?.slice(0, 3).map((highlight) => {
-      const [label, ...rest] = highlight.split(": ");
-
-      return {
-        label,
-        value: rest.join(": "),
-      };
-    }) ?? [];
 
   return (
     <section
@@ -688,8 +680,8 @@ const FeaturedProjectsCarousel = ({
           </p>
           <h2 className="text-xl font-bold">Wyróżnione projekty</h2>
           <p className="text-sm leading-6 text-gray-600">
-            Najmocniejsze realizacje pokazujące aplikację na zegarki Garmin,
-            enterprise e-commerce, produkt mobile/web i pełny sklep internetowy.
+            Najmocniejsze realizacje pokazujące enterprise e-commerce, produkt
+            mobile/web i pełny sklep internetowy.
           </p>
         </div>
         <div className="flex gap-2">
@@ -712,8 +704,8 @@ const FeaturedProjectsCarousel = ({
         </div>
       </div>
 
-      <article className="grid gap-4 rounded-md bg-gray-50 p-4 md:grid-cols-[1fr_1.2fr]">
-        <div className="relative overflow-hidden rounded-md border-2 border-black bg-gray-950">
+      <article className="flex flex-col gap-4 rounded-md bg-gray-50 p-4">
+        <div className="relative overflow-hidden rounded-md border-2 border-black bg-white">
           <div className="flex items-start justify-between gap-3">
             <div className="absolute z-10 flex flex-wrap gap-2 p-4">
               {activeProject.types.map((type) => (
@@ -725,20 +717,21 @@ const FeaturedProjectsCarousel = ({
                 </span>
               ))}
             </div>
-            <span className="absolute right-4 top-4 z-10 rounded-md bg-black/70 px-2 py-1 text-xs font-bold text-white">
-              {activeIndex + 1}/{featuredProjectItems.length}
-            </span>
           </div>
           {activeProjectImage?.imageSrc ? (
             <img
               src={activeProjectImage.imageSrc}
               alt={activeProjectImage.imageAlt ?? activeProject.title}
-              className="aspect-[16/10] w-full object-cover"
+              className={
+                activeProjectImage.imageFit === "contain"
+                  ? "mx-auto block h-auto max-h-[22rem] max-w-full bg-white object-contain"
+                  : "block aspect-[16/10] w-full bg-white object-cover"
+              }
             />
           ) : null}
         </div>
 
-        <div className="flex flex-col justify-between gap-4">
+        <div className="grid gap-4 md:grid-cols-[1fr_1.1fr] md:items-start">
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <h3 className="text-2xl font-bold leading-tight">
@@ -751,14 +744,9 @@ const FeaturedProjectsCarousel = ({
             <p className="text-sm leading-6 text-gray-800">
               {activeProject.description}
             </p>
-            <div className="grid gap-2 text-sm leading-6">
-              {caseStudyPoints.map((point) => (
-                <p key={point.label} className="text-gray-700">
-                  <strong className="text-black">{point.label}:</strong>{" "}
-                  {point.value}
-                </p>
-              ))}
-            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
             <div className="flex flex-wrap gap-2">
               {activeProject.technologies.slice(0, 5).map((technology) => (
                 <span
@@ -769,9 +757,8 @@ const FeaturedProjectsCarousel = ({
                 </span>
               ))}
             </div>
-          </div>
 
-          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
             {activeProject.caseStudyLink && (
               <a
                 href={activeProject.caseStudyLink}
@@ -795,6 +782,7 @@ const FeaturedProjectsCarousel = ({
                   }`}
                 />
               ))}
+            </div>
             </div>
           </div>
         </div>

@@ -21,12 +21,12 @@ export type ProjectDetail = {
     theme: "commerce" | "mobile" | "platform" | "studio" | "data" | "brand";
     imageSrc?: string;
     imageAlt?: string;
+    imageFit?: "cover" | "contain";
   }[];
   externalLink?: string;
 };
 
 export const featuredProjectSlugs = [
-  "knitting-counter-pro",
   "royal-mint",
   "cleanstrategy",
 ] as const;
@@ -68,19 +68,24 @@ export const projectDetails: ProjectDetail[] = [
     ],
     gallery: [
       {
-        title: "Vintage watch UI",
+        title: "Watch preview",
         caption:
-          "Okrągła tarcza z dużym licznikiem, łukowymi przyciskami plus/minus i przyciskiem RND.",
+          "Render aplikacji na zegarku Garmin pokazujący główny ekran licznika w kontekście urządzenia.",
         theme: "mobile",
-        imageSrc: "/projects/knitting-counter-pro.svg",
+        imageSrc: "/projects/knitting-counter-pro-watch.png",
         imageAlt:
-          "Kadr projektu Knitting Counter Pro z vintage interfejsem na zegarku Garmin.",
+          "Knitting Counter Pro pokazany na zegarku Garmin z ekranem licznika projektu.",
+        imageFit: "contain",
       },
       {
-        title: "Lokalny licznik projektów",
+        title: "Progress screen",
         caption:
-          "Projekty, rundy, daily goal i streak są przechowywane lokalnie na zegarku.",
-        theme: "data",
+          "Widok postępu z daily goal, dzisiejszymi rzędami i licznikiem streak days.",
+        theme: "mobile",
+        imageSrc: "/projects/knitting-counter-pro-progress.png",
+        imageAlt:
+          "Knitting Counter Pro pokazany na zegarku Garmin z ekranem postępu.",
+        imageFit: "contain",
       },
     ],
   },
@@ -121,16 +126,40 @@ export const projectDetails: ProjectDetail[] = [
     ],
     gallery: [
       {
-        title: "Platforma zajęć",
-        caption: "Widok oferty i treści przygotowany pod spokojną, czytelną prezentację.",
+        title: "Strona startowa",
+        caption:
+          "Hero platformy z jasnym wejściem do kursów jogi online i spokojną estetyką marki.",
         theme: "platform",
-        imageSrc: "/projects/juli-jogi.png",
-        imageAlt: "Kadr projektu Juli Jogi z widokiem platformy do jogi.",
+        imageSrc: "/projects/juli-jogi-home.png",
+        imageAlt: "Juli Jogi z widokiem strony startowej i sekcji hero.",
+        imageFit: "contain",
       },
       {
-        title: "Zaplecze aplikacyjne",
-        caption: "Układ backendu i integracji pod formularze, treści oraz kontakt.",
+        title: "Oferta kursów",
+        caption:
+          "Sekcja kursów online z opisem produktu, mockupem aplikacji i kartami funkcji.",
+        theme: "platform",
+        imageSrc: "/projects/juli-jogi-courses.png",
+        imageAlt: "Juli Jogi z sekcją kursów jogi online i kartami funkcji.",
+        imageFit: "contain",
+      },
+      {
+        title: "Lekcja wideo",
+        caption:
+          "Widok lekcji z nawigacją kursu, progressem i odtwarzaczem materiału wideo.",
+        theme: "platform",
+        imageSrc: "/projects/juli-jogi-lesson-player.png",
+        imageAlt: "Juli Jogi z widokiem lekcji wideo i listą lekcji kursu.",
+        imageFit: "contain",
+      },
+      {
+        title: "Dziennik praktyk",
+        caption:
+          "Formularz zapisu praktyki po lekcji z notatką, odczuciami i historią sesji.",
         theme: "data",
+        imageSrc: "/projects/juli-jogi-practice-journal.png",
+        imageAlt: "Juli Jogi z widokiem dziennika praktyki po lekcji.",
+        imageFit: "contain",
       },
     ],
     externalLink: "https://test.julijogi.com/",
@@ -210,7 +239,8 @@ export const projectDetails: ProjectDetail[] = [
       "Zbudowałem pełny sklep internetowy z frontendem, backendem w Nest.js, MongoDB, płatnościami Stripe i wiadomościami przez Resend.",
     responsibilities: [
       "Przełożenie identyfikacji i kierunku wizualnego na responsywny frontend.",
-      "Przygotowanie logiki produktowej, zamówień i płatności.",
+      "Stworzenie systemu produktów oraz obsługi stanu magazynowego.",
+      "Integracja płatności przez Stripe w procesie składania zamówienia.",
       "Połączenie procesu zakupowego z komunikacją mailową.",
     ],
     effects: [
@@ -221,15 +251,30 @@ export const projectDetails: ProjectDetail[] = [
     gallery: [
       {
         title: "Sklep internetowy",
-        caption: "Widok produktu i ścieżki zakupowej dla marki kreatywnej.",
+        caption:
+          "Lista produktów z ceramiką, cenami i nawigacją sklepu internetowego.",
         theme: "studio",
-        imageSrc: "/projects/moment-studio.png",
-        imageAlt: "Kadr projektu Moment Studio z widokiem sklepu internetowego.",
+        imageSrc: "/projects/moment-studio-products-grid.png",
+        imageAlt: "Lista produktów Moment Studio z ceramiką i cenami.",
+        imageFit: "contain",
+      },
+      {
+        title: "Stan magazynowy",
+        caption:
+          "Sekcja produktowa przygotowana pod obsługę oferty i dostępności produktów.",
+        theme: "studio",
+        imageSrc: "/projects/moment-studio-product-carousel.png",
+        imageAlt: "Sekcja produktów Moment Studio z karuzelą ceramiki.",
+        imageFit: "contain",
       },
       {
         title: "Proces płatności",
-        caption: "Zaplecze zamówień, płatności Stripe i komunikacji mailowej.",
+        caption:
+          "Krok płatności z metodami płatniczymi i formularzem finalizacji zamówienia.",
         theme: "commerce",
+        imageSrc: "/projects/moment-studio-payment.png",
+        imageAlt: "Ekran płatności Moment Studio z metodami BLIK, Przelewy24 i karta.",
+        imageFit: "contain",
       },
     ],
     externalLink: "https://www.ismomentstudio.com/",
@@ -268,17 +313,24 @@ export const projectDetails: ProjectDetail[] = [
     gallery: [
       {
         title: "Lista produktów",
-        caption: "Kompozycja sklepu z naciskiem na produkt i czytelne CTA.",
+        caption:
+          "Widok sklepu z produktami, cenami i CTA w ciemnej stylistyce marki.",
         theme: "commerce",
-        imageSrc: "/projects/jambo.png",
-        imageAlt: "Kadr projektu Jambo z widokiem e-commerce.",
+        imageSrc: "/projects/jambo-shop.png",
+        imageAlt: "Jambo Athletic z widokiem sklepu i listą produktów.",
+        imageFit: "contain",
       },
       {
-        title: "Frontend z Figmy",
-        caption: "Przeniesienie projektu wizualnego do działających komponentów.",
+        title: "Mapa klientów",
+        caption:
+          "Sekcja klientów z mapą Europy i informacją o zespołach korzystających z produktów.",
         theme: "brand",
+        imageSrc: "/projects/jambo-clients-map.png",
+        imageAlt: "Jambo Athletic z sekcją Our clients i mapą Europy.",
+        imageFit: "contain",
       },
     ],
+    externalLink: "https://jamboathletic.com/shop",
   },
   {
     slug: "royal-mint",
@@ -286,9 +338,11 @@ export const projectDetails: ProjectDetail[] = [
     role: "Frontend developer at NoA Ignite",
     period: "lip 2024 - obecnie",
     summary:
-      "E-commerce dla rynku metali szlachetnych: złota, srebra i platyny.",
+      "Enterprise e-commerce dla rynku metali szlachetnych: złota, srebra i platyny, rozwijany w środowisku produkcyjnym o dużej skali i silnych wymaganiach stabilności.",
     lead:
-      "Projekt realizowany przy NoA Ignite dla klienta z UK. To przykład pracy przy komercyjnym systemie enterprise, gdzie ważne są stabilność, utrzymanie i zgodność z istniejącą architekturą.",
+      "Projekt realizowany przy NoA Ignite dla klienta z UK. To przykład pracy przy dojrzałym systemie commerce, w którym każda zmiana musi pasować do istniejącej architektury, aktualnych procesów zakupowych, analityki i wymagań jakościowych klienta enterprise.",
+    insideStory:
+      "Najważniejszy ciężar tej pracy nie polegał na budowaniu efektownego demo od zera, tylko na odpowiedzialnym rozwijaniu istniejącego produktu. W praktyce oznaczało to czytanie legacy codebase, szukanie źródeł regresji, porządkowanie komponentów i dowożenie zmian tak, aby nie rozbić już działających ścieżek użytkownika.",
     categories: [PortfolioType.WEB_APP],
     technologies: [
       Technologies.REACT,
@@ -299,32 +353,49 @@ export const projectDetails: ProjectDetail[] = [
       Technologies.GOOGLE_ANALYTICS,
     ],
     problem:
-      "Rozwijany system e-commerce wymagał utrzymania istniejących rozwiązań, poprawy doświadczenia użytkownika i pracy w ramach legacy codebase.",
+      "Rozwijany system e-commerce wymagał utrzymania istniejących rozwiązań, poprawy doświadczenia użytkownika i pracy w ramach legacy codebase, w którym frontend, dane produktowe, logika zakupowa i analityka są mocno ze sobą powiązane.",
     solution:
-      "Wspierałem rozwój interfejsów sklepu i komponentów produktowych, dbając o jakość frontendu, zgodność ze standardami i stabilność zmian.",
+      "Wspierałem rozwój interfejsów sklepu i komponentów produktowych, pracując blisko istniejącej architektury React/TypeScript. Skupiałem się na stabilnych, punktowych zmianach: od debugowania i porządkowania UI, przez obsługę danych produktowych, po wsparcie analityki i zachowania przepływów zakupowych.",
     responsibilities: [
-      "Usprawnianie i utrzymywanie legacy systems.",
-      "Debugowanie, optymalizacja oraz dopasowanie frontendu do aktualnych standardów.",
+      "Utrzymywanie i rozwijanie frontendu w dużym, istniejącym systemie e-commerce.",
+      "Praca z komponentami produktowymi, widokami zakupowymi i danymi prezentowanymi użytkownikowi.",
+      "Debugowanie regresji oraz dopasowywanie zmian do legacy codebase bez naruszania istniejących przepływów.",
+      "Synchronizowanie logiki UI, etykiet, tooltipów, kolorów i danych tam, gdzie komponenty zależały od kolejności lub kontraktu wejściowego.",
       "Wsparcie wdrożenia i utrzymania elementów Google Analytics w środowisku e-commerce.",
-      "Praca z komponentami produktowymi i środowiskiem opartym o Azure.",
+      "Współpraca z zespołem przy zmianach uruchamianych w środowisku opartym o Azure.",
     ],
     effects: [
-      "Projekt był utrzymywany i rozwijany bez destabilizowania istniejących przepływów.",
-      "Kod frontendu był porządkowany i dostosowywany do wymagań klienta enterprise.",
-      "Analityka wspierała lepsze rozumienie ruchu i zachowań użytkowników w sklepie.",
-      "Doświadczenie użytkownika w częściach sklepowych było stopniowo ulepszane.",
+      "Projekt był utrzymywany i rozwijany bez destabilizowania istniejących przepływów zakupowych.",
+      "Komponenty frontendu były porządkowane i dopasowywane do wymagań klienta enterprise.",
+      "Zmiany w warstwie prezentacji danych były sprawdzane pod kątem spójności etykiet, wartości i zachowania UI.",
+      "Analityka wspierała lepsze rozumienie ruchu oraz zachowań użytkowników w sklepie.",
+      "Doświadczenie użytkownika w częściach sklepowych było stopniowo ulepszane przy zachowaniu produkcyjnej ostrożności.",
     ],
     gallery: [
       {
-        title: "Enterprise e-commerce",
-        caption: "Komponenty produktowe i ścieżki zakupowe dla dużego systemu.",
+        title: "Gold coins and bars",
+        caption:
+          "Desktopowy widok listy produktowej pokazujący filtry, karty produktów i prezentację oferty e-commerce.",
         theme: "commerce",
-        imageSrc: "/projects/royal-mint.png",
-        imageAlt: "Kadr projektu Royal Mint z widokiem enterprise e-commerce.",
+        imageSrc: "/projects/royal-mint-gold-coins-desktop.png",
+        imageAlt:
+          "Screenshot listy produktów Gold Coins and Bars The Royal Mint w widoku desktop.",
+        imageFit: "contain",
+      },
+      {
+        title: "Cluedo campaign",
+        caption:
+          "Mobilny widok kampanii produktowej pokazujący responsywną prezentację hero, nawigacji i CTA.",
+        theme: "commerce",
+        imageSrc: "/projects/royal-mint-cluedo-mobile.png",
+        imageAlt:
+          "Screenshot kampanii Cluedo The Royal Mint w widoku mobilnym.",
+        imageFit: "contain",
       },
       {
         title: "Utrzymanie systemu",
-        caption: "Praca z legacy codebase, Reactem, TypeScriptem i Azure.",
+        caption:
+          "Praca z legacy codebase, Reactem, TypeScriptem, analityką i środowiskiem opartym o Azure.",
         theme: "data",
       },
     ],
@@ -364,15 +435,31 @@ export const projectDetails: ProjectDetail[] = [
     gallery: [
       {
         title: "Mapa argumentów",
-        caption: "Wizualizacja relacji i struktury dyskusji oparta o grafy.",
+        caption:
+          "Widok grafu pokazujący relacje między argumentami, źródłami i kontrargumentami.",
         theme: "data",
-        imageSrc: "/projects/swarmcheck.png",
-        imageAlt: "Kadr projektu Swarmcheck z widokiem mapy argumentów.",
+        imageSrc: "/projects/swarmcheck-argument-map.png",
+        imageAlt:
+          "Swarmcheck z widokiem mapy argumentów dla dyskusji o ataku atomowym na Hiroszimę.",
+        imageFit: "contain",
       },
       {
-        title: "Kontrola dostępu",
-        caption: "Role, uprawnienia i backendowe endpointy do pracy z danymi.",
+        title: "Lista dyskusji",
+        caption:
+          "Ekran z katalogiem dyskusji, sortowaniem i kartami tematów do analizy.",
         theme: "platform",
+        imageSrc: "/projects/swarmcheck-discussions.png",
+        imageAlt: "Swarmcheck z listą dostępnych dyskusji i sortowaniem.",
+        imageFit: "contain",
+      },
+      {
+        title: "Zapraszanie użytkowników",
+        caption:
+          "Widok generowania linku zaproszeniowego z wyborem roli i języka.",
+        theme: "platform",
+        imageSrc: "/projects/swarmcheck-invite-link.png",
+        imageAlt: "Swarmcheck z ekranem tworzenia linku zaproszeniowego.",
+        imageFit: "contain",
       },
     ],
     externalLink: "https://app.swarmcheck.ai/public",

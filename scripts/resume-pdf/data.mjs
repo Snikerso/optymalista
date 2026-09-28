@@ -63,26 +63,30 @@ const rankEvidence = (profile, target) =>
     .sort((first, second) => second.score - first.score)
     .map(({ source }) => source);
 
-export const getResumeTarget = (targetSlug) =>
-  resumeData.targets.find((target) => target.slug === targetSlug);
-
-export const generateResumeForTarget = (targetSlug) => {
-  const target = getResumeTarget(targetSlug);
-
-  if (!target) {
-    throw new Error(`Unknown resume target: ${targetSlug}`);
+const selectProjectEvidence = (profile, rankedEvidence, target) => {
+  if (!target.projectTitles) {
+    return rankedEvidence
+      .filter((item) => item.type === "project")
+      .slice(0, 3);
   }
 
-  const profile = resumeData.profile;
-  const rankedEvidence = rankEvidence(profile, target);
+  return target.projectTitles
+    .map((title) => profile.evidence.find((item) => item.title === title))
+    .filter(Boolean);
+};
 
-  return {
-    profile,
-    target,
-    title: `${profile.name} - ${target.role} - ${target.company}`,
+const contentByLanguage = {
+  en: {
     headline: "React Native / React / TypeScript Developer",
     summary:
       "React and React Native developer with fullstack product experience, strongest in TypeScript, mobile/web product flows, e-commerce frontends and backend collaboration. I bring hands-on React Native/Expo work from CleanStrategy, enterprise React/TypeScript delivery from The Royal Mint, and broader API/authorization ownership from Swarmcheck.",
+    sections: {
+      skills: "Skills",
+      experience: "Experience",
+      projects: "Projects",
+      languages: "Languages",
+    },
+    techLabel: "Tech",
     skillGroups: [
       {
         title: "Best match",
@@ -118,11 +122,120 @@ export const generateResumeForTarget = (targetSlug) => {
         ],
       },
     ],
+  },
+  pl: {
+    headline: "React Native / React / TypeScript Developer",
+    summary:
+      "Developer React i React Native z fullstackowym doświadczeniem produktowym, najmocniejszy w TypeScript, przepływach mobilnych i webowych, frontendach e-commerce oraz współpracy z backendem. Wnoszę praktyczne doświadczenie React Native/Expo z CleanStrategy, enterprise React/TypeScript z The Royal Mint oraz szerszą odpowiedzialność za API i autoryzację ze Swarmcheck.",
+    sections: {
+      skills: "Umiejętności",
+      experience: "Doświadczenie",
+      projects: "Projekty",
+      languages: "Języki",
+    },
+    techLabel: "Tech",
+    skillGroups: [
+      {
+        title: "Najlepsze dopasowanie",
+        skills: [
+          "React Native",
+          "Expo",
+          "TypeScript",
+          "React.js",
+          "Rozwój produktu",
+          "Współpraca zdalna",
+        ],
+      },
+      {
+        title: "Frontend i mobile",
+        skills: [
+          "Next.js",
+          "JavaScript",
+          "HTML5",
+          "Tailwind CSS",
+          "Bootstrap",
+          "Design-to-code",
+        ],
+      },
+      {
+        title: "Backend i delivery",
+        skills: [
+          "Node.js",
+          "Nest.js",
+          "Express.js",
+          "MongoDB",
+          "REST APIs",
+          "Azure",
+        ],
+      },
+    ],
+  },
+};
+
+const getResumeLanguage = (language = "en") => (language === "pl" ? "pl" : "en");
+
+const getResumeProfile = (language) => {
+  if (language === "en") {
+    return resumeData.profile;
+  }
+
+  const translation = resumeData.locales?.[language]?.profile;
+
+  if (!translation) {
+    return resumeData.profile;
+  }
+
+  return {
+    ...resumeData.profile,
+    ...translation,
+    evidence: resumeData.profile.evidence.map((item) => ({
+      ...item,
+      ...translation.evidence?.[item.title],
+    })),
+  };
+};
+
+export const getResumeTarget = (targetSlug) =>
+  resumeData.targets.find((target) => target.slug === targetSlug);
+
+const getLocalizedResumeTarget = (targetSlug, language) => {
+  const target = getResumeTarget(targetSlug);
+
+  if (!target || language === "en") {
+    return target;
+  }
+
+  return {
+    ...target,
+    ...resumeData.locales?.[language]?.targets?.[targetSlug],
+  };
+};
+
+export const generateResumeForTarget = (targetSlug, requestedLanguage = "en") => {
+  const language = getResumeLanguage(requestedLanguage);
+  const target = getLocalizedResumeTarget(targetSlug, language);
+
+  if (!target) {
+    throw new Error(`Unknown resume target: ${targetSlug}`);
+  }
+
+  const profile = getResumeProfile(language);
+  const content = contentByLanguage[language];
+  const rankedEvidence = rankEvidence(profile, target);
+
+  return {
+    profile,
+    target,
+    language,
+    title: `${profile.name} - ${target.role} - ${target.company}`,
+    headline: target.headline ?? content.headline,
+    summary: target.resumeSummary ?? content.summary,
+    sections: content.sections,
+    techLabel: content.techLabel,
+    skillGroups: target.skillGroups ?? content.skillGroups,
     experience: rankedEvidence
       .filter((item) => item.type === "experience")
       .slice(0, 4),
-    projects: rankedEvidence
-      .filter((item) => item.type === "project")
-      .slice(0, 3),
+    projects: selectProjectEvidence(profile, rankedEvidence, target),
   };
 };

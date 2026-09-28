@@ -151,6 +151,165 @@
       }
     ]
   },
+  "locales": {
+    "pl": {
+      "profile": {
+        "headline": "Frontend / Fullstack / Product Developer",
+        "location": "Poznań, Polska / zdalnie",
+        "bio": "Projektuję i buduję aplikacje webowe, mobilne i produktowe od interfejsu po backend. Najczęściej pracuję z React, Next.js, React Native, Nest.js, Node.js i TypeScript, łącząc implementację z myśleniem produktowym, integracjami, analityką i odpowiedzialnością za dowożenie.",
+        "languages": [
+          "Polski: ojczysty",
+          "Angielski: biegłość zawodowa"
+        ],
+        "evidence": {
+          "CleanStrategy": {
+            "role": "Mobile developer / product builder",
+            "summary": "Produkt mobilny i webowy pomagający gospodarstwom domowym organizować obowiązki, harmonogramy i podział odpowiedzialności.",
+            "bullets": [
+              "Zaprojektowałem i rozwijałem produkt React Native / Expo z przepływami zadań, harmonogramami i logiką odpowiedzialności domowej.",
+              "Zbudowałem wspierający backend w Nest.js i MongoDB, aby klienci mobilni i webowi mogli rozwijać się równolegle.",
+              "Odpowiadałem za logikę produktu i kluczowe ścieżki użytkownika, z naciskiem na szybką iterację i praktyczne codzienne użycie."
+            ],
+            "links": [{ "label": "Case study", "href": "/projekty/cleanstrategy/" }]
+          },
+          "The Royal Mint": {
+            "role": "Frontend Web Developer",
+            "location": "Zdalnie",
+            "summary": "Prace frontendowe przy korporacyjnej platformie e-commerce dla rynku metali szlachetnych.",
+            "bullets": [
+              "Rozwijałem i utrzymywałem funkcje frontendowe React i TypeScript w legacy korporacyjnym codebase e-commerce.",
+              "Debugowałem, optymalizowałem i modernizowałem kod UI, utrzymując stabilność istniejących ścieżek komercyjnych.",
+              "Wspierałem prace przy Google Analytics oraz ulepszenia frontendu dla doświadczeń produktowych i zakupowych."
+            ],
+            "links": [{ "label": "Case study", "href": "/projekty/royal-mint/" }]
+          },
+          "Swarmcheck": {
+            "role": "Fullstack Developer",
+            "location": "Zdalnie",
+            "summary": "Aplikacja webowa do uporządkowanej argumentacji, fact-checkingu i pracy z danymi.",
+            "bullets": [
+              "Wdrożyłem autorski system autoryzacji RBAC i endpointy backendowe dla kontrolowanych przepływów danych.",
+              "Budowałem interfejsy React i wizualizacje grafowe D3.js do eksplorowania relacji między argumentami.",
+              "Pracowałem na styku frontendu i backendu w produkcie obejmującym dane, dostęp i współpracę."
+            ],
+            "links": [{ "label": "Case study", "href": "/projekty/swarmcheck/" }]
+          },
+          "Moment Studio": {
+            "role": "Fullstack developer",
+            "summary": "Kompletna implementacja e-commerce łącząca prezentację marki, produkty, płatności i przepływy backendowe.",
+            "bullets": [
+              "Zbudowałem frontend, backend Nest.js, model produktów w MongoDB, płatności Stripe i przepływ wiadomości transakcyjnych.",
+              "Przełożyłem kierunek marki na responsywne, produktowe interfejsy commerce."
+            ],
+            "links": [{ "label": "Case study", "href": "/projekty/moment-studio/" }]
+          },
+          "Jambo": {
+            "role": "Frontend developer",
+            "summary": "Frontend e-commerce wdrożony na podstawie projektów Figma i wymagań produktowych.",
+            "bullets": [
+              "Przekładałem projekty Figma na responsywne widoki commerce w React/Next.js.",
+              "Przygotowywałem materiały projektowe i wymagania dla prac nad implementacją wizualną."
+            ],
+            "links": [{ "label": "Case study", "href": "/projekty/jambo/" }]
+          },
+          "Will Code Academy": {
+            "role": "Instruktor",
+            "location": "Zdalnie",
+            "summary": "Edukacja programistyczna, mentoring i tworzenie materiałów dla osób uczących się frontendu.",
+            "bullets": [
+              "Prowadziłem praktyczne lekcje programowania i mentorowałem początkującym developerom.",
+              "Projektowałem metody nauczania upraszczające trudne pojęcia programistyczne."
+            ],
+            "links": [{ "label": "Strona", "href": "https://willcodeacademy.com/" }]
+          }
+        }
+      },
+      "targets": {
+        "netguru-react-native-developer-freelance": {
+          "role": "React Native Developer - Freelance",
+          "contract": "B2B freelance, pełny etat",
+          "location": "Poznań / zdalnie, godziny CET-EU",
+          "workMode": "100% zdalnie",
+          "rate": "do 31 EUR/h",
+          "summary": "Seniorska rola freelance React Native skoncentrowana na TypeScript, nawigacji, współdzielonym stanie i pobieraniu danych, bibliotekach komponentów design systemu, testach mobilnych, push notification, deep linkingu i API urządzeń.",
+          "priorities": [
+            "Prowadź CleanStrategy jako najbliższy dowód doświadczenia React Native / Expo / TypeScript.",
+            "Wykorzystaj Royal Mint, aby pokazać enterprise React, TypeScript, e-commerce i pracę zdalną.",
+            "Wykorzystaj Swarmcheck jako dowód szerszego product engineeringu, pracy z backendem/API i autoryzacją.",
+            "Zachowaj uczciwość przy Jest, React Native Testing Library, push notifications i deep linkingu, dopóki nie pojawi się więcej materiału źródłowego."
+          ],
+          "honestGaps": [
+            "Źródła portfolio nie wspominają wprost o React Navigation.",
+            "Źródła portfolio nie wspominają wprost o Jest ani React Native Testing Library.",
+            "Źródła portfolio nie wspominają wprost o push notifications, deep linkingu ani natywnych API urządzeń."
+          ]
+        },
+        "empik-frontend-developer": {
+          "role": "Frontend Developer",
+          "contract": "Umowa o pracę",
+          "location": "Warszawa / zdalnie",
+          "workMode": "Praca zdalna",
+          "rate": "stawka niepodana w źródle",
+          "summary": "Rola frontendowa w Empik S.A. skoncentrowana na React.js, TypeScript, JavaScript, HTML, CSS, Next.js, Playwright, CI/CD, jakości kodu, wydajności, SEO i rozwoju produktów e-commerce.",
+          "headline": "Frontend Developer - React / TypeScript / Next.js",
+          "resumeSummary": "Frontend Developer z praktycznym doświadczeniem w React, TypeScript, Next.js i e-commerce. W The Royal Mint utrzymywałem enterprise frontend zakupowy, w Moment Studio wdrażałem kompletne przepływy commerce, a w Swarmcheck rozwijałem złożone interfejsy React połączone z backendem. Do Empiku wnoszę stabilny delivery, pracę produktową, analitykę i dbałość o jakość wdrożeń.",
+          "skillGroups": [
+            {
+              "title": "Najlepsze dopasowanie",
+              "skills": [
+                "React.js",
+                "TypeScript",
+                "Next.js",
+                "JavaScript",
+                "HTML5",
+                "CSS"
+              ]
+            },
+            {
+              "title": "E-commerce i produkt",
+              "skills": [
+                "E-commerce",
+                "UX wdrożeniowy",
+                "Google Analytics",
+                "SEO",
+                "Wydajność frontendu",
+                "Scrum/Kanban"
+              ]
+            },
+            {
+              "title": "Delivery i integracje",
+              "skills": [
+                "REST APIs",
+                "Node.js",
+                "Nest.js",
+                "MongoDB",
+                "Azure",
+                "Praca zdalna"
+              ]
+            }
+          ],
+          "coverNote": "Aplikację do Empiku pozycjonuję wokół doświadczenia w stabilnym rozwoju frontendów e-commerce, pracy w React/TypeScript oraz umiejętności łączenia UI z produktowym kontekstem, analityką i backendem. Najmocniejsze dopasowanie to The Royal Mint jako enterprise e-commerce oraz Moment Studio i Jambo jako samodzielne wdrożenia commerce.",
+          "projectTitles": [
+            "The Royal Mint",
+            "Moment Studio",
+            "Jambo"
+          ],
+          "priorities": [
+            "Na pierwszym planie pokaż The Royal Mint: enterprise e-commerce, React, TypeScript, stabilność istniejących ścieżek zakupowych i praca zdalna.",
+            "Dodaj Moment Studio jako dowód pełnego wdrożenia e-commerce od frontendu po płatności i backend.",
+            "Użyj Jambo do pokazania Next.js, HTML, CSS, pracy z projektami Figma i implementacji widoków commerce.",
+            "Swarmcheck zostaw jako dowód pracy nad złożonymi interfejsami React, integracją z backendem i odpowiedzialnością za produkt."
+          ],
+          "honestGaps": [
+            "Źródła portfolio nie wspominają wprost o Playwright.",
+            "Źródła portfolio nie wspominają wprost o CI/CD.",
+            "Źródła portfolio nie wspominają wprost o Cloudflare/CDN.",
+            "Źródła portfolio nie wspominają wprost o pracy z AI coding assistants."
+          ]
+        }
+      }
+    }
+  },
   "targets": [
     {
       "slug": "netguru-react-native-developer-freelance",
@@ -197,6 +356,102 @@
         "Portfolio source does not explicitly mention React Navigation.",
         "Portfolio source does not explicitly mention Jest or React Native Testing Library.",
         "Portfolio source does not explicitly mention push notifications, deep linking or native device APIs."
+      ]
+    },
+    {
+      "slug": "empik-frontend-developer",
+      "company": "Empik S.A.",
+      "role": "Frontend Developer",
+      "sourceUrl": "https://www.pracuj.pl/praca/frontend-developer-warszawa-marszalkowska-104-122,oferta,1005112433",
+      "publishedAt": "2026-09-28",
+      "contract": "Employment contract",
+      "location": "Warsaw / remote",
+      "workMode": "Remote",
+      "rate": "not stated",
+      "summary": "Frontend role focused on React.js, TypeScript, JavaScript, HTML, CSS, Next.js, Playwright, CI/CD, code quality, performance, SEO and e-commerce product development.",
+      "headline": "Frontend Developer - React / TypeScript / Next.js",
+      "resumeSummary": "Frontend Developer with practical experience in React, TypeScript, Next.js and e-commerce. I maintained an enterprise shopping frontend for The Royal Mint, delivered complete commerce flows in Moment Studio, and built complex React interfaces connected with backend systems in Swarmcheck.",
+      "skillGroups": [
+        {
+          "title": "Best match",
+          "skills": [
+            "React.js",
+            "TypeScript",
+            "Next.js",
+            "JavaScript",
+            "HTML5",
+            "CSS"
+          ]
+        },
+        {
+          "title": "E-commerce and product",
+          "skills": [
+            "E-commerce",
+            "Implementation UX",
+            "Google Analytics",
+            "SEO",
+            "Frontend performance",
+            "Scrum/Kanban"
+          ]
+        },
+        {
+          "title": "Delivery and integrations",
+          "skills": [
+            "REST APIs",
+            "Node.js",
+            "Nest.js",
+            "MongoDB",
+            "Azure",
+            "Remote collaboration"
+          ]
+        }
+      ],
+      "coverNote": "I would position this application around stable e-commerce frontend delivery, React/TypeScript development and the ability to connect UI work with product context, analytics and backend collaboration.",
+      "projectTitles": [
+        "The Royal Mint",
+        "Moment Studio",
+        "Jambo"
+      ],
+      "requiredTechnologies": [
+        "React.js",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS",
+        "Next.js",
+        "E-commerce",
+        "Google Analytics"
+      ],
+      "keywords": [
+        "react",
+        "typescript",
+        "javascript",
+        "html",
+        "css",
+        "next",
+        "frontend",
+        "e-commerce",
+        "commerce",
+        "seo",
+        "performance",
+        "analytics",
+        "scrum",
+        "kanban",
+        "remote",
+        "playwright",
+        "ci/cd"
+      ],
+      "priorities": [
+        "Lead with The Royal Mint as enterprise e-commerce, React, TypeScript, purchase-path stability and remote delivery proof.",
+        "Use Moment Studio as evidence of complete e-commerce delivery across frontend, payments and backend.",
+        "Use Jambo to show Next.js, HTML, CSS, Figma-to-code and commerce view implementation.",
+        "Keep Playwright, CI/CD, Cloudflare/CDN and AI coding assistant claims as gaps unless stronger source evidence is added."
+      ],
+      "honestGaps": [
+        "Portfolio source does not explicitly mention Playwright.",
+        "Portfolio source does not explicitly mention CI/CD.",
+        "Portfolio source does not explicitly mention Cloudflare/CDN.",
+        "Portfolio source does not explicitly mention AI coding assistants."
       ]
     }
   ]

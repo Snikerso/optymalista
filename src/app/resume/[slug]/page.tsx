@@ -1,4 +1,5 @@
 import { resumeTargets } from "@/data/resumeTargets";
+import type { ResumeLanguage } from "@/data/resumeSource";
 import { generateResumeForTarget } from "@/lib/resumeGenerator";
 import { notFound } from "next/navigation";
 
@@ -6,6 +7,46 @@ type ResumePageProps = {
   params: {
     slug: string;
   };
+  searchParams?: {
+    lang?: string;
+  };
+};
+
+const getResumeLanguage = (language?: string): ResumeLanguage =>
+  language === "pl" ? "pl" : "en";
+
+const copyByLanguage: Record<
+  ResumeLanguage,
+  {
+    eyebrow: string;
+    experience: string;
+    projects: string;
+    applicationAngle: string;
+    honestGaps: string;
+    honestGapsDescription: string;
+    metadataTitle: string;
+  }
+> = {
+  en: {
+    eyebrow: "Targeted resume",
+    experience: "Experience",
+    projects: "Selected Projects",
+    applicationAngle: "Application Angle",
+    honestGaps: "Honest Gap Notes",
+    honestGapsDescription:
+      "These are not written as claims in the resume because they are not explicit in the current portfolio source.",
+    metadataTitle: "Resume",
+  },
+  pl: {
+    eyebrow: "CV dopasowane do oferty",
+    experience: "Doświadczenie",
+    projects: "Wybrane projekty",
+    applicationAngle: "Strategia aplikacji",
+    honestGaps: "Uczciwe braki",
+    honestGapsDescription:
+      "Te punkty nie są wpisane jako deklaracje w CV, ponieważ nie wynikają wprost z obecnych źródeł portfolio.",
+    metadataTitle: "CV",
+  },
 };
 
 export const generateStaticParams = () =>
@@ -13,13 +54,15 @@ export const generateStaticParams = () =>
     slug: target.slug,
   }));
 
-export const generateMetadata = ({ params }: ResumePageProps) => {
+export const generateMetadata = ({ params, searchParams }: ResumePageProps) => {
   const target = resumeTargets.find((item) => item.slug === params.slug);
+  const language = getResumeLanguage(searchParams?.lang);
+  const copy = copyByLanguage[language];
 
   return {
     title: target
-      ? `Resume - ${target.role} - ${target.company}`
-      : "Resume",
+      ? `${copy.metadataTitle} - ${target.role} - ${target.company}`
+      : copy.metadataTitle,
     robots: {
       index: false,
       follow: false,
@@ -27,14 +70,16 @@ export const generateMetadata = ({ params }: ResumePageProps) => {
   };
 };
 
-export default function ResumePage({ params }: ResumePageProps) {
+export default function ResumePage({ params, searchParams }: ResumePageProps) {
   const target = resumeTargets.find((item) => item.slug === params.slug);
 
   if (!target) {
     notFound();
   }
 
-  const resume = generateResumeForTarget(params.slug);
+  const language = getResumeLanguage(searchParams?.lang);
+  const copy = copyByLanguage[language];
+  const resume = generateResumeForTarget(params.slug, language);
 
   return (
     <div className="resume-page flex flex-col gap-8">
@@ -42,7 +87,7 @@ export default function ResumePage({ params }: ResumePageProps) {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex flex-col gap-2">
             <p className="text-sm font-bold uppercase text-gray-500">
-              Targeted resume
+              {copy.eyebrow}
             </p>
             <h1 className="text-4xl font-bold leading-tight">
               {resume.profile.name}
@@ -100,12 +145,12 @@ export default function ResumePage({ params }: ResumePageProps) {
         ))}
       </section>
 
-      <ResumeSection title="Experience" items={resume.experience} />
-      <ResumeSection title="Selected Projects" items={resume.projects} />
+      <ResumeSection title={copy.experience} items={resume.experience} />
+      <ResumeSection title={copy.projects} items={resume.projects} />
 
       <section className="grid gap-4 border-t-2 border-gray-200 pt-6 md:grid-cols-2">
         <div className="flex flex-col gap-3">
-          <h2 className="text-xl font-bold">Application Angle</h2>
+          <h2 className="text-xl font-bold">{copy.applicationAngle}</h2>
           <p className="text-sm leading-6 text-gray-700">{resume.coverNote}</p>
           <ul className="grid gap-2 text-sm leading-6 text-gray-700">
             {resume.matchNotes.map((note) => (
@@ -115,10 +160,9 @@ export default function ResumePage({ params }: ResumePageProps) {
         </div>
 
         <div className="flex flex-col gap-3 rounded-md border border-gray-300 p-4">
-          <h2 className="text-xl font-bold">Honest Gap Notes</h2>
+          <h2 className="text-xl font-bold">{copy.honestGaps}</h2>
           <p className="text-sm leading-6 text-gray-700">
-            These are not written as claims in the resume because they are not
-            explicit in the current portfolio source.
+            {copy.honestGapsDescription}
           </p>
           <ul className="grid gap-2 text-sm leading-6 text-gray-700">
             {resume.target.honestGaps.map((gap) => (

@@ -173,7 +173,8 @@ const roleBlockHeight = (ctx, item) => {
       2,
     0
   );
-  const techHeight = ctx.textHeight(`Tech: ${item.tech.join(" / ")}`, {
+  const techLabel = item.techLabel ?? "Tech";
+  const techHeight = ctx.textHeight(`${techLabel}: ${item.tech.join(" / ")}`, {
     width: ctx.contentWidth - 16,
     size: 7.8,
   });
@@ -265,7 +266,7 @@ export const renderRoleBlock = (ctx, item) => {
   });
 
   ctx.ensureSpace(13);
-  ctx.drawText(`Tech: ${item.tech.join(" / ")}`, {
+  ctx.drawText(`${item.techLabel ?? "Tech"}: ${item.tech.join(" / ")}`, {
     x: contentX,
     width: availableWidth,
     size: 7.8,

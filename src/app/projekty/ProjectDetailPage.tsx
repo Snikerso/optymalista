@@ -58,6 +58,52 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         </div>
       </header>
 
+      <section className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <h2 className="text-xl font-bold">Zdjęcia projektu</h2>
+          <p className="text-sm text-gray-600">
+            Wizualne kadry pokazujące charakter i zakres pracy.
+          </p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {project.gallery.map((image) => (
+            <figure
+              key={`${project.slug}-${image.title}`}
+              className="overflow-hidden rounded-md border-2 border-black bg-white"
+            >
+              {image.imageSrc ? (
+                <img
+                  src={image.imageSrc}
+                  alt={image.imageAlt ?? image.title}
+                  className={`aspect-[16/10] w-full bg-gray-100 ${
+                    image.imageFit === "contain"
+                      ? "object-contain"
+                      : "object-cover"
+                  }`}
+                />
+              ) : (
+                <ProjectVisual title={image.title} theme={image.theme} />
+              )}
+              <figcaption className="border-t border-gray-200 p-3 text-sm leading-6 text-gray-700">
+                <strong className="text-black">{image.title}.</strong>{" "}
+                {image.caption}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      {project.insideStory ? (
+        <section className="flex flex-col gap-3 rounded-md border-2 border-black bg-gray-50 p-4 sm:p-5">
+          <p className="text-sm font-bold uppercase text-gray-500">
+            Inside story
+          </p>
+          <p className="text-base leading-8 text-gray-800">
+            {project.insideStory}
+          </p>
+        </section>
+      ) : null}
+
       <section className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
         <div className="flex flex-col gap-4 rounded-md border-2 border-black p-4 sm:p-5">
           <h2 className="text-xl font-bold">Kontekst</h2>
@@ -97,17 +143,6 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         </div>
       </section>
 
-      {project.insideStory ? (
-        <section className="flex flex-col gap-3 rounded-md border-2 border-black bg-gray-50 p-4 sm:p-5">
-          <p className="text-sm font-bold uppercase text-gray-500">
-            Inside story
-          </p>
-          <p className="text-base leading-8 text-gray-800">
-            {project.insideStory}
-          </p>
-        </section>
-      ) : null}
-
       <section className="grid gap-4 md:grid-cols-2">
         <ProjectTextBlock title="Problem" text={project.problem} />
         <ProjectTextBlock title="Rozwiązanie" text={project.solution} />
@@ -119,37 +154,6 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
           items={project.responsibilities}
         />
         <ProjectListBlock title="Efekty" items={project.effects} />
-      </section>
-
-      <section className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-bold">Zdjęcia projektu</h2>
-          <p className="text-sm text-gray-600">
-            Wizualne kadry pokazujące charakter i zakres pracy.
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {project.gallery.map((image) => (
-            <figure
-              key={`${project.slug}-${image.title}`}
-              className="overflow-hidden rounded-md border-2 border-black bg-white"
-            >
-              {image.imageSrc ? (
-                <img
-                  src={image.imageSrc}
-                  alt={image.imageAlt ?? image.title}
-                  className="aspect-[16/10] w-full object-cover"
-                />
-              ) : (
-                <ProjectVisual title={image.title} theme={image.theme} />
-              )}
-              <figcaption className="border-t border-gray-200 p-3 text-sm leading-6 text-gray-700">
-                <strong className="text-black">{image.title}.</strong>{" "}
-                {image.caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
       </section>
     </article>
   );

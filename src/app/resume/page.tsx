@@ -42,13 +42,13 @@ export default function ResumeIndexPage() {
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link
-                href={`/resume/${target.slug}?lang=en`}
+                href={`/resume/${target.slug}/en`}
                 className="rounded-md border border-black px-3 py-2 text-sm font-bold transition-colors hover:bg-accent"
               >
                 English
               </Link>
               <Link
-                href={`/resume/${target.slug}?lang=pl`}
+                href={`/resume/${target.slug}/pl`}
                 className="rounded-md border border-black px-3 py-2 text-sm font-bold transition-colors hover:bg-accent"
               >
                 Polski

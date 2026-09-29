@@ -1,20 +1,79 @@
-import { Icon } from "@/components/atoms/Icon";
-import type { ProjectDetail } from "@/data/projectDetails";
-import { siteUrl } from "@/lib/seo";
+"use client";
 
-export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
+import { TrackedAnchor } from "@/components/analytics/TrackedLink";
+import { Icon } from "@/components/atoms/Icon";
+import {
+  getLocalizedProject,
+  getProjectLanguage,
+  type ProjectDetail,
+  type ProjectLanguage,
+} from "@/data/projectDetails";
+import { siteUrl } from "@/lib/seo";
+import { useEffect, useState } from "react";
+
+const copyByLanguage = {
+  pl: {
+    back: "Wróć do projektów",
+    photos: "Zdjęcia projektu",
+    photosDescription: "Wizualne kadry pokazujące charakter i zakres pracy.",
+    insideStory: "Inside story",
+    context: "Kontekst",
+    links: "Linki",
+    portfolioLink: "Projekt w portfolio",
+    externalLink: "Zewnętrzna strona",
+    problem: "Problem",
+    solution: "Rozwiązanie",
+    responsibilities: "Zakres prac",
+    effects: "Efekty",
+    proof: "Dowody pracy",
+    technicalDecisions: "Decyzje techniczne",
+  },
+  en: {
+    back: "Back to projects",
+    photos: "Project screenshots",
+    photosDescription: "Visual frames showing the character and scope of work.",
+    insideStory: "Inside story",
+    context: "Context",
+    links: "Links",
+    portfolioLink: "Project in portfolio",
+    externalLink: "External site",
+    problem: "Problem",
+    solution: "Solution",
+    responsibilities: "Scope of work",
+    effects: "Results",
+    proof: "Work evidence",
+    technicalDecisions: "Technical decisions",
+  },
+} satisfies Record<ProjectLanguage, Record<string, string>>;
+
+export const ProjectDetailPage = ({
+  project,
+}: {
+  project: ProjectDetail;
+}) => {
+  const [language, setLanguage] = useState<ProjectLanguage>("pl");
+  const localizedProject = getLocalizedProject(project, language);
+  const copy = copyByLanguage[language];
+  const portfolioPath =
+    language === "en" ? "/portfolio/?lang=en#projekty" : "/portfolio/#projekty";
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setLanguage(getProjectLanguage(params.get("lang") ?? undefined));
+  }, []);
+
   const projectJsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    name: project.title,
-    description: project.summary,
-    url: new URL(`/projekty/${project.slug}/`, siteUrl).toString(),
+    name: localizedProject.title,
+    description: localizedProject.summary,
+    url: new URL(`/projekty/${localizedProject.slug}/`, siteUrl).toString(),
     author: {
       "@type": "Person",
       name: "Paweł Drojecki",
       url: siteUrl,
     },
-    keywords: project.technologies.join(", "),
+    keywords: localizedProject.technologies.join(", "),
   };
 
   return (
@@ -24,30 +83,34 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
       />
       <a
-        href="/portfolio/#projekty"
+        href={portfolioPath}
         className="inline-flex w-fit items-center gap-2 text-sm font-bold hover:text-accent"
       >
         <span aria-hidden="true">←</span>
-        Wróć do projektów
+        {copy.back}
       </a>
 
       <header className="flex flex-col gap-5 rounded-md border-2 border-black p-4 sm:p-6">
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-bold leading-tight sm:text-4xl">
-              {project.title}
+              {localizedProject.title}
             </h1>
-            <p className="text-base font-bold text-gray-600">{project.role}</p>
+            <p className="text-base font-bold text-gray-600">
+              {localizedProject.role}
+            </p>
           </div>
           <p className="w-fit rounded-md bg-gray-100 px-3 py-2 text-sm font-bold text-gray-700">
-            {project.period}
+            {localizedProject.period}
           </p>
         </div>
 
-        <p className="text-lg leading-8 text-gray-800">{project.summary}</p>
+        <p className="text-lg leading-8 text-gray-800">
+          {localizedProject.summary}
+        </p>
 
         <div className="flex flex-wrap gap-2">
-          {project.categories.map((category) => (
+          {localizedProject.categories.map((category) => (
             <span
               key={category}
               className="rounded-md bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-700"
@@ -60,15 +123,13 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
 
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-bold">Zdjęcia projektu</h2>
-          <p className="text-sm text-gray-600">
-            Wizualne kadry pokazujące charakter i zakres pracy.
-          </p>
+          <h2 className="text-xl font-bold">{copy.photos}</h2>
+          <p className="text-sm text-gray-600">{copy.photosDescription}</p>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
-          {project.gallery.map((image) => (
+          {localizedProject.gallery.map((image) => (
             <figure
-              key={`${project.slug}-${image.title}`}
+              key={`${localizedProject.slug}-${image.title}`}
               className="overflow-hidden rounded-md border-2 border-black bg-white"
             >
               {image.imageSrc ? (
@@ -93,23 +154,25 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         </div>
       </section>
 
-      {project.insideStory ? (
+      {localizedProject.insideStory ? (
         <section className="flex flex-col gap-3 rounded-md border-2 border-black bg-gray-50 p-4 sm:p-5">
           <p className="text-sm font-bold uppercase text-gray-500">
-            Inside story
+            {copy.insideStory}
           </p>
           <p className="text-base leading-8 text-gray-800">
-            {project.insideStory}
+            {localizedProject.insideStory}
           </p>
         </section>
       ) : null}
 
       <section className="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
         <div className="flex flex-col gap-4 rounded-md border-2 border-black p-4 sm:p-5">
-          <h2 className="text-xl font-bold">Kontekst</h2>
-          <p className="text-sm leading-7 text-gray-800">{project.lead}</p>
+          <h2 className="text-xl font-bold">{copy.context}</h2>
+          <p className="text-sm leading-7 text-gray-800">
+            {localizedProject.lead}
+          </p>
           <div className="flex flex-wrap gap-2 border-t border-gray-200 pt-4">
-            {project.technologies.map((technology) => (
+            {localizedProject.technologies.map((technology) => (
               <span
                 key={technology}
                 className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium text-gray-800"
@@ -121,40 +184,63 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         </div>
 
         <div className="flex flex-col gap-3 rounded-md border-2 border-black p-4 sm:p-5">
-          <h2 className="text-xl font-bold">Linki</h2>
+          <h2 className="text-xl font-bold">{copy.links}</h2>
           <a
             className="inline-flex w-fit items-center gap-2 font-bold hover:text-accent"
-            href="/portfolio/#projekty"
+            href={portfolioPath}
           >
-            <span>Projekt w portfolio</span>
+            <span>{copy.portfolioLink}</span>
             <Icon iconName="openTab" size={16} />
           </a>
-          {project.externalLink && (
-            <a
-              href={project.externalLink}
+          {localizedProject.externalLink && (
+            <TrackedAnchor
+              href={localizedProject.externalLink}
               target="_blank"
               rel="noreferrer"
+              eventName="external_project_open"
+              eventParams={{ project: localizedProject.slug, language }}
               className="inline-flex w-fit items-center gap-2 font-bold hover:text-accent"
             >
-              <span>Zewnętrzna strona</span>
+              <span>{copy.externalLink}</span>
               <Icon iconName="globe" size={16} />
-            </a>
+            </TrackedAnchor>
           )}
         </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
-        <ProjectTextBlock title="Problem" text={project.problem} />
-        <ProjectTextBlock title="Rozwiązanie" text={project.solution} />
+        <ProjectTextBlock title={copy.problem} text={localizedProject.problem} />
+        <ProjectTextBlock
+          title={copy.solution}
+          text={localizedProject.solution}
+        />
       </section>
 
       <section className="grid gap-4 md:grid-cols-2">
         <ProjectListBlock
-          title="Zakres prac"
-          items={project.responsibilities}
+          title={copy.responsibilities}
+          items={localizedProject.responsibilities}
         />
-        <ProjectListBlock title="Efekty" items={project.effects} />
+        <ProjectListBlock title={copy.effects} items={localizedProject.effects} />
       </section>
+
+      {(localizedProject.proofPoints?.length ||
+        localizedProject.technicalDecisions?.length) ? (
+        <section className="grid gap-4 md:grid-cols-2">
+          {localizedProject.proofPoints?.length ? (
+            <ProjectListBlock
+              title={copy.proof}
+              items={localizedProject.proofPoints}
+            />
+          ) : null}
+          {localizedProject.technicalDecisions?.length ? (
+            <ProjectListBlock
+              title={copy.technicalDecisions}
+              items={localizedProject.technicalDecisions}
+            />
+          ) : null}
+        </section>
+      ) : null}
     </article>
   );
 };

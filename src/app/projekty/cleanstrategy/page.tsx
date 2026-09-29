@@ -8,6 +8,7 @@ export const metadata = createPageMetadata({
   title: project.title,
   description: project.summary,
   path: `/projekty/${project.slug}/`,
+  imagePath: project.gallery.find((image) => image.imageSrc)?.imageSrc,
 });
 
 export default function CleanStrategyPage() {

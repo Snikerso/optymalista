@@ -1,6 +1,7 @@
 import { Technologies } from "@/data/technologies";
 import { PortfolioType } from "@/types";
 import React from "react";
+import { TrackedAnchor, TrackedLink } from "../analytics/TrackedLink";
 import { Icon } from "../atoms/Icon";
 
 export type PortfolioItemProps = {
@@ -66,26 +67,33 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
         </div>
         {role &&
           (companyLink ? (
-            <a
+            <TrackedAnchor
               href={companyLink}
               target="_blank"
               rel="noreferrer"
+              eventName="external_project_open"
+              eventParams={{ source: "portfolio_company", label: role }}
               className="inline-flex w-fit items-center gap-1 text-sm font-bold text-gray-600 hover:text-accent"
             >
               <span>{role}</span>
               <Icon iconName="globe" size={14} />
-            </a>
+            </TrackedAnchor>
           ) : (
             <p className="text-sm font-bold text-gray-600">{role}</p>
           ))}
         {relatedProject && (
-          <a
+          <TrackedLink
             href={relatedProject.link}
+            eventName="case_study_open"
+            eventParams={{
+              source: "portfolio_related_project",
+              project: relatedProject.name,
+            }}
             className="inline-flex w-fit items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-sm font-bold text-gray-700 hover:text-accent"
           >
             <span>Projekt: {relatedProject.name}</span>
             <Icon iconName="globe" size={14} />
-          </a>
+          </TrackedLink>
         )}
       </div>
       <p className="text-sm leading-6 text-gray-800">{description}</p>
@@ -128,24 +136,28 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <span className="h-px w-full bg-gray-200 sm:flex-1" />
         {caseStudyLink && (
-          <a
+          <TrackedLink
             href={caseStudyLink}
+            eventName="case_study_open"
+            eventParams={{ source: "portfolio_item", project: title }}
             className="inline-flex w-fit items-center gap-1 text-sm font-bold hover:text-accent"
           >
             <span>Case study</span>
             <Icon iconName="openTab" size={16} />
-          </a>
+          </TrackedLink>
         )}
         {link && (
-          <a
+          <TrackedAnchor
             href={link}
             target="_blank"
             rel="noreferrer"
+            eventName="external_project_open"
+            eventParams={{ source: "portfolio_item", project: title }}
             className="inline-flex w-fit items-center gap-1 text-sm font-bold hover:text-accent"
           >
             <span>Zobacz stronkę</span>
             <Icon iconName="globe" size={16} />
-          </a>
+          </TrackedAnchor>
         )}
       </div>
     </article>

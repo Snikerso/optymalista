@@ -1,11 +1,20 @@
 "use client";
 
 import {
+  TrackedAnchor,
+  TrackedLink,
+} from "@/components/analytics/TrackedLink";
+import {
   PortfolioItem,
   type PortfolioItemProps,
 } from "@/components/molecules/PortfolioItem";
 import { Icon } from "@/components/atoms/Icon";
-import { projectDetailsBySlug } from "@/data/projectDetails";
+import {
+  getLocalizedProject,
+  getProjectLanguage,
+  type ProjectLanguage,
+  projectDetailsBySlug,
+} from "@/data/projectDetails";
 import { Technologies, technologyGroups } from "@/data/technologies";
 import { PortfolioType } from "@/types";
 import { useEffect, useState } from "react";
@@ -386,19 +395,115 @@ const featuredProjectItems = projectItems.filter(
   (project) => project.status === "Wyróżniony"
 );
 
-const portfolioNavItems = [
-  { id: "intro", label: "Intro" },
-  { id: "wyroznione", label: "Wyróżnione" },
-  { id: "firmy", label: "Firmy" },
-  { id: "stack", label: "Stack" },
-  { id: "doswiadczenie", label: "Doświadczenie" },
-  { id: "projekty", label: "Projekty" },
-];
+const portfolioSectionIds = [
+  "intro",
+  "wyroznione",
+  "firmy",
+  "stack",
+  "doswiadczenie",
+  "projekty",
+] as const;
+
+const portfolioCopyByLanguage = {
+  pl: {
+    nav: ["Intro", "Wyróżnione", "Firmy", "Stack", "Doświadczenie", "Projekty"],
+    title: "Portfolio",
+    eyebrow: "React · Next.js · Nest.js · Product development",
+    intro:
+      "Jestem Paweł Drojecki. Projektuję i buduję aplikacje webowe, mobile oraz zaplecze techniczne produktów, które mają działać nie tylko w demo, ale też w prawdziwym użyciu.",
+    introSecond:
+      "Mam doświadczenie w projektach edukacyjnych, e-commerce, aplikacjach fact-checkingowych, stronach brandowych i systemach legacy. Lubię moment, w którym niejasny pomysł zmienia się w konkretny interfejs, sprawny backend i produkt, który użytkownik rozumie bez instrukcji.",
+    pathsTitle: "Najkrótsza ścieżka",
+    recruiterPath: "Dla rekrutera: doświadczenie, stack i CV",
+    clientPath: "Dla klienta: problem, proces i efekt",
+    cvTitle: "CV dopasowane do rozmowy",
+    cvLinks: [
+      { label: "CV Frontend", href: "/resume/empik-frontend-developer/pl" },
+      {
+        label: "CV React Native",
+        href: "/resume/netguru-react-native-developer-freelance/pl",
+      },
+      {
+        label: "Resume EN",
+        href: "/resume/netguru-react-native-developer-freelance/en",
+      },
+    ],
+    bioPl: "Bio PL",
+    bioEn: "Bio EN",
+    bioPlText:
+      "Buduję aplikacje webowe i produktowe od interfejsu po backend. Łączę React, Next.js, Nest.js i myślenie produktowe, żeby szybko dowozić działające rozwiązania.",
+    bioEnText:
+      "I build web and product applications from interface to backend, combining React, Next.js, Nest.js and product thinking to ship useful, working software.",
+    companies: "Firmy",
+    companiesDescription: "Miejsca, w których pracowałem i pracuję.",
+    stack: "Stack",
+    stackDescription: "Technologie i obszary, z którymi pracuję najczęściej.",
+    experience: "Doświadczenie",
+    projects: "Projekty",
+    featuredEyebrow: "Case studies",
+    featuredTitle: "Wyróżnione projekty",
+    featuredDescription:
+      "Najmocniejsze realizacje pokazujące enterprise e-commerce, produkt mobile/web i pełny sklep internetowy.",
+    caseStudy: "Zobacz case study",
+    evidence: "Dowody",
+    decisions: "Decyzje",
+    positions: "pozycji",
+  },
+  en: {
+    nav: ["Intro", "Featured", "Companies", "Stack", "Experience", "Projects"],
+    title: "Portfolio",
+    eyebrow: "React · Next.js · Nest.js · Product development",
+    intro:
+      "I am Paweł Drojecki. I design and build web applications, mobile products and technical backends that need to work beyond a demo.",
+    introSecond:
+      "My experience spans education, e-commerce, fact-checking tools, brand websites and legacy systems. I enjoy turning unclear product ideas into concrete interfaces, reliable backend flows and software users can understand without instructions.",
+    pathsTitle: "Shortest path",
+    recruiterPath: "For recruiters: experience, stack and resume",
+    clientPath: "For clients: problem, process and result",
+    cvTitle: "Resume matched to the conversation",
+    cvLinks: [
+      { label: "Frontend resume", href: "/resume/empik-frontend-developer/en" },
+      {
+        label: "React Native resume",
+        href: "/resume/netguru-react-native-developer-freelance/en",
+      },
+      { label: "Polish CV", href: "/resume/empik-frontend-developer/pl" },
+    ],
+    bioPl: "Bio PL",
+    bioEn: "Bio EN",
+    bioPlText:
+      "Buduję aplikacje webowe i produktowe od interfejsu po backend. Łączę React, Next.js, Nest.js i myślenie produktowe, żeby szybko dowozić działające rozwiązania.",
+    bioEnText:
+      "I build web and product applications from interface to backend, combining React, Next.js, Nest.js and product thinking to ship useful, working software.",
+    companies: "Companies",
+    companiesDescription: "Places where I have worked and where I work now.",
+    stack: "Stack",
+    stackDescription: "Technologies and areas I work with most often.",
+    experience: "Experience",
+    projects: "Projects",
+    featuredEyebrow: "Case studies",
+    featuredTitle: "Featured projects",
+    featuredDescription:
+      "The strongest examples: enterprise e-commerce, a mobile/web product and a full online store.",
+    caseStudy: "Read case study",
+    evidence: "Evidence",
+    decisions: "Decisions",
+    positions: "items",
+  },
+} satisfies Record<ProjectLanguage, Record<string, string | string[] | { label: string; href: string }[]>>;
 
 export default function PortfolioPage() {
   const [expandedSkillGroups, setExpandedSkillGroups] = useState<string[]>([]);
-  const [activeSection, setActiveSection] = useState(portfolioNavItems[0].id);
+  const [activeSection, setActiveSection] = useState<string>(
+    portfolioSectionIds[0],
+  );
   const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
+  const [language, setLanguage] = useState<ProjectLanguage>("pl");
+  const copy = portfolioCopyByLanguage[language];
+  const portfolioNavItems = portfolioSectionIds.map((id, index) => ({
+    id,
+    label: copy.nav[index],
+  }));
 
   const toggleSkillGroup = (title: string) => {
     setExpandedSkillGroups((currentGroups) =>
@@ -421,12 +526,16 @@ export default function PortfolioPage() {
   };
 
   useEffect(() => {
-    const sectionIds = portfolioNavItems.map((item) => item.id);
+    setLanguage(getProjectLanguage(new URLSearchParams(window.location.search).get("lang") ?? undefined));
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = [...portfolioSectionIds];
 
     const setSectionFromHash = () => {
       const hash = window.location.hash.replace("#", "");
 
-      if (sectionIds.includes(hash)) {
+      if (sectionIds.includes(hash as (typeof portfolioSectionIds)[number])) {
         setActiveSection(hash);
       }
     };
@@ -473,63 +582,108 @@ export default function PortfolioPage() {
     <div className="flex min-h-screen w-full flex-col pb-20 md:pb-0">
       <PortfolioQuickNav
         activeSection={activeSection}
+        items={portfolioNavItems}
         onSelect={setActiveSection}
       />
       <div className="flex flex-col gap-12">
         <section id="intro" className="flex scroll-mt-28 flex-col gap-2">
-          <h1 className="text-2xl font-bold">Portfolio</h1>
+          <div className="flex w-fit items-center gap-1 rounded-md border border-gray-300 p-1 text-xs font-bold">
+            {(["pl", "en"] as ProjectLanguage[]).map((item) => (
+              <a
+                key={item}
+                href={item === "pl" ? "/portfolio" : "/portfolio/?lang=en"}
+                className={`rounded px-2 py-1 uppercase ${
+                  language === item ? "bg-accent text-black" : "text-gray-600"
+                }`}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+          <h1 className="text-2xl font-bold">{copy.title}</h1>
           <p className="text-sm font-bold uppercase text-gray-500">
-            React · Next.js · Nest.js · Product development
+            {copy.eyebrow}
           </p>
-          <p className="text-md leading-7">
-            Jestem Paweł Drojecki. Projektuję i buduję aplikacje webowe,
-            mobile oraz zaplecze techniczne produktów, które mają działać nie
-            tylko w demo, ale też w prawdziwym użyciu. Najczęściej pracuję z
-            React.js, Next.js, Nest.js, React Native i TypeScriptem, a obok
-            kodu ogarniam też backend, architekturę, integracje, DevOps i
-            sensowny flow produktu.
-          </p>
-          <p className="text-md leading-7">
-            Mam doświadczenie w projektach edukacyjnych, e-commerce,
-            aplikacjach fact-checkingowych, stronach brandowych i systemach
-            legacy. Lubię moment, w którym niejasny pomysł zmienia się w
-            konkretny interfejs, sprawny backend i produkt, który użytkownik
-            rozumie bez instrukcji.
-          </p>
-          <a
+          <p className="text-md leading-7">{copy.intro}</p>
+          <p className="text-md leading-7">{copy.introSecond}</p>
+          <TrackedAnchor
             href="https://www.linkedin.com/in/pawel-drojecki/"
             target="_blank"
             rel="noreferrer"
+            eventName="linkedin_open"
+            eventParams={{ source: "portfolio_intro", language }}
             className="inline-flex w-fit items-center gap-2 font-bold hover:text-accent"
           >
             <FaLinkedin size={18} />
             LinkedIn
-          </a>
+          </TrackedAnchor>
+          <div className="grid gap-3 pt-3 sm:grid-cols-2">
+            <TrackedLink
+              href={
+                language === "en"
+                  ? "/portfolio/?lang=en#doswiadczenie"
+                  : "/portfolio/#doswiadczenie"
+              }
+              eventName="portfolio_path_select"
+              eventParams={{ path: "recruiter", language }}
+              className="rounded-md border-2 border-black p-3 font-bold hover:bg-gray-50"
+            >
+              {copy.recruiterPath}
+            </TrackedLink>
+            <TrackedLink
+              href={
+                language === "en"
+                  ? "/portfolio/?lang=en#wyroznione"
+                  : "/portfolio/#wyroznione"
+              }
+              eventName="portfolio_path_select"
+              eventParams={{ path: "client", language }}
+              className="rounded-md border-2 border-black p-3 font-bold hover:bg-gray-50"
+            >
+              {copy.clientPath}
+            </TrackedLink>
+          </div>
+          <div className="rounded-md border-2 border-black p-3">
+            <h2 className="text-sm font-bold uppercase text-gray-500">
+              {copy.cvTitle}
+            </h2>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {copy.cvLinks.map((link) => (
+                <TrackedLink
+                  key={link.href}
+                  href={link.href}
+                  eventName="cv_open"
+                  eventParams={{ source: "portfolio_intro", label: link.label, language }}
+                  className="rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
+                >
+                  {link.label}
+                </TrackedLink>
+              ))}
+            </div>
+          </div>
           <div className="grid gap-3 pt-3 sm:grid-cols-2">
             <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
               <p className="text-xs font-bold uppercase text-gray-500">
-                Bio PL
+                {copy.bioPl}
               </p>
               <p className="mt-1 text-sm leading-6 text-gray-800">
-                Buduję aplikacje webowe i produktowe od interfejsu po backend.
-                Łączę React, Next.js, Nest.js i myślenie produktowe, żeby
-                szybko dowozić działające rozwiązania.
+                {copy.bioPlText}
               </p>
             </div>
             <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
               <p className="text-xs font-bold uppercase text-gray-500">
-                Bio EN
+                {copy.bioEn}
               </p>
               <p className="mt-1 text-sm leading-6 text-gray-800">
-                I build web and product applications from interface to backend,
-                combining React, Next.js, Nest.js and product thinking to ship
-                useful, working software.
+                {copy.bioEnText}
               </p>
             </div>
           </div>
         </section>
 
         <FeaturedProjectsCarousel
+          language={language}
+          copy={copy}
           activeIndex={activeFeaturedIndex}
           onPrevious={showPreviousFeaturedProject}
           onNext={showNextFeaturedProject}
@@ -538,9 +692,9 @@ export default function PortfolioPage() {
 
         <section id="firmy" className="flex scroll-mt-28 flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <h2 className="text-xl font-bold">Firmy</h2>
+            <h2 className="text-xl font-bold">{copy.companies}</h2>
             <p className="text-sm text-gray-600">
-              Miejsca, w ktorych pracowalem i pracuje.
+              {copy.companiesDescription}
             </p>
           </div>
           <div className="divide-y-2 divide-gray-200 border-y-2 border-gray-200">
@@ -590,9 +744,9 @@ export default function PortfolioPage() {
 
         <section id="stack" className="flex scroll-mt-28 flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <h2 className="text-xl font-bold">Stack</h2>
+            <h2 className="text-xl font-bold">{copy.stack}</h2>
             <p className="text-sm text-gray-600">
-              Technologie i obszary, z ktorymi pracuje najczęściej.
+              {copy.stackDescription}
             </p>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
@@ -610,10 +764,16 @@ export default function PortfolioPage() {
 
         <PortfolioSection
           id="doswiadczenie"
-          title="Doświadczenie"
+          title={copy.experience}
+          positionsLabel={copy.positions}
           items={experienceItems}
         />
-        <PortfolioSection id="projekty" title="Projekty" items={projectItems} />
+        <PortfolioSection
+          id="projekty"
+          title={copy.projects}
+          positionsLabel={copy.positions}
+          items={projectItems}
+        />
       </div>
     </div>
   );
@@ -621,9 +781,11 @@ export default function PortfolioPage() {
 
 const PortfolioQuickNav = ({
   activeSection,
+  items,
   onSelect,
 }: {
   activeSection: string;
+  items: { id: string; label: string }[];
   onSelect: (sectionId: string) => void;
 }) => (
   <nav
@@ -631,7 +793,7 @@ const PortfolioQuickNav = ({
     className="fixed bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 overflow-x-auto rounded-md border-2 border-black bg-white/95 p-2 shadow-[4px_4px_0_0_#000] backdrop-blur"
   >
     <ul className="flex min-w-max justify-center gap-2">
-      {portfolioNavItems.map((item) => (
+      {items.map((item) => (
         <li key={item.id}>
           <a
             href={`#${item.id}`}
@@ -652,20 +814,27 @@ const PortfolioQuickNav = ({
 );
 
 const FeaturedProjectsCarousel = ({
+  language,
+  copy,
   activeIndex,
   onPrevious,
   onNext,
   onSelect,
 }: {
+  language: ProjectLanguage;
+  copy: (typeof portfolioCopyByLanguage)[ProjectLanguage];
   activeIndex: number;
   onPrevious: () => void;
   onNext: () => void;
   onSelect: (index: number) => void;
 }) => {
   const activeProject = featuredProjectItems[activeIndex];
-  const activeProjectDetails = Object.values(projectDetailsBySlug).find(
-    (project) => activeProject.caseStudyLink === `/projekty/${project.slug}/`
+  const baseProjectDetails = Object.values(projectDetailsBySlug).find(
+    (project) => activeProject.caseStudyLink === `/projekty/${project.slug}/`,
   );
+  const activeProjectDetails = baseProjectDetails
+    ? getLocalizedProject(baseProjectDetails, language)
+    : undefined;
   const activeProjectImage = activeProjectDetails?.gallery[0];
 
   return (
@@ -676,12 +845,11 @@ const FeaturedProjectsCarousel = ({
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-1">
           <p className="text-xs font-bold uppercase text-gray-500">
-            Case studies
+            {copy.featuredEyebrow}
           </p>
-          <h2 className="text-xl font-bold">Wyróżnione projekty</h2>
+          <h2 className="text-xl font-bold">{copy.featuredTitle}</h2>
           <p className="text-sm leading-6 text-gray-600">
-            Najmocniejsze realizacje pokazujące enterprise e-commerce, produkt
-            mobile/web i pełny sklep internetowy.
+            {copy.featuredDescription}
           </p>
         </div>
         <div className="flex gap-2">
@@ -735,15 +903,25 @@ const FeaturedProjectsCarousel = ({
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-1">
               <h3 className="text-2xl font-bold leading-tight">
-                {activeProject.title}
+                {activeProjectDetails?.title ?? activeProject.title}
               </h3>
               <p className="text-sm font-bold text-gray-600">
-                {activeProject.role}
+                {activeProjectDetails?.role ?? activeProject.role}
               </p>
             </div>
             <p className="text-sm leading-6 text-gray-800">
-              {activeProject.description}
+              {activeProjectDetails?.summary ?? activeProject.description}
             </p>
+            {activeProjectDetails?.proofPoints?.[0] ? (
+              <p className="rounded-md bg-white px-3 py-2 text-sm font-bold text-gray-800">
+                {copy.evidence}: {activeProjectDetails.proofPoints[0]}
+              </p>
+            ) : null}
+            {activeProjectDetails?.technicalDecisions?.[0] ? (
+              <p className="rounded-md bg-white px-3 py-2 text-sm font-bold text-gray-800">
+                {copy.decisions}: {activeProjectDetails.technicalDecisions[0]}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex flex-col gap-4">
@@ -759,14 +937,24 @@ const FeaturedProjectsCarousel = ({
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-            {activeProject.caseStudyLink && (
-              <a
-                href={activeProject.caseStudyLink}
+            {baseProjectDetails && (
+              <TrackedLink
+                href={
+                  language === "en"
+                    ? `/projekty/${baseProjectDetails.slug}/?lang=en`
+                    : `/projekty/${baseProjectDetails.slug}/`
+                }
+                eventName="case_study_open"
+                eventParams={{
+                  source: "portfolio_featured",
+                  project: baseProjectDetails.slug,
+                  language,
+                }}
                 className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
               >
-                <span>Zobacz case study</span>
+                <span>{copy.caseStudy}</span>
                 <Icon iconName="openTab" size={16} />
-              </a>
+              </TrackedLink>
             )}
             <div className="flex gap-1">
               {featuredProjectItems.map((project, index) => (
@@ -794,16 +982,20 @@ const FeaturedProjectsCarousel = ({
 const PortfolioSection = ({
   id,
   title,
+  positionsLabel,
   items,
 }: {
   id: string;
   title: string;
+  positionsLabel: string;
   items: PortfolioItemProps[];
 }) => (
   <section id={id} className="flex scroll-mt-28 flex-col gap-4">
     <div className="flex flex-col gap-1">
       <h2 className="text-xl font-bold">{title}</h2>
-      <p className="text-sm text-gray-600">{items.length} pozycji</p>
+      <p className="text-sm text-gray-600">
+        {items.length} {positionsLabel}
+      </p>
     </div>
     <div className="grid gap-4">
       {items.map((item) => (

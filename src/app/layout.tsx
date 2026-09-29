@@ -1,6 +1,8 @@
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
 import { ProjectAdRail } from "@/components/organisms/ProjectAdRail";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { defaultDescription, siteUrl } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -55,11 +57,20 @@ export const metadata: Metadata = {
     siteName: "Paweł Drojecki",
     locale: "pl_PL",
     type: "website",
+    images: [
+      {
+        url: new URL("/projects/royal-mint-gold-coins-desktop.png", siteUrl),
+        width: 1200,
+        height: 630,
+        alt: "Paweł Drojecki portfolio",
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Paweł Drojecki | React, Next.js, Nest.js",
     description: defaultDescription,
+    images: [new URL("/projects/royal-mint-gold-coins-desktop.png", siteUrl)],
   },
 };
 
@@ -89,6 +100,7 @@ export default function RootLayout({
   return (
     <html lang="pl">
       <body className={inter.variable}>
+        <GoogleAnalytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -98,6 +110,7 @@ export default function RootLayout({
           <ProjectAdRail />
           <main className="flex-1 h-full">{children}</main>
           <Footer />
+          <CookieConsent />
         </div>
       </body>
     </html>

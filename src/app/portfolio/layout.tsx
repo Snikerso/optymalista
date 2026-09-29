@@ -5,6 +5,7 @@ export const metadata = createPageMetadata({
   description:
     "Portfolio Pawła Drojeckiego: doświadczenie, stack i case studies z projektów React, Next.js, Nest.js, e-commerce, mobile i backend.",
   path: "/portfolio/",
+  imagePath: "/projects/royal-mint-gold-coins-desktop.png",
 });
 
 export default function PortfolioLayout({

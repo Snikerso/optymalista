@@ -15,6 +15,24 @@ export type ProjectDetail = {
   solution: string;
   responsibilities: string[];
   effects: string[];
+  proofPoints?: string[];
+  technicalDecisions?: string[];
+  translated?: Partial<
+    Pick<
+      ProjectDetail,
+      | "role"
+      | "period"
+      | "summary"
+      | "lead"
+      | "insideStory"
+      | "problem"
+      | "solution"
+      | "responsibilities"
+      | "effects"
+      | "proofPoints"
+      | "technicalDecisions"
+    >
+  >;
   gallery: {
     title: string;
     caption: string;
@@ -65,6 +83,16 @@ export const projectDetails: ProjectDetail[] = [
       "Aplikacja działa na zegarku i zapisuje postęp lokalnie bez uprawnień sieciowych.",
       "Interfejs ma vintage charakter, duży licznik i łatwe do trafienia przyciski na bokach tarczy.",
       "Menu projektu pokazuje dzisiejszy postęp względem celu oraz aktualny streak.",
+    ],
+    proofPoints: [
+      "Projekt testowany w symulatorze Garmin oraz na kilku modelach zegarków.",
+      "Aplikacja nie wymaga internetu ani uprawnień sieciowych.",
+      "Zakres funkcji przygotowany pod publikację w Garmin Connect IQ Store.",
+    ],
+    technicalDecisions: [
+      "Lokalny zapis stanu zamiast zależności od telefonu lub backendu.",
+      "Duże boczne strefy dotykowe dopasowane do okrągłej tarczy.",
+      "Zabezpieczenie logiki licznika przed zejściem poniżej zera.",
     ],
     gallery: [
       {
@@ -123,6 +151,16 @@ export const projectDetails: ProjectDetail[] = [
       "Platforma jest gotowa do rozbudowy o kolejne moduły produktowe.",
       "Projekt ma spójne zaplecze techniczne zamiast jednorazowej strony.",
       "Komunikacja, dane użytkowników i analityka mogą być rozwijane w kontrolowany sposób.",
+    ],
+    proofPoints: [
+      "Działające środowisko testowe z publicznym linkiem.",
+      "Realne screeny strony startowej, kursów, lekcji wideo i dziennika praktyk.",
+      "Analityka przygotowana pod mierzenie zachowania użytkowników.",
+    ],
+    technicalDecisions: [
+      "Podział na frontend Next.js i backend Nest.js zamiast statycznej wizytówki.",
+      "Przygotowanie struktury pod kursy, lekcje, formularze i komunikację.",
+      "Użycie streamingu HLS oraz ręcznie przygotowywanych wariantów jakości wideo.",
     ],
     gallery: [
       {
@@ -197,6 +235,48 @@ export const projectDetails: ProjectDetail[] = [
       "Architektura pozwala rozwijać aplikację mobilną i webową równolegle.",
       "Najważniejsze funkcje można testować bez dużej bariery wejścia.",
     ],
+    proofPoints: [
+      "Produkt działa jako aplikacja mobile/web z backendem i bazą danych.",
+      "Zakres obejmuje zadania, harmonogramy i odpowiedzialność domowników.",
+      "Publiczny web preview pozwala szybko zobaczyć kierunek produktu.",
+    ],
+    technicalDecisions: [
+      "React Native i Expo dla szybkiego rozwoju aplikacji mobilnej.",
+      "Nest.js i MongoDB jako zaplecze pod rozwijane przepływy produktowe.",
+      "Równoległe myślenie o mobile i web zamiast traktowania weba jako dodatku.",
+    ],
+    translated: {
+      role: "Mobile developer / product builder",
+      period: "Jan 2024 - present",
+      summary:
+        "A mobile and web product that helps households share chores and reduce friction around cleaning responsibilities.",
+      lead:
+        "CleanStrategy is designed for everyday use: quick task creation, clear ownership and flows that support household coordination without adding more admin.",
+      problem:
+        "Household chores often get lost in chats, notes and assumptions. The product needed to turn vague agreements into a simple shared system.",
+      solution:
+        "I designed and developed a mobile/web application with flows for tasks, schedules and household responsibility.",
+      responsibilities: [
+        "Designed product logic and the most important user journeys.",
+        "Built the React Native and Expo app with fast iteration in mind.",
+        "Developed the Nest.js and MongoDB backend for application data.",
+      ],
+      effects: [
+        "The product makes household responsibility clearer.",
+        "The architecture supports parallel mobile and web development.",
+        "Core features can be tested with a low barrier to entry.",
+      ],
+      proofPoints: [
+        "Mobile/web product with backend and database foundations.",
+        "Scope includes tasks, schedules and household responsibility.",
+        "A public web preview makes the product direction easy to review.",
+      ],
+      technicalDecisions: [
+        "React Native and Expo for fast mobile iteration.",
+        "Nest.js and MongoDB as the backend foundation for product flows.",
+        "Mobile and web were considered together rather than treating web as an afterthought.",
+      ],
+    },
     gallery: [
       {
         title: "Aplikacja mobilna",
@@ -248,6 +328,49 @@ export const projectDetails: ProjectDetail[] = [
       "Backend daje bazę pod dalszą rozbudowę oferty i procesu obsługi.",
       "Technologie sprzedażowe są spięte z czytelnym doświadczeniem użytkownika.",
     ],
+    proofPoints: [
+      "Projekt obejmuje katalog produktów, dostępność, płatność i komunikację mailową.",
+      "Screeny pokazują listę produktów, karuzelę produktu i krok płatności.",
+      "Zewnętrzna strona pozwala zobaczyć markę i kierunek sklepu.",
+    ],
+    technicalDecisions: [
+      "Nest.js i MongoDB dla zaplecza sklepu oraz danych produktowych.",
+      "Stripe jako bazowa integracja procesu płatności.",
+      "Resend jako prosty kanał komunikacji transakcyjnej.",
+    ],
+    translated: {
+      role: "Fullstack developer",
+      period: "Jan 2024 - Jan 2024",
+      summary:
+        "A complete online store for Moment Studio, connecting brand presentation, product sales and backend operations.",
+      lead:
+        "The project connected a brand website with a real sales flow. The visual layer had to work together with products, orders and payments.",
+      problem:
+        "The studio needed more than a polished website: it needed a working store with products, payments and customer communication.",
+      solution:
+        "I built a complete e-commerce flow with a frontend, Nest.js backend, MongoDB, Stripe payments and Resend email communication.",
+      responsibilities: [
+        "Translated the brand direction into a responsive frontend.",
+        "Built the product system and inventory-related flows.",
+        "Integrated Stripe into the checkout process.",
+        "Connected the purchase flow with transactional email communication.",
+      ],
+      effects: [
+        "The project works as a store, not only as a brand website.",
+        "The backend provides a base for extending the offer and order process.",
+        "Sales technology is connected with a clear user experience.",
+      ],
+      proofPoints: [
+        "The scope includes product catalogue, availability, payment and email communication.",
+        "Screenshots show the product list, product carousel and payment step.",
+        "The external site shows the brand and store direction.",
+      ],
+      technicalDecisions: [
+        "Nest.js and MongoDB for store backend and product data.",
+        "Stripe as the payment-flow foundation.",
+        "Resend as a straightforward transactional email channel.",
+      ],
+    },
     gallery: [
       {
         title: "Sklep internetowy",
@@ -310,6 +433,14 @@ export const projectDetails: ProjectDetail[] = [
       "Projekt pokazał praktyczne przejście od designu do kodu.",
       "Interfejs był przygotowany pod dalszą rozbudowę sprzedażową.",
     ],
+    proofPoints: [
+      "Projekt zawiera działające widoki sklepu i listy produktów.",
+      "Screeny pokazują układ produktowy oraz sekcję klientów.",
+    ],
+    technicalDecisions: [
+      "Next.js jako baza pod sklep z naciskiem na frontend i SEO.",
+      "Komponentowy podział widoków ułatwiający pracę z projektem z Figmy.",
+    ],
     gallery: [
       {
         title: "Lista produktów",
@@ -371,6 +502,55 @@ export const projectDetails: ProjectDetail[] = [
       "Analityka wspierała lepsze rozumienie ruchu oraz zachowań użytkowników w sklepie.",
       "Doświadczenie użytkownika w częściach sklepowych było stopniowo ulepszane przy zachowaniu produkcyjnej ostrożności.",
     ],
+    proofPoints: [
+      "Praca przy aktywnym systemie enterprise e-commerce dla klienta z UK.",
+      "Zakres obejmuje React, TypeScript, Azure, Auth0 i Google Analytics.",
+      "Case study pokazuje screeny desktopowe i mobilne realnego sklepu.",
+    ],
+    technicalDecisions: [
+      "Punktowe zmiany dopasowane do legacy codebase zamiast ryzykownego przepisywania przepływów.",
+      "Zachowanie spójnej kolejności etykiet, wartości i kolorów w komponentach danych.",
+      "Weryfikowanie zmian w ścieżkach zakupowych pod kątem regresji użytkownika.",
+    ],
+    translated: {
+      role: "Frontend developer at NoA Ignite",
+      period: "Jul 2024 - present",
+      summary:
+        "Enterprise e-commerce for precious metals, developed in a production environment with high stability requirements.",
+      lead:
+        "Work delivered at NoA Ignite for a UK client. This is mature commerce work where every change has to fit the existing architecture, purchase flows, analytics and enterprise quality expectations.",
+      insideStory:
+        "The important part of this work was not building a flashy demo from scratch. It was responsible product development inside an existing codebase: reading legacy flows, finding regressions, improving components and shipping changes without breaking already-working user paths.",
+      problem:
+        "The e-commerce system needed ongoing development, UX improvements and careful work inside a legacy codebase where frontend, product data, purchasing logic and analytics are tightly connected.",
+      solution:
+        "I supported shop interfaces and product components in the existing React/TypeScript architecture, focusing on stable targeted changes: debugging, UI cleanup, product data handling, analytics support and purchase-flow behavior.",
+      responsibilities: [
+        "Maintained and developed frontend features in a large existing e-commerce system.",
+        "Worked on product components, shopping views and user-facing data.",
+        "Debugged regressions and adapted changes to the legacy codebase without disrupting existing flows.",
+        "Kept UI logic, labels, tooltips, colors and data aligned where components depended on order or input contracts.",
+        "Supported Google Analytics elements in an e-commerce environment.",
+        "Collaborated on changes delivered in an Azure-based environment.",
+      ],
+      effects: [
+        "The product could keep evolving without destabilizing purchase flows.",
+        "Frontend components were improved within enterprise client requirements.",
+        "Data-presentation changes were checked for label, value and UI consistency.",
+        "Analytics supported better understanding of shop traffic and user behavior.",
+        "User experience in commerce areas was gradually improved with production caution.",
+      ],
+      proofPoints: [
+        "Work on an active enterprise e-commerce system for a UK client.",
+        "Scope includes React, TypeScript, Azure, Auth0 and Google Analytics.",
+        "The case study includes desktop and mobile screenshots from the real store.",
+      ],
+      technicalDecisions: [
+        "Targeted changes adapted to the legacy codebase instead of risky rewrites.",
+        "Preserved consistent order of labels, values and colors in data components.",
+        "Checked purchase-flow changes for user-facing regressions.",
+      ],
+    },
     gallery: [
       {
         title: "Gold coins and bars",
@@ -432,6 +612,15 @@ export const projectDetails: ProjectDetail[] = [
       "Wizualizacje pomagały użytkownikom rozumieć relacje między argumentami.",
       "System zyskał solidniejsze fundamenty dla pracy zespołowej.",
     ],
+    proofPoints: [
+      "Zakres obejmował frontend, backend, RBAC i wizualizacje grafowe.",
+      "Screeny pokazują mapę argumentów, dyskusje i zapraszanie użytkowników.",
+    ],
+    technicalDecisions: [
+      "Autorski RBAC dla kontroli dostępu do danych i funkcji.",
+      "D3.js do wizualizacji relacji między argumentami.",
+      "Endpointy backendowe projektowane wokół pracy z danymi i rolami.",
+    ],
     gallery: [
       {
         title: "Mapa argumentów",
@@ -473,3 +662,22 @@ export const projectDetailsBySlug = projectDetails.reduce<
 
   return projectsBySlug;
 }, {});
+
+export type ProjectLanguage = "pl" | "en";
+
+export const getProjectLanguage = (language?: string): ProjectLanguage =>
+  language === "en" ? "en" : "pl";
+
+export const getLocalizedProject = (
+  project: ProjectDetail,
+  language: ProjectLanguage
+): ProjectDetail => {
+  if (language === "pl" || !project.translated) {
+    return project;
+  }
+
+  return {
+    ...project,
+    ...project.translated,
+  };
+};

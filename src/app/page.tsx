@@ -1,9 +1,10 @@
 "use client";
 
+import { TrackedAnchor, TrackedLink } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
+import { trackEvent } from "@/lib/analytics";
 import { projectDetailsBySlug } from "@/data/projectDetails";
-import Link from "next/link";
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
 const featuredProjects = [
@@ -13,6 +14,141 @@ const featuredProjects = [
 ];
 
 const linkedInMessageUrl = "https://www.linkedin.com/messaging/compose/";
+
+type PageLanguage = "pl" | "en";
+
+const copyByLanguage = {
+  pl: {
+    eyebrow: "Frontend / Fullstack / Product",
+    title: "Paweł Drojecki",
+    intro:
+      "Projektuję i buduję aplikacje webowe, mobile oraz zaplecze techniczne produktów, które mają działać nie tylko w demo, ale też w prawdziwym użyciu.",
+    supporting:
+      "Najczęściej pracuję z React.js, Next.js, React Native, Node.js, Nest.js i TypeScriptem. Łączę frontend z backendem, integracjami, analityką, DevOpsem i myśleniem produktowym, żeby dowozić rozwiązania gotowe do realnego użycia.",
+    primaryCta: "Porozmawiajmy o współpracy",
+    portfolioCta: "Zobacz portfolio",
+    proofEyebrow: "Dowody zamiast deklaracji",
+    proofItems: [
+      "Enterprise e-commerce: Royal Mint",
+      "Mobile + backend: CleanStrategy",
+      "Checkout + Stripe: Moment Studio",
+      "Platforma kursowa + analityka: Juli Jogi",
+    ],
+    pathsTitle: "Wybierz najkrótszą ścieżkę",
+    paths: [
+      {
+        label: "Dla rekrutera",
+        title: "Doświadczenie, stack i CV",
+        text: "Szybko zobaczysz komercyjne projekty, technologie, zakres odpowiedzialności i dopasowane CV.",
+        href: "/portfolio/#doswiadczenie",
+      },
+      {
+        label: "Dla klienta",
+        title: "Problem, proces i efekt",
+        text: "Najpierw pokazuję, jaki problem był do rozwiązania, co zbudowałem i jaki był rezultat produktu.",
+        href: "/portfolio/#wyroznione",
+      },
+    ],
+    cvTitle: "CV dopasowane do kontekstu",
+    cvLinks: [
+      {
+        label: "CV Frontend",
+        href: "/resume/empik-frontend-developer/pl",
+      },
+      {
+        label: "CV React Native",
+        href: "/resume/netguru-react-native-developer-freelance/pl",
+      },
+      {
+        label: "CV English",
+        href: "/resume/netguru-react-native-developer-freelance/en",
+      },
+    ],
+    featuredEyebrow: "Wyróżnione projekty",
+    featuredTitle: "Case studies",
+    featuredText:
+      "Najmocniejsze realizacje: enterprise e-commerce, produkt mobile/web i pełny sklep internetowy.",
+    caseStudyCta: "Zobacz case study",
+    hireEyebrow: "Kontakt",
+    hireTitle: "Porozmawiajmy o współpracy",
+    hireText:
+      "Jeśli masz produkt, sklep, aplikację albo trudny frontend do ogarnięcia, zostaw sobie szybki brief i odezwij się do mnie na LinkedInie.",
+    companyLabel: "Firma albo projekt",
+    companyPlaceholder: "np. sklep, SaaS, aplikacja mobile",
+    modeLabel: "Tryb współpracy",
+    modePlaceholder: "Wybierz najlepszą opcję",
+    briefLabel: "Jaki problem chcesz rozwiązać?",
+    briefPlaceholder: "Krótko: problem, cel, deadline, stack i co ma działać lepiej.",
+    send: "Wyślij wiadomość",
+    proofCta: "Sprawdź dowody",
+    copied: "Brief skopiowany",
+  },
+  en: {
+    eyebrow: "Frontend / Fullstack / Product",
+    title: "Paweł Drojecki",
+    intro:
+      "I design and build web apps, mobile products and the technical backend behind products that need to work beyond a demo.",
+    supporting:
+      "I usually work with React.js, Next.js, React Native, Node.js, Nest.js and TypeScript. I connect frontend, backend, integrations, analytics, DevOps and product thinking to ship useful working software.",
+    primaryCta: "Talk about collaboration",
+    portfolioCta: "View portfolio",
+    proofEyebrow: "Evidence over claims",
+    proofItems: [
+      "Enterprise e-commerce: Royal Mint",
+      "Mobile + backend: CleanStrategy",
+      "Checkout + Stripe: Moment Studio",
+      "Course platform + analytics: Juli Jogi",
+    ],
+    pathsTitle: "Choose the shortest path",
+    paths: [
+      {
+        label: "For recruiters",
+        title: "Experience, stack and resume",
+        text: "A quick route through commercial work, technologies, responsibilities and targeted resumes.",
+        href: "/portfolio/?lang=en#doswiadczenie",
+      },
+      {
+        label: "For clients",
+        title: "Problem, process and result",
+        text: "A product-first route through the problem, what I built and what changed for the project.",
+        href: "/portfolio/?lang=en#wyroznione",
+      },
+    ],
+    cvTitle: "Resume matched to context",
+    cvLinks: [
+      {
+        label: "Frontend resume",
+        href: "/resume/empik-frontend-developer/en",
+      },
+      {
+        label: "React Native resume",
+        href: "/resume/netguru-react-native-developer-freelance/en",
+      },
+      {
+        label: "Polish CV",
+        href: "/resume/empik-frontend-developer/pl",
+      },
+    ],
+    featuredEyebrow: "Featured projects",
+    featuredTitle: "Case studies",
+    featuredText:
+      "The strongest examples: enterprise e-commerce, a mobile/web product and a full online store.",
+    caseStudyCta: "Read case study",
+    hireEyebrow: "Contact",
+    hireTitle: "Talk about collaboration",
+    hireText:
+      "If you have a product, store, mobile app or difficult frontend that needs care, prepare a short brief and message me on LinkedIn.",
+    companyLabel: "Company or project",
+    companyPlaceholder: "for example store, SaaS, mobile app",
+    modeLabel: "Collaboration type",
+    modePlaceholder: "Choose the best option",
+    briefLabel: "What problem should be solved?",
+    briefPlaceholder: "Briefly: problem, goal, deadline, stack and what should work better.",
+    send: "Send message",
+    proofCta: "Check the evidence",
+    copied: "Brief copied",
+  },
+} satisfies Record<PageLanguage, Record<string, unknown>>;
 
 const getFormValue = (formData: FormData, name: string) =>
   String(formData.get(name) ?? "").trim();
@@ -38,8 +174,18 @@ const buildLinkedInBrief = ({
 export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [isBriefCopied, setIsBriefCopied] = useState(false);
+  const [language, setLanguage] = useState<PageLanguage>("pl");
   const activeProject = featuredProjects[activeProjectIndex];
   const activeProjectImage = activeProject.gallery[0];
+  const copy = copyByLanguage[language];
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.get("lang") === "en") {
+      setLanguage("en");
+    }
+  }, []);
 
   const showPreviousProject = () => {
     setActiveProjectIndex((currentIndex) =>
@@ -69,6 +215,12 @@ export default function Home() {
       "noopener,noreferrer"
     );
 
+    trackEvent("linkedin_open", {
+      source: "home_contact_form",
+      language,
+      work_mode: getFormValue(formData, "workMode"),
+    });
+
     if (!linkedInWindow) {
       window.location.href = linkedInMessageUrl;
     }
@@ -82,51 +234,109 @@ export default function Home() {
   return (
     <div className="flex min-h-[60vh] w-full min-w-0 flex-col justify-center gap-10">
       <section className="flex min-w-0 flex-col gap-6">
+        <div className="flex w-fit items-center gap-1 rounded-md border border-gray-300 p-1 text-xs font-bold">
+          {(["pl", "en"] as PageLanguage[]).map((item) => (
+            <a
+              key={item}
+              href={item === "pl" ? "/" : "/?lang=en"}
+              className={`rounded px-2 py-1 uppercase ${
+                language === item ? "bg-accent text-black" : "text-gray-600"
+              }`}
+            >
+              {item}
+            </a>
+          ))}
+        </div>
         <div className="flex flex-col gap-3">
           <p className="text-sm font-bold uppercase text-gray-500">
-            Frontend / Fullstack / Product
+            {copy.eyebrow}
           </p>
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
-            Paweł Drojecki
+            {copy.title}
           </h1>
         </div>
 
         <div className="flex max-w-2xl min-w-0 flex-col gap-4 text-lg leading-8">
-          <p>
-            Projektuję i buduję aplikacje webowe, mobile oraz zaplecze
-            techniczne produktów, które mają działać nie tylko w demo, ale też
-            w prawdziwym użyciu.
-          </p>
-          <p className="text-gray-700">
-            Najczęściej pracuję z React.js, Next.js, React Native, Node.js,
-            Nest.js i TypeScriptem. Łączę frontend z backendem, integracjami,
-            analityką, DevOpsem i myśleniem produktowym, żeby dowozić
-            rozwiązania gotowe do realnego użycia.
-          </p>
+          <p>{copy.intro}</p>
+          <p className="text-gray-700">{copy.supporting}</p>
         </div>
 
         <div className="flex min-w-0 flex-wrap gap-3">
-          <Link
+          <TrackedLink
             href="#zatrudnij-mnie"
+            eventName="cta_click"
+            eventParams={{ source: "home_hero", label: "contact", language }}
             className="rounded-md border-2 border-black bg-accent px-4 py-2 font-bold text-black shadow-[3px_3px_0_0_#000] hover:bg-accent/80"
           >
-            ZATRUDNIJ MNIE
-          </Link>
-          <Link
-            href="/portfolio"
+            {copy.primaryCta}
+          </TrackedLink>
+          <TrackedLink
+            href={language === "en" ? "/portfolio/?lang=en" : "/portfolio"}
+            eventName="cta_click"
+            eventParams={{ source: "home_hero", label: "portfolio", language }}
             className="rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
           >
-            Zobacz portfolio
-          </Link>
-          <a
+            {copy.portfolioCta}
+          </TrackedLink>
+          <TrackedAnchor
             href="https://www.linkedin.com/in/pawel-drojecki/"
             target="_blank"
             rel="noreferrer"
+            eventName="linkedin_open"
+            eventParams={{ source: "home_hero", language }}
             className="inline-flex items-center gap-2 rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
           >
             <FaLinkedin size={18} />
             LinkedIn
-          </a>
+          </TrackedAnchor>
+        </div>
+      </section>
+
+      <section className="grid min-w-0 gap-3 sm:grid-cols-2">
+        {copy.paths.map((path) => (
+          <TrackedLink
+            key={path.label}
+            href={path.href}
+            eventName="portfolio_path_select"
+            eventParams={{ path: path.label, language }}
+            className="rounded-md border-2 border-black p-4 transition-colors hover:bg-gray-50"
+          >
+            <p className="text-xs font-bold uppercase text-gray-500">
+              {path.label}
+            </p>
+            <h2 className="mt-1 text-lg font-bold">{path.title}</h2>
+            <p className="mt-2 text-sm leading-6 text-gray-700">{path.text}</p>
+          </TrackedLink>
+        ))}
+      </section>
+
+      <section className="flex min-w-0 flex-col gap-3 rounded-md border-2 border-black p-4">
+        <p className="text-sm font-bold uppercase text-gray-500">
+          {copy.proofEyebrow}
+        </p>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {copy.proofItems.map((item) => (
+            <div key={item} className="rounded-md bg-gray-100 px-3 py-2">
+              <p className="text-sm font-bold text-gray-800">{item}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="flex min-w-0 flex-col gap-3 rounded-md border-2 border-black p-4">
+        <h2 className="text-xl font-bold">{copy.cvTitle}</h2>
+        <div className="flex flex-wrap gap-2">
+          {copy.cvLinks.map((link) => (
+            <TrackedLink
+              key={link.href}
+              href={link.href}
+              eventName="cv_open"
+              eventParams={{ source: "home", label: link.label, language }}
+              className="rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
+            >
+              {link.label}
+            </TrackedLink>
+          ))}
         </div>
       </section>
 
@@ -142,12 +352,11 @@ export default function Home() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex flex-col gap-1">
             <p className="text-sm font-bold uppercase text-gray-500">
-              Wyróżnione projekty
+              {copy.featuredEyebrow}
             </p>
-            <h2 className="text-2xl font-bold">Case studies</h2>
+            <h2 className="text-2xl font-bold">{copy.featuredTitle}</h2>
             <p className="text-sm leading-6 text-gray-600">
-              Najmocniejsze realizacje: enterprise e-commerce, produkt
-              mobile/web i pełny sklep internetowy.
+              {copy.featuredText}
             </p>
           </div>
           <div className="flex gap-2">
@@ -225,13 +434,23 @@ export default function Home() {
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href={`/projekty/${activeProject.slug}/`}
+              <TrackedLink
+                href={
+                  language === "en"
+                    ? `/projekty/${activeProject.slug}/?lang=en`
+                    : `/projekty/${activeProject.slug}/`
+                }
+                eventName="case_study_open"
+                eventParams={{
+                  source: "home_featured",
+                  project: activeProject.slug,
+                  language,
+                }}
                 className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
               >
-                <span>Zobacz case study</span>
+                <span>{copy.caseStudyCta}</span>
                 <Icon iconName="openTab" size={16} />
-              </Link>
+              </TrackedLink>
               <div className="flex gap-1">
                 {featuredProjects.map((project, index) => (
                   <button
@@ -259,13 +478,11 @@ export default function Home() {
       >
         <div className="flex flex-col gap-2">
           <p className="text-sm font-bold uppercase text-gray-500">
-            Odwrócona rekrutacja
+            {copy.hireEyebrow}
           </p>
-          <h2 className="text-3xl font-bold leading-tight">Zatrudnij mnie</h2>
+          <h2 className="text-3xl font-bold leading-tight">{copy.hireTitle}</h2>
           <p className="max-w-2xl text-sm leading-6 text-gray-700">
-            Tym razem to nie ja składam papiery. Jeśli masz produkt, sklep,
-            aplikację albo trudny frontend do ogarnięcia, zostaw sobie szybki
-            brief i odezwij się do mnie na LinkedInie.
+            {copy.hireText}
           </p>
         </div>
 
@@ -276,23 +493,23 @@ export default function Home() {
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm font-bold">
-              Firma albo projekt
+              {copy.companyLabel}
               <input
                 name="company"
                 type="text"
-                placeholder="np. sklep, SaaS, aplikacja mobile"
+                placeholder={copy.companyPlaceholder}
                 className="rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
               />
             </label>
             <label className="flex flex-col gap-2 text-sm font-bold">
-              Tryb współpracy
+              {copy.modeLabel}
               <select
                 name="workMode"
                 className="rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
                 defaultValue=""
               >
                 <option value="" disabled>
-                  Wybierz najlepszą opcję
+                  {copy.modePlaceholder}
                 </option>
                 <option>Frontend / React / Next.js</option>
                 <option>Fullstack / Nest.js / MongoDB</option>
@@ -303,11 +520,11 @@ export default function Home() {
           </div>
 
           <label className="flex flex-col gap-2 text-sm font-bold">
-            Dlaczego właśnie ja mam wejść do gry?
+            {copy.briefLabel}
             <textarea
               name="brief"
               rows={4}
-              placeholder="Krótko: problem, cel, deadline, stack i co ma działać lepiej."
+              placeholder={copy.briefPlaceholder}
               className="resize-none rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
             />
           </label>
@@ -318,17 +535,19 @@ export default function Home() {
               className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
             >
               <FaLinkedin size={18} />
-              Wyślij wiadomość
+              {copy.send}
             </button>
-            <Link
-              href="/portfolio"
+            <TrackedLink
+              href={language === "en" ? "/portfolio/?lang=en" : "/portfolio"}
+              eventName="cta_click"
+              eventParams={{ source: "home_contact_form", label: "portfolio", language }}
               className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
             >
-              Sprawdź dowody
-            </Link>
+              {copy.proofCta}
+            </TrackedLink>
             {isBriefCopied ? (
               <p className="text-sm font-bold text-gray-600">
-                Brief skopiowany
+                {copy.copied}
               </p>
             ) : null}
           </div>

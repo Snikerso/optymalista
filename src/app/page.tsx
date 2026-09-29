@@ -3,7 +3,7 @@
 import { Icon } from "@/components/atoms/Icon";
 import { projectDetailsBySlug } from "@/data/projectDetails";
 import Link from "next/link";
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
 const featuredProjects = [
@@ -12,8 +12,32 @@ const featuredProjects = [
   projectDetailsBySlug["moment-studio"],
 ];
 
+const linkedInMessageUrl = "https://www.linkedin.com/messaging/compose/";
+
+const getFormValue = (formData: FormData, name: string) =>
+  String(formData.get(name) ?? "").trim();
+
+const buildLinkedInBrief = ({
+  brief,
+  company,
+  workMode,
+}: {
+  brief: string;
+  company: string;
+  workMode: string;
+}) =>
+  [
+    "Cześć Paweł, chcę pogadać o współpracy.",
+    company ? `Firma/projekt: ${company}` : "",
+    workMode ? `Tryb współpracy: ${workMode}` : "",
+    brief ? `Brief: ${brief}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
 export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [isBriefCopied, setIsBriefCopied] = useState(false);
   const activeProject = featuredProjects[activeProjectIndex];
   const activeProjectImage = activeProject.gallery[0];
 
@@ -27,6 +51,32 @@ export default function Home() {
     setActiveProjectIndex((currentIndex) =>
       currentIndex === featuredProjects.length - 1 ? 0 : currentIndex + 1
     );
+  };
+
+  const openLinkedInMessage = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const message = buildLinkedInBrief({
+      company: getFormValue(formData, "company"),
+      workMode: getFormValue(formData, "workMode"),
+      brief: getFormValue(formData, "brief"),
+    });
+
+    const linkedInWindow = window.open(
+      linkedInMessageUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+    if (!linkedInWindow) {
+      window.location.href = linkedInMessageUrl;
+    }
+
+    void navigator.clipboard
+      .writeText(message)
+      .then(() => setIsBriefCopied(true))
+      .catch(() => setIsBriefCopied(false));
   };
 
   return (
@@ -219,7 +269,11 @@ export default function Home() {
           </p>
         </div>
 
-        <form className="mt-5 grid gap-4" aria-label="Formularz zatrudnienia">
+        <form
+          className="mt-5 grid gap-4"
+          aria-label="Formularz zatrudnienia"
+          onSubmit={openLinkedInMessage}
+        >
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm font-bold">
               Firma albo projekt
@@ -259,21 +313,24 @@ export default function Home() {
           </label>
 
           <div className="flex flex-wrap items-center gap-3 border-t border-gray-200 pt-4">
-            <a
-              href="https://www.linkedin.com/in/pawel-drojecki/"
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="submit"
               className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
             >
               <FaLinkedin size={18} />
-              Wyślij zaproszenie
-            </a>
+              Wyślij wiadomość
+            </button>
             <Link
               href="/portfolio"
               className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
             >
               Sprawdź dowody
             </Link>
+            {isBriefCopied ? (
+              <p className="text-sm font-bold text-gray-600">
+                Brief skopiowany
+              </p>
+            ) : null}
           </div>
         </form>
       </section>

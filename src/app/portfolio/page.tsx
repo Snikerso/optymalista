@@ -4,6 +4,7 @@ import {
   TrackedAnchor,
   TrackedLink,
 } from "@/components/analytics/TrackedLink";
+import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import {
   PortfolioItem,
   type PortfolioItemProps,
@@ -11,11 +12,11 @@ import {
 import { Icon } from "@/components/atoms/Icon";
 import {
   getLocalizedProject,
-  getProjectLanguage,
   type ProjectLanguage,
   projectDetailsBySlug,
 } from "@/data/projectDetails";
 import { Technologies, technologyGroups } from "@/data/technologies";
+import { getLanguageFromBrowser } from "@/lib/language";
 import { PortfolioType } from "@/types";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
@@ -111,25 +112,6 @@ const experienceItems: PortfolioItemProps[] = [
       "Kraków, woj. małopolskie · praca zdalna.",
       "Stworzenie od podstaw zaawansowanego systemu autoryzacji RBAC.",
       "Projektowanie systemu wizualizacji grafowej opartego o D3.js oraz bezpiecznych endpointów backendowych.",
-    ],
-  },
-  {
-    title: "Business Card Projects",
-    role: "Samozatrudnienie",
-    description:
-      "Realizacja prostych, estetycznych stron wizytówkowych tłumaczących projekty z Figmy na działające strony.",
-    types: [PortfolioType.WORK_EXPERIENCE],
-    startDate: new Date("2019-01-01"),
-    endDate: new Date("2021-04-01"),
-    technologies: [
-      Technologies.REACT,
-      Technologies.JAVASCRIPT,
-      Technologies.HTML5,
-      Technologies.TAILWIND_CSS,
-    ],
-    highlights: [
-      "Praca zdalna.",
-      "Tworzenie zoptymalizowanych i wizualnie dopracowanych web pages dla małych projektów.",
     ],
   },
   {
@@ -399,14 +381,14 @@ const portfolioSectionIds = [
   "intro",
   "wyroznione",
   "firmy",
-  "stack",
-  "doswiadczenie",
   "projekty",
+  "doswiadczenie",
+  "stack",
 ] as const;
 
 const portfolioCopyByLanguage = {
   pl: {
-    nav: ["Intro", "Wyróżnione", "Firmy", "Stack", "Doświadczenie", "Projekty"],
+    nav: ["Intro", "Wyróżnione", "Firmy", "Projekty", "Doświadczenie", "Stack"],
     title: "Portfolio",
     eyebrow: "React · Next.js · Nest.js · Product development",
     intro:
@@ -445,12 +427,10 @@ const portfolioCopyByLanguage = {
     featuredDescription:
       "Najmocniejsze realizacje pokazujące enterprise e-commerce, produkt mobile/web i pełny sklep internetowy.",
     caseStudy: "Zobacz case study",
-    evidence: "Dowody",
-    decisions: "Decyzje",
     positions: "pozycji",
   },
   en: {
-    nav: ["Intro", "Featured", "Companies", "Stack", "Experience", "Projects"],
+    nav: ["Intro", "Featured", "Companies", "Projects", "Experience", "Stack"],
     title: "Portfolio",
     eyebrow: "React · Next.js · Nest.js · Product development",
     intro:
@@ -486,8 +466,6 @@ const portfolioCopyByLanguage = {
     featuredDescription:
       "The strongest examples: enterprise e-commerce, a mobile/web product and a full online store.",
     caseStudy: "Read case study",
-    evidence: "Evidence",
-    decisions: "Decisions",
     positions: "items",
   },
 } satisfies Record<ProjectLanguage, Record<string, string | string[] | { label: string; href: string }[]>>;
@@ -526,7 +504,7 @@ export default function PortfolioPage() {
   };
 
   useEffect(() => {
-    setLanguage(getProjectLanguage(new URLSearchParams(window.location.search).get("lang") ?? undefined));
+    setLanguage(getLanguageFromBrowser());
   }, []);
 
   useEffect(() => {
@@ -587,19 +565,10 @@ export default function PortfolioPage() {
       />
       <div className="flex flex-col gap-12">
         <section id="intro" className="flex scroll-mt-28 flex-col gap-2">
-          <div className="flex w-fit items-center gap-1 rounded-md border border-gray-300 p-1 text-xs font-bold">
-            {(["pl", "en"] as ProjectLanguage[]).map((item) => (
-              <a
-                key={item}
-                href={item === "pl" ? "/portfolio" : "/portfolio/?lang=en"}
-                className={`rounded px-2 py-1 uppercase ${
-                  language === item ? "bg-accent text-black" : "text-gray-600"
-                }`}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
+          <LanguageSwitcher
+            language={language}
+            onLanguageChange={setLanguage}
+          />
           <h1 className="text-2xl font-bold">{copy.title}</h1>
           <p className="text-sm font-bold uppercase text-gray-500">
             {copy.eyebrow}
@@ -742,6 +711,19 @@ export default function PortfolioPage() {
           </div>
         </section>
 
+        <PortfolioSection
+          id="projekty"
+          title={copy.projects}
+          positionsLabel={copy.positions}
+          items={projectItems}
+        />
+        <PortfolioSection
+          id="doswiadczenie"
+          title={copy.experience}
+          positionsLabel={copy.positions}
+          items={experienceItems}
+        />
+
         <section id="stack" className="flex scroll-mt-28 flex-col gap-4">
           <div className="flex flex-col gap-1">
             <h2 className="text-xl font-bold">{copy.stack}</h2>
@@ -761,19 +743,6 @@ export default function PortfolioPage() {
             ))}
           </div>
         </section>
-
-        <PortfolioSection
-          id="doswiadczenie"
-          title={copy.experience}
-          positionsLabel={copy.positions}
-          items={experienceItems}
-        />
-        <PortfolioSection
-          id="projekty"
-          title={copy.projects}
-          positionsLabel={copy.positions}
-          items={projectItems}
-        />
       </div>
     </div>
   );
@@ -912,16 +881,6 @@ const FeaturedProjectsCarousel = ({
             <p className="text-sm leading-6 text-gray-800">
               {activeProjectDetails?.summary ?? activeProject.description}
             </p>
-            {activeProjectDetails?.proofPoints?.[0] ? (
-              <p className="rounded-md bg-white px-3 py-2 text-sm font-bold text-gray-800">
-                {copy.evidence}: {activeProjectDetails.proofPoints[0]}
-              </p>
-            ) : null}
-            {activeProjectDetails?.technicalDecisions?.[0] ? (
-              <p className="rounded-md bg-white px-3 py-2 text-sm font-bold text-gray-800">
-                {copy.decisions}: {activeProjectDetails.technicalDecisions[0]}
-              </p>
-            ) : null}
           </div>
 
           <div className="flex flex-col gap-4">

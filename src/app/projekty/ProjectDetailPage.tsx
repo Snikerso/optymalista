@@ -2,12 +2,13 @@
 
 import { TrackedAnchor } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
+import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import {
   getLocalizedProject,
-  getProjectLanguage,
   type ProjectDetail,
   type ProjectLanguage,
 } from "@/data/projectDetails";
+import { getLanguageFromBrowser } from "@/lib/language";
 import { siteUrl } from "@/lib/seo";
 import { useEffect, useState } from "react";
 
@@ -25,8 +26,6 @@ const copyByLanguage = {
     solution: "Rozwiązanie",
     responsibilities: "Zakres prac",
     effects: "Efekty",
-    proof: "Dowody pracy",
-    technicalDecisions: "Decyzje techniczne",
   },
   en: {
     back: "Back to projects",
@@ -41,8 +40,6 @@ const copyByLanguage = {
     solution: "Solution",
     responsibilities: "Scope of work",
     effects: "Results",
-    proof: "Work evidence",
-    technicalDecisions: "Technical decisions",
   },
 } satisfies Record<ProjectLanguage, Record<string, string>>;
 
@@ -58,8 +55,7 @@ export const ProjectDetailPage = ({
     language === "en" ? "/portfolio/?lang=en#projekty" : "/portfolio/#projekty";
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setLanguage(getProjectLanguage(params.get("lang") ?? undefined));
+    setLanguage(getLanguageFromBrowser());
   }, []);
 
   const projectJsonLd = {
@@ -82,6 +78,7 @@ export const ProjectDetailPage = ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
       />
+      <LanguageSwitcher language={language} onLanguageChange={setLanguage} />
       <a
         href={portfolioPath}
         className="inline-flex w-fit items-center gap-2 text-sm font-bold hover:text-accent"
@@ -224,23 +221,6 @@ export const ProjectDetailPage = ({
         <ProjectListBlock title={copy.effects} items={localizedProject.effects} />
       </section>
 
-      {(localizedProject.proofPoints?.length ||
-        localizedProject.technicalDecisions?.length) ? (
-        <section className="grid gap-4 md:grid-cols-2">
-          {localizedProject.proofPoints?.length ? (
-            <ProjectListBlock
-              title={copy.proof}
-              items={localizedProject.proofPoints}
-            />
-          ) : null}
-          {localizedProject.technicalDecisions?.length ? (
-            <ProjectListBlock
-              title={copy.technicalDecisions}
-              items={localizedProject.technicalDecisions}
-            />
-          ) : null}
-        </section>
-      ) : null}
     </article>
   );
 };

@@ -2,7 +2,9 @@
 
 import { TrackedAnchor, TrackedLink } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
+import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import { trackEvent } from "@/lib/analytics";
+import { getLanguageFromBrowser, type SiteLanguage } from "@/lib/language";
 import { projectDetailsBySlug } from "@/data/projectDetails";
 import { type FormEvent, useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
@@ -14,8 +16,6 @@ const featuredProjects = [
 ];
 
 const linkedInMessageUrl = "https://www.linkedin.com/messaging/compose/";
-
-type PageLanguage = "pl" | "en";
 
 const copyByLanguage = {
   pl: {
@@ -148,7 +148,7 @@ const copyByLanguage = {
     proofCta: "Check the evidence",
     copied: "Brief copied",
   },
-} satisfies Record<PageLanguage, Record<string, unknown>>;
+} satisfies Record<SiteLanguage, Record<string, unknown>>;
 
 const getFormValue = (formData: FormData, name: string) =>
   String(formData.get(name) ?? "").trim();
@@ -174,17 +174,13 @@ const buildLinkedInBrief = ({
 export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [isBriefCopied, setIsBriefCopied] = useState(false);
-  const [language, setLanguage] = useState<PageLanguage>("pl");
+  const [language, setLanguage] = useState<SiteLanguage>("pl");
   const activeProject = featuredProjects[activeProjectIndex];
   const activeProjectImage = activeProject.gallery[0];
   const copy = copyByLanguage[language];
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    if (params.get("lang") === "en") {
-      setLanguage("en");
-    }
+    setLanguage(getLanguageFromBrowser());
   }, []);
 
   const showPreviousProject = () => {
@@ -234,19 +230,10 @@ export default function Home() {
   return (
     <div className="flex min-h-[60vh] w-full min-w-0 flex-col justify-center gap-10">
       <section className="flex min-w-0 flex-col gap-6">
-        <div className="flex w-fit items-center gap-1 rounded-md border border-gray-300 p-1 text-xs font-bold">
-          {(["pl", "en"] as PageLanguage[]).map((item) => (
-            <a
-              key={item}
-              href={item === "pl" ? "/" : "/?lang=en"}
-              className={`rounded px-2 py-1 uppercase ${
-                language === item ? "bg-accent text-black" : "text-gray-600"
-              }`}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
+        <LanguageSwitcher
+          language={language}
+          onLanguageChange={setLanguage}
+        />
         <div className="flex flex-col gap-3">
           <p className="text-sm font-bold uppercase text-gray-500">
             {copy.eyebrow}

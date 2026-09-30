@@ -1,8 +1,11 @@
-import { Technologies } from "@/data/technologies";
-import { PortfolioType } from "@/types";
+import { getTechnologyLabel, Technologies } from "@/data/technologies";
+import type { Locale } from "@/lib/language";
+import { getPortfolioTypeLabel, PortfolioType } from "@/types";
 import React from "react";
 import { TrackedAnchor, TrackedLink } from "../analytics/TrackedLink";
 import { Icon } from "../atoms/Icon";
+
+export type PortfolioItemLanguage = Locale;
 
 export type PortfolioItemProps = {
   id?: string;
@@ -22,7 +25,34 @@ export type PortfolioItemProps = {
   link?: string;
   caseStudyLink?: string;
   highlights?: string[];
+  language?: PortfolioItemLanguage;
 };
+
+const copyByLanguage = {
+  pl: {
+    caseStudy: "Case study",
+    current: "obecnie",
+    externalLink: "Zobacz stronę",
+    month: "mies.",
+    projectPrefix: "Projekt",
+  },
+  en: {
+    caseStudy: "Case study",
+    current: "present",
+    externalLink: "View website",
+    month: "mo.",
+    projectPrefix: "Project",
+  },
+} satisfies Record<
+  PortfolioItemLanguage,
+  {
+    caseStudy: string;
+    current: string;
+    externalLink: string;
+    month: string;
+    projectPrefix: string;
+  }
+>;
 
 export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   id,
@@ -39,7 +69,9 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   link,
   caseStudyLink,
   highlights,
+  language = "pl",
 }) => {
+  const copy = copyByLanguage[language];
   const visibleTypes = types.filter(
     (type) => type !== PortfolioType.WORK_EXPERIENCE
   );
@@ -62,7 +94,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
             )}
           </div>
           <p className="w-fit rounded-md bg-gray-100 px-2 py-1 text-xs font-bold text-gray-700 sm:text-sm md:shrink-0">
-            {formatDateRange(startDate, endDate)}
+            {formatDateRange(startDate, endDate, language)}
           </p>
         </div>
         {role &&
@@ -91,7 +123,9 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
             }}
             className="inline-flex w-fit items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-sm font-bold text-gray-700 hover:text-accent"
           >
-            <span>Projekt: {relatedProject.name}</span>
+            <span>
+              {copy.projectPrefix}: {relatedProject.name}
+            </span>
             <Icon iconName="globe" size={14} />
           </TrackedLink>
         )}
@@ -116,7 +150,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
                 key={type}
                 className="rounded-md bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-700"
               >
-                {type}
+                {getPortfolioTypeLabel(type, language)}
               </span>
             ))}
           </div>
@@ -127,7 +161,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
               key={technology}
               className="inline-flex items-center gap-1.5 rounded-md border border-gray-300 px-2 py-1 text-xs font-medium text-gray-800"
             >
-              {technology}
+              {getTechnologyLabel(technology, language)}
             </span>
           ))}
         </div>
@@ -142,7 +176,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
             eventParams={{ source: "portfolio_item", project: title }}
             className="inline-flex w-fit items-center gap-1 text-sm font-bold hover:text-accent"
           >
-            <span>Case study</span>
+            <span>{copy.caseStudy}</span>
             <Icon iconName="openTab" size={16} />
           </TrackedLink>
         )}
@@ -155,7 +189,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
             eventParams={{ source: "portfolio_item", project: title }}
             className="inline-flex w-fit items-center gap-1 text-sm font-bold hover:text-accent"
           >
-            <span>Zobacz stronkę</span>
+            <span>{copy.externalLink}</span>
             <Icon iconName="globe" size={16} />
           </TrackedAnchor>
         )}
@@ -164,8 +198,13 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   );
 };
 
-const formatDateRange = (startDate: Date, endDate?: Date) => {
-  const formatter = new Intl.DateTimeFormat("pl-PL", {
+const formatDateRange = (
+  startDate: Date,
+  endDate: Date | undefined,
+  language: PortfolioItemLanguage
+) => {
+  const copy = copyByLanguage[language];
+  const formatter = new Intl.DateTimeFormat(language === "en" ? "en-US" : "pl-PL", {
     month: "short",
     year: "numeric",
   });
@@ -177,19 +216,30 @@ const formatDateRange = (startDate: Date, endDate?: Date) => {
         (1000 * 60 * 60 * 24 * 30)
     )
   );
-  const endLabel = endDate ? formatter.format(endDate) : "obecnie";
+  const endLabel = endDate ? formatter.format(endDate) : copy.current;
 
   return `${formatter.format(startDate)} - ${endLabel} (${formatDuration(
-    months
+    months,
+    language
   )})`;
 };
 
-const formatDuration = (months: number) => {
+const formatDuration = (months: number, language: PortfolioItemLanguage) => {
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
 
   if (years === 0) {
-    return `${months} mies.`;
+    return `${months} ${copyByLanguage[language].month}`;
+  }
+
+  if (language === "en") {
+    const yearLabel = years === 1 ? "yr" : "yrs";
+
+    if (remainingMonths === 0) {
+      return `${years} ${yearLabel}`;
+    }
+
+    return `${years} ${yearLabel} ${remainingMonths} mo.`;
   }
 
   if (remainingMonths === 0) {

@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  getLocalizedHref,
   languageStorageKey,
   saveLanguagePreference,
+  supportedLanguages,
   type SiteLanguage,
 } from "@/lib/language";
 import { useEffect, useState } from "react";
@@ -10,18 +12,6 @@ import { useEffect, useState } from "react";
 type LanguageSwitcherProps = {
   language: SiteLanguage;
   onLanguageChange?: (language: SiteLanguage) => void;
-};
-
-const getLanguageHref = (language: SiteLanguage) => {
-  const url = new URL(window.location.href);
-
-  if (language === "en") {
-    url.searchParams.set("lang", "en");
-  } else {
-    url.searchParams.delete("lang");
-  }
-
-  return `${url.pathname}${url.search}${url.hash}`;
 };
 
 export const LanguageSwitcher = ({
@@ -34,9 +24,11 @@ export const LanguageSwitcher = ({
   });
 
   useEffect(() => {
+    const currentHref = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
     setHrefs({
-      pl: getLanguageHref("pl"),
-      en: getLanguageHref("en"),
+      pl: getLocalizedHref(currentHref, "pl") ?? "#",
+      en: getLocalizedHref(currentHref, "en") ?? "#",
     });
   }, [language]);
 
@@ -47,11 +39,11 @@ export const LanguageSwitcher = ({
 
   return (
     <nav
-      aria-label="Wybór języka"
+      aria-label={language === "en" ? "Language selection" : "Wybór języka"}
       className="flex w-fit items-center gap-1 rounded-md border border-gray-300 bg-white p-1 text-xs font-bold"
       data-language-storage-key={languageStorageKey}
     >
-      {(["pl", "en"] as SiteLanguage[]).map((item) => (
+      {supportedLanguages.map((item) => (
         <a
           key={item}
           href={hrefs[item]}

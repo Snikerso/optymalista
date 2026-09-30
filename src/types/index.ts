@@ -1,3 +1,5 @@
+import type { Locale } from "@/lib/language";
+
 export interface Hero {
   id: number;
   name: string;
@@ -56,3 +58,39 @@ export enum PortfolioType {
   WORK_EXPERIENCE = "Work Experience",
   CONTENT = "Content",
 }
+
+const portfolioTypeLabels: Record<PortfolioType, Record<Locale, string>> = {
+  [PortfolioType.MOBILE_APP]: {
+    pl: "Aplikacja mobilna",
+    en: "Mobile App",
+  },
+  [PortfolioType.WATCH_APP]: {
+    pl: "Aplikacja na zegarek",
+    en: "Watch App",
+  },
+  [PortfolioType.WEB_APP]: {
+    pl: "Aplikacja webowa",
+    en: "Web App",
+  },
+  [PortfolioType.ECOMMERCE]: {
+    pl: "E-commerce",
+    en: "E-commerce",
+  },
+  [PortfolioType.BUSINESS_CARD]: {
+    pl: "Wizytówka",
+    en: "Business Card",
+  },
+  [PortfolioType.WORK_EXPERIENCE]: {
+    pl: "Doświadczenie",
+    en: "Work Experience",
+  },
+  [PortfolioType.CONTENT]: {
+    pl: "Treści",
+    en: "Content",
+  },
+};
+
+export const getPortfolioTypeLabel = (
+  type: PortfolioType,
+  language: Locale
+) => portfolioTypeLabels[type][language];

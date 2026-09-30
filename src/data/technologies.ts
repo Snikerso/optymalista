@@ -1,3 +1,5 @@
+import type { Locale } from "@/lib/language";
+
 export enum Technologies {
   REACT_NATIVE = "React Native",
   EXPO = "Expo",
@@ -71,6 +73,64 @@ export type TechnologyGroup = {
   title: string;
   skills: Technologies[];
 };
+
+export type TechnologyLanguage = Locale;
+
+const technologyLabels: Partial<Record<Technologies, Record<TechnologyLanguage, string>>> = {
+  [Technologies.PROGRAMMING_TEACHING]: {
+    pl: "Nauczanie programowania",
+    en: "Programming teaching",
+  },
+  [Technologies.REMOTE_TEACHING]: {
+    pl: "Nauczanie na odległość",
+    en: "Remote teaching",
+  },
+  [Technologies.INSTRUCTOR_LED_TRAINING]: {
+    pl: "Szkolenie prowadzone przez instruktora",
+    en: "Instructor-led training",
+  },
+  [Technologies.LECTURING]: {
+    pl: "Prowadzenie wykładów",
+    en: "Lecturing",
+  },
+  [Technologies.PROJECT_MANAGEMENT]: {
+    pl: "Zarządzanie projektem",
+    en: "Project management",
+  },
+  [Technologies.PROJECT_DELIVERY]: {
+    pl: "Realizowanie projektów",
+    en: "Project delivery",
+  },
+  [Technologies.DATA_ANALYSIS]: {
+    pl: "Analiza danych",
+    en: "Data analysis",
+  },
+  [Technologies.STATISTICAL_DATA_ANALYSIS]: {
+    pl: "Analiza danych statystycznych",
+    en: "Statistical data analysis",
+  },
+  [Technologies.MACHINE_LEARNING]: {
+    pl: "Nauczanie maszynowe",
+    en: "Machine learning",
+  },
+  [Technologies.UX_RESEARCH]: {
+    pl: "Badania UX",
+    en: "UX research",
+  },
+  [Technologies.WEBSITE_CREATION]: {
+    pl: "Tworzenie witryn internetowych",
+    en: "Website creation",
+  },
+  [Technologies.WEBSITE_DESIGN]: {
+    pl: "Projektowanie witryn internetowych",
+    en: "Website design",
+  },
+};
+
+export const getTechnologyLabel = (
+  technology: Technologies,
+  language: TechnologyLanguage
+) => technologyLabels[technology]?.[language] ?? technology;
 
 export const technologyGroups: TechnologyGroup[] = [
   {

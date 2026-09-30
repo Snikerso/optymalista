@@ -4,8 +4,14 @@ import { TrackedAnchor, TrackedLink } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
 import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import { trackEvent } from "@/lib/analytics";
-import { getLanguageFromBrowser, type SiteLanguage } from "@/lib/language";
-import { projectDetailsBySlug } from "@/data/projectDetails";
+import {
+  getLanguageFromBrowser,
+  getLocalizedHref,
+  type SiteLanguage,
+} from "@/lib/language";
+import { getLocalizedProject, projectDetailsBySlug } from "@/data/projectDetails";
+import { getTechnologyLabel } from "@/data/technologies";
+import { getPortfolioTypeLabel } from "@/types";
 import { type FormEvent, useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
@@ -69,6 +75,9 @@ const copyByLanguage = {
     featuredText:
       "Najmocniejsze realizacje: enterprise e-commerce, produkt mobile/web i pełny sklep internetowy.",
     caseStudyCta: "Zobacz case study",
+    previousProject: "Poprzedni projekt",
+    nextProject: "Następny projekt",
+    showProject: "Pokaż projekt",
     hireEyebrow: "Kontakt",
     hireTitle: "Porozmawiajmy o współpracy",
     hireText:
@@ -82,6 +91,13 @@ const copyByLanguage = {
     send: "Wyślij wiadomość",
     proofCta: "Sprawdź dowody",
     copied: "Brief skopiowany",
+    hireFormAria: "Formularz zatrudnienia",
+    workModeOptions: [
+      "Frontend / React / Next.js",
+      "Fullstack / Nest.js / MongoDB",
+      "Mobile / React Native",
+      "Produkt, audyt i dowożenie",
+    ],
   },
   en: {
     eyebrow: "Frontend / Fullstack / Product",
@@ -105,13 +121,13 @@ const copyByLanguage = {
         label: "For recruiters",
         title: "Experience, stack and resume",
         text: "A quick route through commercial work, technologies, responsibilities and targeted resumes.",
-        href: "/portfolio/?lang=en#doswiadczenie",
+        href: "/portfolio/#doswiadczenie",
       },
       {
         label: "For clients",
         title: "Problem, process and result",
         text: "A product-first route through the problem, what I built and what changed for the project.",
-        href: "/portfolio/?lang=en#wyroznione",
+        href: "/portfolio/#wyroznione",
       },
     ],
     cvTitle: "Resume matched to context",
@@ -134,6 +150,9 @@ const copyByLanguage = {
     featuredText:
       "The strongest examples: enterprise e-commerce, a mobile/web product and a full online store.",
     caseStudyCta: "Read case study",
+    previousProject: "Previous project",
+    nextProject: "Next project",
+    showProject: "Show project",
     hireEyebrow: "Contact",
     hireTitle: "Talk about collaboration",
     hireText:
@@ -147,6 +166,13 @@ const copyByLanguage = {
     send: "Send message",
     proofCta: "Check the evidence",
     copied: "Brief copied",
+    hireFormAria: "Hiring form",
+    workModeOptions: [
+      "Frontend / React / Next.js",
+      "Fullstack / Nest.js / MongoDB",
+      "Mobile / React Native",
+      "Product, audit and delivery",
+    ],
   },
 } satisfies Record<SiteLanguage, Record<string, unknown>>;
 
@@ -175,7 +201,10 @@ export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [isBriefCopied, setIsBriefCopied] = useState(false);
   const [language, setLanguage] = useState<SiteLanguage>("pl");
-  const activeProject = featuredProjects[activeProjectIndex];
+  const activeProject = getLocalizedProject(
+    featuredProjects[activeProjectIndex],
+    language
+  );
   const activeProjectImage = activeProject.gallery[0];
   const copy = copyByLanguage[language];
 
@@ -258,7 +287,7 @@ export default function Home() {
             {copy.primaryCta}
           </TrackedLink>
           <TrackedLink
-            href={language === "en" ? "/portfolio/?lang=en" : "/portfolio"}
+            href={getLocalizedHref("/portfolio", language) ?? "/portfolio"}
             eventName="cta_click"
             eventParams={{ source: "home_hero", label: "portfolio", language }}
             className="rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
@@ -283,7 +312,7 @@ export default function Home() {
         {copy.paths.map((path) => (
           <TrackedLink
             key={path.label}
-            href={path.href}
+            href={getLocalizedHref(path.href, language) ?? path.href}
             eventName="portfolio_path_select"
             eventParams={{ path: path.label, language }}
             className="rounded-md border-2 border-black p-4 transition-colors hover:bg-gray-50"
@@ -349,7 +378,7 @@ export default function Home() {
           <div className="flex gap-2">
             <button
               type="button"
-              aria-label="Poprzedni projekt"
+              aria-label={copy.previousProject}
               onClick={showPreviousProject}
               className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-white hover:bg-accent"
             >
@@ -357,7 +386,7 @@ export default function Home() {
             </button>
             <button
               type="button"
-              aria-label="Następny projekt"
+              aria-label={copy.nextProject}
               onClick={showNextProject}
               className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-accent hover:bg-accent/80"
             >
@@ -375,7 +404,7 @@ export default function Home() {
                     key={category}
                     className="rounded-md bg-accent px-2 py-1 text-xs font-bold uppercase text-black"
                   >
-                    {category}
+                    {getPortfolioTypeLabel(category, language)}
                   </span>
                 ))}
               </div>
@@ -415,7 +444,7 @@ export default function Home() {
                     key={technology}
                     className="rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-800"
                   >
-                    {technology}
+                    {getTechnologyLabel(technology, language)}
                   </span>
                 ))}
               </div>
@@ -423,9 +452,10 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-3">
               <TrackedLink
                 href={
-                  language === "en"
-                    ? `/projekty/${activeProject.slug}/?lang=en`
-                    : `/projekty/${activeProject.slug}/`
+                  getLocalizedHref(
+                    `/projekty/${activeProject.slug}/`,
+                    language
+                  ) ?? `/projekty/${activeProject.slug}/`
                 }
                 eventName="case_study_open"
                 eventParams={{
@@ -443,7 +473,9 @@ export default function Home() {
                   <button
                     key={project.slug}
                     type="button"
-                    aria-label={`Pokaż projekt ${project.title}`}
+                    aria-label={`${copy.showProject} ${
+                      getLocalizedProject(project, language).title
+                    }`}
                     onClick={() => setActiveProjectIndex(index)}
                     className={`h-2.5 rounded-full transition-all ${
                       activeProjectIndex === index
@@ -475,7 +507,7 @@ export default function Home() {
 
         <form
           className="mt-5 grid gap-4"
-          aria-label="Formularz zatrudnienia"
+          aria-label={copy.hireFormAria}
           onSubmit={openLinkedInMessage}
         >
           <div className="grid gap-4 sm:grid-cols-2">
@@ -498,10 +530,9 @@ export default function Home() {
                 <option value="" disabled>
                   {copy.modePlaceholder}
                 </option>
-                <option>Frontend / React / Next.js</option>
-                <option>Fullstack / Nest.js / MongoDB</option>
-                <option>Mobile / React Native</option>
-                <option>Produkt, audyt i dowożenie</option>
+                {copy.workModeOptions.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
               </select>
             </label>
           </div>
@@ -525,7 +556,7 @@ export default function Home() {
               {copy.send}
             </button>
             <TrackedLink
-              href={language === "en" ? "/portfolio/?lang=en" : "/portfolio"}
+              href={getLocalizedHref("/portfolio", language) ?? "/portfolio"}
               eventName="cta_click"
               eventParams={{ source: "home_contact_form", label: "portfolio", language }}
               className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"

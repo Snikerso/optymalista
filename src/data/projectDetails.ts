@@ -1,5 +1,6 @@
 import { Technologies } from "@/data/technologies";
 import { PortfolioType } from "@/types";
+import type { Locale } from "@/lib/language";
 
 export type ProjectDetail = {
   slug: string;
@@ -31,6 +32,7 @@ export type ProjectDetail = {
       | "effects"
       | "proofPoints"
       | "technicalDecisions"
+      | "gallery"
     >
   >;
   gallery: {
@@ -94,6 +96,63 @@ export const projectDetails: ProjectDetail[] = [
       "Duże boczne strefy dotykowe dopasowane do okrągłej tarczy.",
       "Zabezpieczenie logiki licznika przed zejściem poniżej zera.",
     ],
+    translated: {
+      role: "Garmin Connect IQ developer / product builder",
+      period: "Sep 2026 - present",
+      summary:
+        "A Garmin watch app for counting knitting rows, designed as a polished counter with projects, rounds, daily goal and streak tracking.",
+      lead:
+        "Knitting Counter Pro was created as a practical wrist app: fast to use, readable on a round watch face and convenient while knitting or crocheting.",
+      insideStory:
+        "The idea came from a very everyday situation: my girlfriend had a handheld row counter that was easy to misplace. Her watch was always with her, so moving the counter to Garmin felt like the natural next step.",
+      problem:
+        "People working with row-based patterns need a counter that is always at hand, does not require a phone and keeps project and round context.",
+      solution:
+        "I built a Garmin Connect IQ app with local project storage, large curved touch areas, rounds, a daily goal and a streak-day counter.",
+      responsibilities: [
+        "Designed the interface for a small round watch face and touch interaction.",
+        "Implemented project, counter, round, daily goal and streak logic, including protection against decrementing below zero.",
+        "Tested the app in the Garmin simulator and on several watch models.",
+        "Prepared the publishing description, privacy notes and feature scope for Garmin Connect IQ Store.",
+      ],
+      effects: [
+        "The app runs on the watch and stores progress locally without network permissions.",
+        "The interface has a vintage character, a large counter and easy-to-hit side buttons.",
+        "The project menu shows today's progress against the goal and the current streak.",
+      ],
+      proofPoints: [
+        "Tested in the Garmin simulator and on several watch models.",
+        "The app does not require internet access or network permissions.",
+        "The feature scope is prepared for Garmin Connect IQ Store publication.",
+      ],
+      technicalDecisions: [
+        "Local state storage instead of relying on a phone or backend.",
+        "Large side touch zones adapted to the round watch face.",
+        "Counter logic protected against going below zero.",
+      ],
+      gallery: [
+        {
+          title: "Watch preview",
+          caption:
+            "A render of the Garmin watch app showing the main counter screen in device context.",
+          theme: "mobile",
+          imageSrc: "/projects/knitting-counter-pro-watch.png",
+          imageAlt:
+            "Knitting Counter Pro displayed on a Garmin watch with the project counter screen.",
+          imageFit: "contain",
+        },
+        {
+          title: "Progress screen",
+          caption:
+            "Progress view with daily goal, today's rows and the streak-day counter.",
+          theme: "mobile",
+          imageSrc: "/projects/knitting-counter-pro-progress.png",
+          imageAlt:
+            "Knitting Counter Pro displayed on a Garmin watch with the progress screen.",
+          imageFit: "contain",
+        },
+      ],
+    },
     gallery: [
       {
         title: "Watch preview",
@@ -162,6 +221,77 @@ export const projectDetails: ProjectDetail[] = [
       "Przygotowanie struktury pod kursy, lekcje, formularze i komunikację.",
       "Użycie streamingu HLS oraz ręcznie przygotowywanych wariantów jakości wideo.",
     ],
+    translated: {
+      role: "Backend developer / DevOps",
+      period: "Sep 2026 - present",
+      summary:
+        "A complete yoga platform: website, application backend and technical foundation for content, offer and user management.",
+      lead:
+        "The project is being built as a full platform, not just a static website. The key goal was to prepare a foundation for content, contact flows, communication automation and further product development.",
+      problem:
+        "The yoga project needed a clear online presence and a technical backend that could support the offer, user communication and future features without rebuilding from scratch.",
+      solution:
+        "I prepared a platform structure with a frontend, Nest.js backend, MongoDB database and Resend communication support.",
+      responsibilities: [
+        "Designed the application architecture and split between frontend and backend layers.",
+        "Prepared the backend for content, forms and communication integrations.",
+        "Set up Google Analytics and analytics integrations for measuring traffic and user behavior.",
+        "Built responsive views and a test environment for further development.",
+      ],
+      effects: [
+        "The platform is ready to grow into additional product modules.",
+        "The project has a consistent technical backend instead of a one-off website.",
+        "Communication, user data and analytics can be extended in a controlled way.",
+      ],
+      proofPoints: [
+        "Working test environment with a public link.",
+        "Real screenshots of the homepage, courses, video lesson and practice journal.",
+        "Analytics prepared for measuring user behavior.",
+      ],
+      technicalDecisions: [
+        "Frontend in Next.js and backend in Nest.js instead of a static website.",
+        "Structure prepared for courses, lessons, forms and communication.",
+        "HLS streaming with manually prepared video quality variants.",
+      ],
+      gallery: [
+        {
+          title: "Homepage",
+          caption:
+            "Platform hero section with a clear entry point to online yoga courses and a calm brand aesthetic.",
+          theme: "platform",
+          imageSrc: "/projects/juli-jogi-home.png",
+          imageAlt: "Juli Jogi homepage with hero section visible.",
+          imageFit: "contain",
+        },
+        {
+          title: "Course offer",
+          caption:
+            "Online course section with product copy, app mockup and feature cards.",
+          theme: "platform",
+          imageSrc: "/projects/juli-jogi-courses.png",
+          imageAlt: "Juli Jogi course section with online yoga courses and feature cards.",
+          imageFit: "contain",
+        },
+        {
+          title: "Video lesson",
+          caption:
+            "Lesson view with course navigation, progress and video player.",
+          theme: "platform",
+          imageSrc: "/projects/juli-jogi-lesson-player.png",
+          imageAlt: "Juli Jogi lesson view with video player and lesson list.",
+          imageFit: "contain",
+        },
+        {
+          title: "Practice journal",
+          caption:
+            "Post-lesson practice form with note, feelings and session history.",
+          theme: "data",
+          imageSrc: "/projects/juli-jogi-practice-journal.png",
+          imageAlt: "Juli Jogi practice journal view after a lesson.",
+          imageFit: "contain",
+        },
+      ],
+    },
     gallery: [
       {
         title: "Strona startowa",
@@ -276,6 +406,20 @@ export const projectDetails: ProjectDetail[] = [
         "Nest.js and MongoDB as the backend foundation for product flows.",
         "Mobile and web were considered together rather than treating web as an afterthought.",
       ],
+      gallery: [
+        {
+          title: "Mobile app",
+          caption: "View of household tasks, schedules and shared responsibility.",
+          theme: "mobile",
+          imageSrc: "/projects/cleanstrategy.png",
+          imageAlt: "CleanStrategy project frame showing the mobile and web app.",
+        },
+        {
+          title: "Web panel",
+          caption: "Web layer for reviewing and configuring product data.",
+          theme: "platform",
+        },
+      ],
     },
     gallery: [
       {
@@ -370,6 +514,35 @@ export const projectDetails: ProjectDetail[] = [
         "Stripe as the payment-flow foundation.",
         "Resend as a straightforward transactional email channel.",
       ],
+      gallery: [
+        {
+          title: "Online store",
+          caption:
+            "Product list with ceramics, prices and e-commerce navigation.",
+          theme: "studio",
+          imageSrc: "/projects/moment-studio-products-grid.png",
+          imageAlt: "Moment Studio product list with ceramics and prices.",
+          imageFit: "contain",
+        },
+        {
+          title: "Inventory state",
+          caption:
+            "Product section prepared for offer and product availability handling.",
+          theme: "studio",
+          imageSrc: "/projects/moment-studio-product-carousel.png",
+          imageAlt: "Moment Studio product section with a ceramics carousel.",
+          imageFit: "contain",
+        },
+        {
+          title: "Payment flow",
+          caption:
+            "Payment step with payment methods and order-finalization form.",
+          theme: "commerce",
+          imageSrc: "/projects/moment-studio-payment.png",
+          imageAlt: "Moment Studio payment screen with BLIK, Przelewy24 and card methods.",
+          imageFit: "contain",
+        },
+      ],
     },
     gallery: [
       {
@@ -441,6 +614,56 @@ export const projectDetails: ProjectDetail[] = [
       "Next.js jako baza pod sklep z naciskiem na frontend i SEO.",
       "Komponentowy podział widoków ułatwiający pracę z projektem z Figmy.",
     ],
+    translated: {
+      role: "Frontend developer",
+      period: "Apr 2021 - Aug 2021",
+      summary:
+        "An e-commerce frontend built from a graphic design, focused on translating Figma layouts into working code.",
+      lead:
+        "Jambo was an e-commerce project where the key value was fast and accurate translation of a visual concept into a working frontend.",
+      problem:
+        "The store project required turning visual materials and requirements into a working, responsive sales interface.",
+      solution:
+        "I prepared the store frontend based on the Figma design and product requirements.",
+      responsibilities: [
+        "Created store views and e-commerce components.",
+        "Prepared materials and requirements for the graphic design process.",
+        "Translated the Figma design into responsive code.",
+      ],
+      effects: [
+        "A working store frontend was delivered in line with the visual assumptions.",
+        "The project demonstrated a practical transition from design to code.",
+        "The interface was prepared for further sales-oriented development.",
+      ],
+      proofPoints: [
+        "The project includes working store and product-list views.",
+        "Screenshots show the product layout and customer section.",
+      ],
+      technicalDecisions: [
+        "Next.js as the store foundation with attention to frontend and SEO.",
+        "Component-based view structure to support Figma-to-code work.",
+      ],
+      gallery: [
+        {
+          title: "Product list",
+          caption:
+            "Store view with products, prices and CTA in the brand's dark visual style.",
+          theme: "commerce",
+          imageSrc: "/projects/jambo-shop.png",
+          imageAlt: "Jambo Athletic store view with product list.",
+          imageFit: "contain",
+        },
+        {
+          title: "Customer map",
+          caption:
+            "Customer section with a map of Europe and information about teams using the products.",
+          theme: "brand",
+          imageSrc: "/projects/jambo-clients-map.png",
+          imageAlt: "Jambo Athletic customer section with a map of Europe.",
+          imageFit: "contain",
+        },
+      ],
+    },
     gallery: [
       {
         title: "Lista produktów",
@@ -550,6 +773,34 @@ export const projectDetails: ProjectDetail[] = [
         "Preserved consistent order of labels, values and colors in data components.",
         "Checked purchase-flow changes for user-facing regressions.",
       ],
+      gallery: [
+        {
+          title: "Gold coins and bars",
+          caption:
+            "Desktop product-list view showing filters, product cards and e-commerce offer presentation.",
+          theme: "commerce",
+          imageSrc: "/projects/royal-mint-gold-coins-desktop.png",
+          imageAlt:
+            "Desktop screenshot of The Royal Mint Gold Coins and Bars product listing.",
+          imageFit: "contain",
+        },
+        {
+          title: "Cluedo campaign",
+          caption:
+            "Mobile campaign view showing responsive hero presentation, navigation and CTA.",
+          theme: "commerce",
+          imageSrc: "/projects/royal-mint-cluedo-mobile.png",
+          imageAlt:
+            "Mobile screenshot of The Royal Mint Cluedo campaign.",
+          imageFit: "contain",
+        },
+        {
+          title: "System maintenance",
+          caption:
+            "Work with a legacy codebase, React, TypeScript, analytics and an Azure-based environment.",
+          theme: "data",
+        },
+      ],
     },
     gallery: [
       {
@@ -621,6 +872,67 @@ export const projectDetails: ProjectDetail[] = [
       "D3.js do wizualizacji relacji między argumentami.",
       "Endpointy backendowe projektowane wokół pracy z danymi i rolami.",
     ],
+    translated: {
+      role: "Fullstack developer",
+      period: "Jun 2021 - Jul 2024",
+      summary:
+        "A web application supporting structured argument-based discussion and fast fact-checking.",
+      lead:
+        "Swarmcheck combined data work, permissions and argument visualization. The project required both interfaces and backend mechanisms for security and access organization.",
+      problem:
+        "Users needed a tool for structuring discussions, working with arguments and checking information quickly in a controlled environment.",
+      solution:
+        "I developed a web application with a custom RBAC system, backend endpoints and D3.js graph visualizations.",
+      responsibilities: [
+        "Designed and implemented the RBAC authorization system.",
+        "Built backend endpoints for data workflows.",
+        "Created interfaces and graph visualizations supporting argument analysis.",
+      ],
+      effects: [
+        "The application organized roles, permissions and data flows more clearly.",
+        "Visualizations helped users understand relationships between arguments.",
+        "The system gained stronger foundations for collaborative work.",
+      ],
+      proofPoints: [
+        "The scope covered frontend, backend, RBAC and graph visualizations.",
+        "Screenshots show the argument map, discussions and user invitations.",
+      ],
+      technicalDecisions: [
+        "Custom RBAC for controlling access to data and features.",
+        "D3.js for visualizing relationships between arguments.",
+        "Backend endpoints designed around data and role workflows.",
+      ],
+      gallery: [
+        {
+          title: "Argument map",
+          caption:
+            "Graph view showing relationships between arguments, sources and counterarguments.",
+          theme: "data",
+          imageSrc: "/projects/swarmcheck-argument-map.png",
+          imageAlt:
+            "Swarmcheck argument map for a discussion about the atomic attack on Hiroshima.",
+          imageFit: "contain",
+        },
+        {
+          title: "Discussion list",
+          caption:
+            "Screen with discussion catalogue, sorting and topic cards for analysis.",
+          theme: "platform",
+          imageSrc: "/projects/swarmcheck-discussions.png",
+          imageAlt: "Swarmcheck list of available discussions with sorting.",
+          imageFit: "contain",
+        },
+        {
+          title: "User invitation",
+          caption:
+            "View for generating an invitation link with role and language selection.",
+          theme: "platform",
+          imageSrc: "/projects/swarmcheck-invite-link.png",
+          imageAlt: "Swarmcheck screen for creating an invitation link.",
+          imageFit: "contain",
+        },
+      ],
+    },
     gallery: [
       {
         title: "Mapa argumentów",
@@ -663,7 +975,7 @@ export const projectDetailsBySlug = projectDetails.reduce<
   return projectsBySlug;
 }, {});
 
-export type ProjectLanguage = "pl" | "en";
+export type ProjectLanguage = Locale;
 
 export const getProjectLanguage = (language?: string): ProjectLanguage =>
   language === "en" ? "en" : "pl";

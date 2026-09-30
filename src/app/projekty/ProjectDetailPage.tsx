@@ -8,8 +8,10 @@ import {
   type ProjectDetail,
   type ProjectLanguage,
 } from "@/data/projectDetails";
-import { getLanguageFromBrowser } from "@/lib/language";
+import { getTechnologyLabel } from "@/data/technologies";
+import { getLanguageFromBrowser, getLocalizedHref } from "@/lib/language";
 import { siteUrl } from "@/lib/seo";
+import { getPortfolioTypeLabel } from "@/types";
 import { useEffect, useState } from "react";
 
 const copyByLanguage = {
@@ -52,7 +54,7 @@ export const ProjectDetailPage = ({
   const localizedProject = getLocalizedProject(project, language);
   const copy = copyByLanguage[language];
   const portfolioPath =
-    language === "en" ? "/portfolio/?lang=en#projekty" : "/portfolio/#projekty";
+    getLocalizedHref("/portfolio/#projekty", language) ?? "/portfolio/#projekty";
 
   useEffect(() => {
     setLanguage(getLanguageFromBrowser());
@@ -69,7 +71,9 @@ export const ProjectDetailPage = ({
       name: "Paweł Drojecki",
       url: siteUrl,
     },
-    keywords: localizedProject.technologies.join(", "),
+    keywords: localizedProject.technologies
+      .map((technology) => getTechnologyLabel(technology, language))
+      .join(", "),
   };
 
   return (
@@ -112,7 +116,7 @@ export const ProjectDetailPage = ({
               key={category}
               className="rounded-md bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-700"
             >
-              {category}
+              {getPortfolioTypeLabel(category, language)}
             </span>
           ))}
         </div>
@@ -174,7 +178,7 @@ export const ProjectDetailPage = ({
                 key={technology}
                 className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium text-gray-800"
               >
-                {technology}
+                {getTechnologyLabel(technology, language)}
               </span>
             ))}
           </div>

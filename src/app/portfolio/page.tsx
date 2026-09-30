@@ -15,13 +15,81 @@ import {
   type ProjectLanguage,
   projectDetailsBySlug,
 } from "@/data/projectDetails";
-import { Technologies, technologyGroups } from "@/data/technologies";
-import { getLanguageFromBrowser } from "@/lib/language";
-import { PortfolioType } from "@/types";
+import {
+  getTechnologyLabel,
+  Technologies,
+  technologyGroups,
+} from "@/data/technologies";
+import { getLanguageFromBrowser, getLocalizedHref } from "@/lib/language";
+import { getPortfolioTypeLabel, PortfolioType } from "@/types";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
-const experienceItems: PortfolioItemProps[] = [
+type LocalizedPortfolioItem = PortfolioItemProps & {
+  translated?: Partial<
+    Pick<
+      PortfolioItemProps,
+      | "title"
+      | "role"
+      | "description"
+      | "relatedProject"
+      | "status"
+      | "highlights"
+      | "caseStudyLink"
+      | "link"
+    >
+  >;
+};
+
+type CompanyItem = {
+  name: string;
+  role: string;
+  period: string;
+  status: string;
+  link: string;
+  translated?: Partial<Pick<CompanyItem, "role" | "period" | "status">>;
+};
+
+const getLocalizedPortfolioItem = (
+  item: LocalizedPortfolioItem,
+  language: ProjectLanguage
+): PortfolioItemProps => {
+  const { translated, ...baseItem } = item;
+  const localizedItem = language === "en" && translated
+    ? { ...baseItem, ...translated }
+    : baseItem;
+
+  return {
+    ...localizedItem,
+    language,
+    caseStudyLink: getLocalizedHref(localizedItem.caseStudyLink, language),
+    link: localizedItem.link,
+    relatedProject: localizedItem.relatedProject
+      ? {
+          ...localizedItem.relatedProject,
+          link:
+            getLocalizedHref(localizedItem.relatedProject.link, language) ??
+            localizedItem.relatedProject.link,
+        }
+      : undefined,
+  };
+};
+
+const getLocalizedCompanyItem = (
+  item: CompanyItem,
+  language: ProjectLanguage
+): CompanyItem => {
+  if (language === "pl" || !item.translated) {
+    return item;
+  }
+
+  return {
+    ...item,
+    ...item.translated,
+  };
+};
+
+const experienceItems: LocalizedPortfolioItem[] = [
   {
     title: "Właściciel",
     role: "TrisztiLab · Samozatrudnienie",
@@ -41,6 +109,15 @@ const experienceItems: PortfolioItemProps[] = [
       "Rozwój własnej inicjatywy łączącej edukację, warsztaty i praktyczne wykorzystanie technologii.",
     ],
     link: "https://www.trisztilab.com/",
+    translated: {
+      title: "Owner",
+      role: "TrisztiLab · Self-employed",
+      description: "I build a workshop school that connects education with technology.",
+      highlights: [
+        "Poznań, Greater Poland · hybrid work.",
+        "Developing my own initiative combining education, workshops and practical use of technology.",
+      ],
+    },
   },
   {
     title: "Frontend Web Developer",
@@ -70,6 +147,17 @@ const experienceItems: PortfolioItemProps[] = [
       "Wsparcie integracji Google Analytics i analityki dla środowiska e-commerce.",
     ],
     link: "https://www.royalmint.com/",
+    translated: {
+      role: "NoA Ignite Poland · Self-employed",
+      description:
+        "Frontend work on maintaining and developing systems for a UK client.",
+      highlights: [
+        "Remote work.",
+        "Improving and maintaining legacy systems, debugging and optimizing the codebase.",
+        "Keeping the frontend aligned with modern standards using React and Azure technologies.",
+        "Supporting Google Analytics and analytics work in an e-commerce environment.",
+      ],
+    },
   },
   {
     title: "Instruktor",
@@ -91,6 +179,17 @@ const experienceItems: PortfolioItemProps[] = [
       "Projektowanie metodyki nauczania upraszczającej trudne koncepcje programistyczne.",
       "Prowadzenie praktycznych lekcji i mentoring dla początkujących developerów.",
     ],
+    translated: {
+      title: "Instructor",
+      role: "Will Code Academy · Contract",
+      description:
+        "Teaching classes and co-creating educational materials for people learning programming.",
+      highlights: [
+        "Kraków, Lesser Poland · remote work.",
+        "Designed a teaching methodology that simplified difficult programming concepts.",
+        "Led practical lessons and mentored beginner developers.",
+      ],
+    },
   },
   {
     title: "Fullstack Developer (React, Node)",
@@ -113,6 +212,16 @@ const experienceItems: PortfolioItemProps[] = [
       "Stworzenie od podstaw zaawansowanego systemu autoryzacji RBAC.",
       "Projektowanie systemu wizualizacji grafowej opartego o D3.js oraz bezpiecznych endpointów backendowych.",
     ],
+    translated: {
+      role: "Swarmcheck · Part-time",
+      description:
+        "Development of a system for rapid fact-checking, data management and argument analysis.",
+      highlights: [
+        "Kraków, Lesser Poland · remote work.",
+        "Built an advanced RBAC authorization system from scratch.",
+        "Designed D3.js graph visualization flows and secure backend endpoints.",
+      ],
+    },
   },
   {
     title: "Programista front-end",
@@ -133,6 +242,16 @@ const experienceItems: PortfolioItemProps[] = [
       "Toruń, woj. kujawsko-pomorskie · praca zdalna.",
       "Tłumaczenie koncepcji z Figmy na zoptymalizowane i atrakcyjne wizualnie strony.",
     ],
+    translated: {
+      title: "Frontend Developer",
+      role: "Neurodio · Internship",
+      description:
+        "Frontend work on websites and interfaces, focused on turning graphic designs into working views.",
+      highlights: [
+        "Toruń, Kuyavian-Pomeranian · remote work.",
+        "Translated Figma concepts into optimized and visually polished pages.",
+      ],
+    },
   },
   {
     title: "Praktykant na stażu",
@@ -146,10 +265,17 @@ const experienceItems: PortfolioItemProps[] = [
     technologies: [Technologies.HTML5, Technologies.JAVASCRIPT],
     highlights: ["Toruń, woj. kujawsko-pomorskie."],
     link: "https://icnt.umk.pl/",
+    translated: {
+      title: "Intern",
+      role: "Nicolaus Copernicus University in Toruń · Internship",
+      description:
+        "Professional internship completed at Nicolaus Copernicus University in Toruń.",
+      highlights: ["Toruń, Kuyavian-Pomeranian."],
+    },
   },
 ];
 
-const projectItems: PortfolioItemProps[] = [
+const projectItems: LocalizedPortfolioItem[] = [
   {
     id: "projekt-knitting-counter-pro",
     title: "Knitting Counter Pro",
@@ -170,6 +296,16 @@ const projectItems: PortfolioItemProps[] = [
       "Efekt: dopracowany licznik w stylu vintage, testowany na kilku modelach zegarka i przygotowany pod publikację w Garmin Connect IQ Store.",
     ],
     caseStudyLink: "/projekty/knitting-counter-pro/",
+    translated: {
+      status: "In progress",
+      description:
+        "A Garmin watch app for counting knitting rows, with projects, rounds, daily goal, streak tracking and a vintage interface adapted to a round watch face.",
+      highlights: [
+        "Problem: the row counter needed to work quickly on the wrist, without a phone and without losing project context.",
+        "Solution: a Garmin Connect IQ app with local storage, rounds, daily goal, streak tracking and large curved buttons.",
+        "Result: a polished vintage-style counter tested on several watch models and prepared for Garmin Connect IQ Store publication.",
+      ],
+    },
   },
   {
     id: "projekt-royal-mint",
@@ -196,6 +332,16 @@ const projectItems: PortfolioItemProps[] = [
     ],
     link: "https://www.royalmint.com/",
     caseStudyLink: "/projekty/royal-mint/",
+    translated: {
+      status: "Featured",
+      description:
+        "Enterprise e-commerce for the precious metals market, developed at NoA Ignite for a UK client.",
+      highlights: [
+        "Problem: maintaining and developing a large e-commerce system in a legacy environment.",
+        "Solution: product component development, debugging, frontend optimization and Google Analytics support.",
+        "Result: stable changes in a commercial enterprise project and better foundations for user-behavior analysis.",
+      ],
+    },
   },
   {
     id: "projekt-cleanstrategy",
@@ -223,6 +369,16 @@ const projectItems: PortfolioItemProps[] = [
     ],
     link: "https://app.clean-strategy.com/web",
     caseStudyLink: "/projekty/cleanstrategy/",
+    translated: {
+      status: "Featured",
+      description:
+        "A mobile/web product that helps households share chores and reduce friction around cleaning responsibilities.",
+      highlights: [
+        "Problem: household responsibilities were scattered across conversations, notes and assumptions.",
+        "Solution: an app with tasks, schedules and clear household responsibility.",
+        "Result: a product foundation for an iteratively developed mobile and web app.",
+      ],
+    },
   },
   {
     id: "projekt-moment-studio",
@@ -251,6 +407,16 @@ const projectItems: PortfolioItemProps[] = [
     ],
     link: "https://www.ismomentstudio.com/",
     caseStudyLink: "/projekty/moment-studio/",
+    translated: {
+      status: "Featured",
+      description:
+        "A complete online store for Moment Studio, connecting brand presentation, product sales, payments and backend operations.",
+      highlights: [
+        "Problem: the brand needed a working store, not only a polished visual showcase.",
+        "Solution: frontend, Nest.js backend, MongoDB, Stripe payments and Resend email communication.",
+        "Result: a complete sales flow connected with a clear user experience.",
+      ],
+    },
   },
   {
     id: "projekt-juli-jogi",
@@ -279,6 +445,16 @@ const projectItems: PortfolioItemProps[] = [
     ],
     link: "https://test.julijogi.com/",
     caseStudyLink: "/projekty/juli-jogi/",
+    translated: {
+      status: "In progress",
+      description:
+        "A complete yoga platform: website, application backend and technical foundation for content, offer and user management.",
+      highlights: [
+        "The project is currently in progress and developed in a test environment.",
+        "The scope includes frontend, Nest.js backend, MongoDB and deployment-oriented environment setup.",
+        "I completed the Google Analytics and analytics integration setup for measuring traffic and user behavior.",
+      ],
+    },
   },
   {
     title: "Jambo - e-commerce app",
@@ -302,6 +478,15 @@ const projectItems: PortfolioItemProps[] = [
     ],
     link: "https://jamboathletic.com/shop",
     caseStudyLink: "/projekty/jambo/",
+    translated: {
+      description:
+        "An e-commerce frontend built from a visual design, focused on translating Figma layouts into working code.",
+      highlights: [
+        "Built the online store interface.",
+        "Prepared materials and requirements for the visual design process.",
+        "Translated the Figma design into responsive code.",
+      ],
+    },
   },
   {
     title: "Swarmcheck",
@@ -324,6 +509,14 @@ const projectItems: PortfolioItemProps[] = [
     ],
     link: "https://app.swarmcheck.ai/public",
     caseStudyLink: "/projekty/swarmcheck/",
+    translated: {
+      description:
+        "A web application supporting structured argument-based discussion and fast fact-checking.",
+      highlights: [
+        "Custom RBAC authorization system and backend endpoints for data workflows.",
+        "Interfaces and graph visualizations for working with arguments.",
+      ],
+    },
   },
 ];
 
@@ -334,6 +527,11 @@ const companyItems = [
     period: "kwi 2026 - obecnie",
     status: "Teraz",
     link: "https://www.trisztilab.com/",
+    translated: {
+      role: "Owner",
+      period: "Apr 2026 - present",
+      status: "Now",
+    },
   },
   {
     name: "NoA Ignite Poland",
@@ -341,6 +539,10 @@ const companyItems = [
     period: "lip 2024 - obecnie",
     status: "Teraz",
     link: "https://noaignite.com/",
+    translated: {
+      period: "Jul 2024 - present",
+      status: "Now",
+    },
   },
   {
     name: "Will Code Academy",
@@ -348,6 +550,11 @@ const companyItems = [
     period: "paz 2023 - sie 2025",
     status: "Wczesniej",
     link: "https://willcodeacademy.com/",
+    translated: {
+      role: "Instructor",
+      period: "Oct 2023 - Aug 2025",
+      status: "Previous",
+    },
   },
   {
     name: "Swarmcheck",
@@ -355,6 +562,10 @@ const companyItems = [
     period: "cze 2021 - lip 2024",
     status: "Wczesniej",
     link: "https://www.swarmcheck.ai/home",
+    translated: {
+      period: "Jun 2021 - Jul 2024",
+      status: "Previous",
+    },
   },
   {
     name: "Neurodio",
@@ -362,13 +573,23 @@ const companyItems = [
     period: "wrz 2020",
     status: "Wczesniej",
     link: "https://www.neurodio.com/",
+    translated: {
+      role: "Frontend Developer",
+      period: "Sep 2020",
+      status: "Previous",
+    },
   },
   {
-    name: "Uniwersytet Mikolaja Kopernika w Toruniu",
+    name: "Uniwersytet Mikołaja Kopernika w Toruniu",
     role: "Praktykant",
     period: "cze 2020",
     status: "Wczesniej",
     link: "https://icnt.umk.pl/",
+    translated: {
+      role: "Intern",
+      period: "Jun 2020",
+      status: "Previous",
+    },
   },
 ];
 
@@ -396,7 +617,7 @@ const portfolioCopyByLanguage = {
     introSecond:
       "Mam doświadczenie w projektach edukacyjnych, e-commerce, aplikacjach fact-checkingowych, stronach brandowych i systemach legacy. Lubię moment, w którym niejasny pomysł zmienia się w konkretny interfejs, sprawny backend i produkt, który użytkownik rozumie bez instrukcji.",
     pathsTitle: "Najkrótsza ścieżka",
-    recruiterPath: "Dla rekrutera: doświadczenie, stack i CV",
+    recruiterPath: "Dla rekrutera: projekty, doświadczenie, stack i CV",
     clientPath: "Dla klienta: problem, proces i efekt",
     cvTitle: "CV dopasowane do rozmowy",
     cvLinks: [
@@ -426,6 +647,10 @@ const portfolioCopyByLanguage = {
     featuredTitle: "Wyróżnione projekty",
     featuredDescription:
       "Najmocniejsze realizacje pokazujące enterprise e-commerce, produkt mobile/web i pełny sklep internetowy.",
+    quickNavAria: "Szybka nawigacja po portfolio",
+    previousFeatured: "Poprzedni wyróżniony projekt",
+    nextFeatured: "Następny wyróżniony projekt",
+    showFeaturedProject: "Pokaż projekt",
     caseStudy: "Zobacz case study",
     positions: "pozycji",
   },
@@ -438,7 +663,7 @@ const portfolioCopyByLanguage = {
     introSecond:
       "My experience spans education, e-commerce, fact-checking tools, brand websites and legacy systems. I enjoy turning unclear product ideas into concrete interfaces, reliable backend flows and software users can understand without instructions.",
     pathsTitle: "Shortest path",
-    recruiterPath: "For recruiters: experience, stack and resume",
+    recruiterPath: "For recruiters: projects, experience, stack and resume",
     clientPath: "For clients: problem, process and result",
     cvTitle: "Resume matched to the conversation",
     cvLinks: [
@@ -465,6 +690,10 @@ const portfolioCopyByLanguage = {
     featuredTitle: "Featured projects",
     featuredDescription:
       "The strongest examples: enterprise e-commerce, a mobile/web product and a full online store.",
+    quickNavAria: "Portfolio quick navigation",
+    previousFeatured: "Previous featured project",
+    nextFeatured: "Next featured project",
+    showFeaturedProject: "Show project",
     caseStudy: "Read case study",
     positions: "items",
   },
@@ -478,6 +707,15 @@ export default function PortfolioPage() {
   const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
   const [language, setLanguage] = useState<ProjectLanguage>("pl");
   const copy = portfolioCopyByLanguage[language];
+  const localizedCompanyItems = companyItems.map((item) =>
+    getLocalizedCompanyItem(item, language)
+  );
+  const localizedExperienceItems = experienceItems.map((item) =>
+    getLocalizedPortfolioItem(item, language)
+  );
+  const localizedProjectItems = projectItems.map((item) =>
+    getLocalizedPortfolioItem(item, language)
+  );
   const portfolioNavItems = portfolioSectionIds.map((id, index) => ({
     id,
     label: copy.nav[index],
@@ -560,6 +798,7 @@ export default function PortfolioPage() {
     <div className="flex min-h-screen w-full flex-col pb-20 md:pb-0">
       <PortfolioQuickNav
         activeSection={activeSection}
+        ariaLabel={copy.quickNavAria}
         items={portfolioNavItems}
         onSelect={setActiveSection}
       />
@@ -588,11 +827,7 @@ export default function PortfolioPage() {
           </TrackedAnchor>
           <div className="grid gap-3 pt-3 sm:grid-cols-2">
             <TrackedLink
-              href={
-                language === "en"
-                  ? "/portfolio/?lang=en#doswiadczenie"
-                  : "/portfolio/#doswiadczenie"
-              }
+              href={getLocalizedHref("/portfolio/#projekty", language) ?? "/portfolio/#projekty"}
               eventName="portfolio_path_select"
               eventParams={{ path: "recruiter", language }}
               className="rounded-md border-2 border-black p-3 font-bold hover:bg-gray-50"
@@ -600,11 +835,7 @@ export default function PortfolioPage() {
               {copy.recruiterPath}
             </TrackedLink>
             <TrackedLink
-              href={
-                language === "en"
-                  ? "/portfolio/?lang=en#wyroznione"
-                  : "/portfolio/#wyroznione"
-              }
+              href={getLocalizedHref("/portfolio/#wyroznione", language) ?? "/portfolio/#wyroznione"}
               eventName="portfolio_path_select"
               eventParams={{ path: "client", language }}
               className="rounded-md border-2 border-black p-3 font-bold hover:bg-gray-50"
@@ -667,7 +898,7 @@ export default function PortfolioPage() {
             </p>
           </div>
           <div className="divide-y-2 divide-gray-200 border-y-2 border-gray-200">
-            {companyItems.map((company) => (
+            {localizedCompanyItems.map((company) => (
               <div
                 key={`${company.name}-${company.role}`}
                 className="flex flex-col gap-2 py-4 sm:flex-row sm:items-center sm:justify-between"
@@ -698,7 +929,7 @@ export default function PortfolioPage() {
                 <div>
                   <span
                     className={`rounded-md px-2 py-1 text-xs font-bold ${
-                      company.status === "Teraz"
+                      company.status === "Teraz" || company.status === "Now"
                         ? "bg-accent text-black"
                         : "bg-gray-200 text-gray-800"
                     }`}
@@ -715,13 +946,13 @@ export default function PortfolioPage() {
           id="projekty"
           title={copy.projects}
           positionsLabel={copy.positions}
-          items={projectItems}
+          items={localizedProjectItems}
         />
         <PortfolioSection
           id="doswiadczenie"
           title={copy.experience}
           positionsLabel={copy.positions}
-          items={experienceItems}
+          items={localizedExperienceItems}
         />
 
         <section id="stack" className="flex scroll-mt-28 flex-col gap-4">
@@ -739,6 +970,7 @@ export default function PortfolioPage() {
                 skills={group.skills}
                 isExpanded={expandedSkillGroups.includes(group.title)}
                 onToggle={() => toggleSkillGroup(group.title)}
+                language={language}
               />
             ))}
           </div>
@@ -750,15 +982,17 @@ export default function PortfolioPage() {
 
 const PortfolioQuickNav = ({
   activeSection,
+  ariaLabel,
   items,
   onSelect,
 }: {
   activeSection: string;
+  ariaLabel: string;
   items: { id: string; label: string }[];
   onSelect: (sectionId: string) => void;
 }) => (
   <nav
-    aria-label="Szybka nawigacja po portfolio"
+    aria-label={ariaLabel}
     className="fixed bottom-4 left-1/2 z-20 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 overflow-x-auto rounded-md border-2 border-black bg-white/95 p-2 shadow-[4px_4px_0_0_#000] backdrop-blur"
   >
     <ul className="flex min-w-max justify-center gap-2">
@@ -797,9 +1031,13 @@ const FeaturedProjectsCarousel = ({
   onNext: () => void;
   onSelect: (index: number) => void;
 }) => {
-  const activeProject = featuredProjectItems[activeIndex];
+  const featuredProject = featuredProjectItems[activeIndex];
+  const activeProject = getLocalizedPortfolioItem(
+    featuredProject,
+    language
+  );
   const baseProjectDetails = Object.values(projectDetailsBySlug).find(
-    (project) => activeProject.caseStudyLink === `/projekty/${project.slug}/`,
+    (project) => featuredProject.caseStudyLink === `/projekty/${project.slug}/`,
   );
   const activeProjectDetails = baseProjectDetails
     ? getLocalizedProject(baseProjectDetails, language)
@@ -824,7 +1062,7 @@ const FeaturedProjectsCarousel = ({
         <div className="flex gap-2">
           <button
             type="button"
-            aria-label="Poprzedni wyróżniony projekt"
+            aria-label={copy.previousFeatured}
             onClick={onPrevious}
             className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-white hover:bg-accent"
           >
@@ -832,7 +1070,7 @@ const FeaturedProjectsCarousel = ({
           </button>
           <button
             type="button"
-            aria-label="Następny wyróżniony projekt"
+            aria-label={copy.nextFeatured}
             onClick={onNext}
             className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-accent hover:bg-accent/80"
           >
@@ -850,7 +1088,7 @@ const FeaturedProjectsCarousel = ({
                   key={type}
                   className="rounded-md bg-accent px-2 py-1 text-xs font-bold uppercase text-black"
                 >
-                  {type}
+                  {getPortfolioTypeLabel(type, language)}
                 </span>
               ))}
             </div>
@@ -890,7 +1128,7 @@ const FeaturedProjectsCarousel = ({
                   key={technology}
                   className="rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-800"
                 >
-                  {technology}
+                  {getTechnologyLabel(technology, language)}
                 </span>
               ))}
             </div>
@@ -899,9 +1137,10 @@ const FeaturedProjectsCarousel = ({
             {baseProjectDetails && (
               <TrackedLink
                 href={
-                  language === "en"
-                    ? `/projekty/${baseProjectDetails.slug}/?lang=en`
-                    : `/projekty/${baseProjectDetails.slug}/`
+                  getLocalizedHref(
+                    `/projekty/${baseProjectDetails.slug}/`,
+                    language
+                  ) ?? `/projekty/${baseProjectDetails.slug}/`
                 }
                 eventName="case_study_open"
                 eventParams={{
@@ -920,7 +1159,9 @@ const FeaturedProjectsCarousel = ({
                 <button
                   key={project.title}
                   type="button"
-                  aria-label={`Pokaż projekt ${project.title}`}
+                  aria-label={`${copy.showFeaturedProject} ${
+                    getLocalizedPortfolioItem(project, language).title
+                  }`}
                   onClick={() => onSelect(index)}
                   className={`h-2.5 rounded-full transition-all ${
                     activeIndex === index
@@ -969,28 +1210,40 @@ const SkillGroup = ({
   skills,
   isExpanded,
   onToggle,
+  language,
 }: {
   title: string;
   skills: Technologies[];
   isExpanded: boolean;
   onToggle: () => void;
+  language: ProjectLanguage;
 }) => {
   const hiddenSkillsCount = skills.length - visibleSkillsCount;
   const visibleSkills = isExpanded
     ? skills
     : skills.slice(0, visibleSkillsCount);
+  const groupTitle = getTechnologyGroupTitle(title, language);
+  const skillCopy = language === "en"
+    ? {
+        showLess: "Show less",
+        showMore: `+${hiddenSkillsCount} more`,
+      }
+    : {
+        showLess: "Pokaż mniej",
+        showMore: `+${hiddenSkillsCount} więcej`,
+      };
 
   return (
     <div className="flex flex-col gap-3 rounded-md border-2 border-black p-4">
       <div className="flex items-center justify-between gap-3">
-        <h3 className="text-sm font-bold uppercase text-gray-500">{title}</h3>
+        <h3 className="text-sm font-bold uppercase text-gray-500">{groupTitle}</h3>
         {hiddenSkillsCount > 0 && (
           <button
             type="button"
             onClick={onToggle}
             className="rounded-md bg-accent px-2 py-1 text-xs font-bold text-black hover:bg-accent/80"
           >
-            {isExpanded ? "Pokaż mniej" : `+${hiddenSkillsCount} więcej`}
+            {isExpanded ? skillCopy.showLess : skillCopy.showMore}
           </button>
         )}
       </div>
@@ -1000,10 +1253,44 @@ const SkillGroup = ({
             key={skill}
             className="rounded-md bg-gray-100 px-2 py-1 text-sm font-medium text-gray-800"
           >
-            {skill}
+            {getTechnologyLabel(skill, language)}
           </span>
         ))}
       </div>
     </div>
   );
 };
+
+const technologyGroupTitleByLanguage: Record<string, Record<ProjectLanguage, string>> = {
+  "Frontend": {
+    pl: "Frontend",
+    en: "Frontend",
+  },
+  "Frontend tooling": {
+    pl: "Narzędzia frontendowe",
+    en: "Frontend tooling",
+  },
+  "Mobile i wearables": {
+    pl: "Mobile i wearables",
+    en: "Mobile and wearables",
+  },
+  "Backend i API": {
+    pl: "Backend i API",
+    en: "Backend and API",
+  },
+  "Cloud, DevOps i auth": {
+    pl: "Cloud, DevOps i auth",
+    en: "Cloud, DevOps and auth",
+  },
+  "Edukacja i produkt": {
+    pl: "Edukacja i produkt",
+    en: "Education and product",
+  },
+  "Dane, UX i inne": {
+    pl: "Dane, UX i inne",
+    en: "Data, UX and other",
+  },
+};
+
+const getTechnologyGroupTitle = (title: string, language: ProjectLanguage) =>
+  technologyGroupTitleByLanguage[title]?.[language] ?? title;

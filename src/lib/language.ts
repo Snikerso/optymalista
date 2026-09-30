@@ -2,6 +2,7 @@ export type Locale = "pl" | "en";
 export type SiteLanguage = Locale;
 
 export const languageStorageKey = "pd-language";
+export const languageChangeEventName = "pd-language-change";
 
 export const getLanguage = (language?: string | null): SiteLanguage =>
   language === "en" ? "en" : "pl";
@@ -32,6 +33,9 @@ export const getInitialLanguage = (): SiteLanguage => getLanguageFromBrowser();
 export const saveLanguagePreference = (language: SiteLanguage) => {
   try {
     window.localStorage.setItem(languageStorageKey, language);
+    window.dispatchEvent(
+      new CustomEvent(languageChangeEventName, { detail: language })
+    );
   } catch (error) {}
 };
 

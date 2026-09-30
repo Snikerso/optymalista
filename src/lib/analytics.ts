@@ -5,6 +5,7 @@ export type AnalyticsEventName =
   | "cv_open"
   | "external_project_open"
   | "linkedin_open"
+  | "whatsapp_open"
   | "portfolio_path_select";
 
 type AnalyticsParams = Record<string, string | number | boolean | undefined>;

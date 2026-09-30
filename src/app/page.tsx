@@ -3,7 +3,6 @@
 import { TrackedAnchor, TrackedLink } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
 import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
-import { trackEvent } from "@/lib/analytics";
 import {
   getInitialLanguage,
   getLocalizedHref,
@@ -12,8 +11,13 @@ import {
 import { getLocalizedProject, projectDetailsBySlug } from "@/data/projectDetails";
 import { getTechnologyLabel } from "@/data/technologies";
 import { getPortfolioTypeLabel } from "@/types";
-import { type FormEvent, useState } from "react";
-import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
+import { useState } from "react";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaLinkedin,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 const featuredProjects = [
   projectDetailsBySlug["royal-mint"],
@@ -22,6 +26,10 @@ const featuredProjects = [
 ];
 
 const linkedInMessageUrl = "https://www.linkedin.com/messaging/compose/";
+const whatsAppNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(
+  /\D/g,
+  ""
+);
 
 const copyByLanguage = {
   pl: {
@@ -81,23 +89,11 @@ const copyByLanguage = {
     hireEyebrow: "Kontakt",
     hireTitle: "Porozmawiajmy o współpracy",
     hireText:
-      "Jeśli masz produkt, sklep, aplikację albo trudny frontend do ogarnięcia, zostaw sobie szybki brief i odezwij się do mnie na LinkedInie.",
-    companyLabel: "Firma albo projekt",
-    companyPlaceholder: "np. sklep, SaaS, aplikacja mobile",
-    modeLabel: "Tryb współpracy",
-    modePlaceholder: "Wybierz najlepszą opcję",
-    briefLabel: "Jaki problem chcesz rozwiązać?",
-    briefPlaceholder: "Krótko: problem, cel, deadline, stack i co ma działać lepiej.",
+      "Jeśli masz produkt, sklep, aplikację albo trudny frontend do ogarnięcia, odezwij się do mnie bezpośrednio.",
+    whatsAppMessage:
+      "Cześć Paweł, chcę pogadać o współpracy przy projekcie.",
     send: "Wyślij wiadomość",
     proofCta: "Sprawdź dowody",
-    copied: "Brief skopiowany",
-    hireFormAria: "Formularz zatrudnienia",
-    workModeOptions: [
-      "Frontend / React / Next.js",
-      "Fullstack / Nest.js / MongoDB",
-      "Mobile / React Native",
-      "Produkt, audyt i dowożenie",
-    ],
   },
   en: {
     eyebrow: "Frontend / Fullstack / Product",
@@ -156,50 +152,25 @@ const copyByLanguage = {
     hireEyebrow: "Contact",
     hireTitle: "Talk about collaboration",
     hireText:
-      "If you have a product, store, mobile app or difficult frontend that needs care, prepare a short brief and message me on LinkedIn.",
-    companyLabel: "Company or project",
-    companyPlaceholder: "for example store, SaaS, mobile app",
-    modeLabel: "Collaboration type",
-    modePlaceholder: "Choose the best option",
-    briefLabel: "What problem should be solved?",
-    briefPlaceholder: "Briefly: problem, goal, deadline, stack and what should work better.",
+      "If you have a product, store, mobile app or difficult frontend that needs care, message me directly.",
+    whatsAppMessage:
+      "Hi Paweł, I would like to talk about working together on a project.",
     send: "Send message",
     proofCta: "Check the evidence",
-    copied: "Brief copied",
-    hireFormAria: "Hiring form",
-    workModeOptions: [
-      "Frontend / React / Next.js",
-      "Fullstack / Nest.js / MongoDB",
-      "Mobile / React Native",
-      "Product, audit and delivery",
-    ],
   },
 } satisfies Record<SiteLanguage, Record<string, unknown>>;
 
-const getFormValue = (formData: FormData, name: string) =>
-  String(formData.get(name) ?? "").trim();
+const getContactUrl = (language: SiteLanguage) => {
+  if (!whatsAppNumber) {
+    return linkedInMessageUrl;
+  }
 
-const buildLinkedInBrief = ({
-  brief,
-  company,
-  workMode,
-}: {
-  brief: string;
-  company: string;
-  workMode: string;
-}) =>
-  [
-    "Cześć Paweł, chcę pogadać o współpracy.",
-    company ? `Firma/projekt: ${company}` : "",
-    workMode ? `Tryb współpracy: ${workMode}` : "",
-    brief ? `Brief: ${brief}` : "",
-  ]
-    .filter(Boolean)
-    .join("\n\n");
+  const message = copyByLanguage[language].whatsAppMessage;
+  return `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(message)}`;
+};
 
 export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [isBriefCopied, setIsBriefCopied] = useState(false);
   const [language, setLanguage] = useState<SiteLanguage>(getInitialLanguage);
   const activeProject = getLocalizedProject(
     featuredProjects[activeProjectIndex],
@@ -207,6 +178,7 @@ export default function Home() {
   );
   const activeProjectImage = activeProject.gallery[0];
   const copy = copyByLanguage[language];
+  const hasWhatsAppContact = Boolean(whatsAppNumber);
 
   const showPreviousProject = () => {
     setActiveProjectIndex((currentIndex) =>
@@ -218,38 +190,6 @@ export default function Home() {
     setActiveProjectIndex((currentIndex) =>
       currentIndex === featuredProjects.length - 1 ? 0 : currentIndex + 1
     );
-  };
-
-  const openLinkedInMessage = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const message = buildLinkedInBrief({
-      company: getFormValue(formData, "company"),
-      workMode: getFormValue(formData, "workMode"),
-      brief: getFormValue(formData, "brief"),
-    });
-
-    const linkedInWindow = window.open(
-      linkedInMessageUrl,
-      "_blank",
-      "noopener,noreferrer"
-    );
-
-    trackEvent("linkedin_open", {
-      source: "home_contact_form",
-      language,
-      work_mode: getFormValue(formData, "workMode"),
-    });
-
-    if (!linkedInWindow) {
-      window.location.href = linkedInMessageUrl;
-    }
-
-    void navigator.clipboard
-      .writeText(message)
-      .then(() => setIsBriefCopied(true))
-      .catch(() => setIsBriefCopied(false));
   };
 
   return (
@@ -501,71 +441,35 @@ export default function Home() {
           </p>
         </div>
 
-        <form
-          className="mt-5 grid gap-4"
-          aria-label={copy.hireFormAria}
-          onSubmit={openLinkedInMessage}
-        >
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label className="flex flex-col gap-2 text-sm font-bold">
-              {copy.companyLabel}
-              <input
-                name="company"
-                type="text"
-                placeholder={copy.companyPlaceholder}
-                className="rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
-              />
-            </label>
-            <label className="flex flex-col gap-2 text-sm font-bold">
-              {copy.modeLabel}
-              <select
-                name="workMode"
-                className="rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  {copy.modePlaceholder}
-                </option>
-                {copy.workModeOptions.map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-              </select>
-            </label>
-          </div>
-
-          <label className="flex flex-col gap-2 text-sm font-bold">
-            {copy.briefLabel}
-            <textarea
-              name="brief"
-              rows={4}
-              placeholder={copy.briefPlaceholder}
-              className="resize-none rounded-md border border-gray-300 px-3 py-2 font-normal outline-none focus:border-black"
-            />
-          </label>
-
-          <div className="flex flex-wrap items-center gap-3 border-t border-gray-200 pt-4">
-            <button
-              type="submit"
-              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
-            >
+        <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-gray-200 pt-4">
+          <TrackedAnchor
+            href={getContactUrl(language)}
+            target="_blank"
+            rel="noreferrer"
+            eventName={hasWhatsAppContact ? "whatsapp_open" : "linkedin_open"}
+            eventParams={{ source: "home_contact", language }}
+            className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
+          >
+            {hasWhatsAppContact ? (
+              <FaWhatsapp size={18} />
+            ) : (
               <FaLinkedin size={18} />
-              {copy.send}
-            </button>
-            <TrackedLink
-              href={getLocalizedHref("/portfolio", language) ?? "/portfolio"}
-              eventName="cta_click"
-              eventParams={{ source: "home_contact_form", label: "portfolio", language }}
-              className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
-            >
-              {copy.proofCta}
-            </TrackedLink>
-            {isBriefCopied ? (
-              <p className="text-sm font-bold text-gray-600">
-                {copy.copied}
-              </p>
-            ) : null}
-          </div>
-        </form>
+            )}
+            {copy.send}
+          </TrackedAnchor>
+          <TrackedLink
+            href={getLocalizedHref("/portfolio", language) ?? "/portfolio"}
+            eventName="cta_click"
+            eventParams={{
+              source: "home_contact",
+              label: "portfolio",
+              language,
+            }}
+            className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
+          >
+            {copy.proofCta}
+          </TrackedLink>
+        </div>
       </section>
     </div>
   );

@@ -631,12 +631,6 @@ const portfolioCopyByLanguage = {
         href: "/resume/netguru-react-native-developer-freelance/en",
       },
     ],
-    bioPl: "Bio PL",
-    bioEn: "Bio EN",
-    bioPlText:
-      "Buduję aplikacje webowe i produktowe od interfejsu po backend. Łączę React, Next.js, Nest.js i myślenie produktowe, żeby szybko dowozić działające rozwiązania.",
-    bioEnText:
-      "I build web and product applications from interface to backend, combining React, Next.js, Nest.js and product thinking to ship useful, working software.",
     companies: "Firmy",
     companiesDescription: "Miejsca, w których pracowałem i pracuję.",
     stack: "Stack",
@@ -674,12 +668,6 @@ const portfolioCopyByLanguage = {
       },
       { label: "Polish CV", href: "/resume/empik-frontend-developer/pl" },
     ],
-    bioPl: "Bio PL",
-    bioEn: "Bio EN",
-    bioPlText:
-      "Buduję aplikacje webowe i produktowe od interfejsu po backend. Łączę React, Next.js, Nest.js i myślenie produktowe, żeby szybko dowozić działające rozwiązania.",
-    bioEnText:
-      "I build web and product applications from interface to backend, combining React, Next.js, Nest.js and product thinking to ship useful, working software.",
     companies: "Companies",
     companiesDescription: "Places where I have worked and where I work now.",
     stack: "Stack",
@@ -859,24 +847,6 @@ export default function PortfolioPage() {
                   {link.label}
                 </TrackedLink>
               ))}
-            </div>
-          </div>
-          <div className="grid gap-3 pt-3 sm:grid-cols-2">
-            <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
-              <p className="text-xs font-bold uppercase text-gray-500">
-                {copy.bioPl}
-              </p>
-              <p className="mt-1 text-sm leading-6 text-gray-800">
-                {copy.bioPlText}
-              </p>
-            </div>
-            <div className="rounded-md border border-gray-200 bg-gray-50 p-3">
-              <p className="text-xs font-bold uppercase text-gray-500">
-                {copy.bioEn}
-              </p>
-              <p className="mt-1 text-sm leading-6 text-gray-800">
-                {copy.bioEnText}
-              </p>
             </div>
           </div>
         </section>

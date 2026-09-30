@@ -20,7 +20,7 @@ import {
   Technologies,
   technologyGroups,
 } from "@/data/technologies";
-import { getLanguageFromBrowser, getLocalizedHref } from "@/lib/language";
+import { getInitialLanguage, getLocalizedHref } from "@/lib/language";
 import { getPortfolioTypeLabel, PortfolioType } from "@/types";
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
@@ -693,7 +693,7 @@ export default function PortfolioPage() {
     portfolioSectionIds[0],
   );
   const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
-  const [language, setLanguage] = useState<ProjectLanguage>("pl");
+  const [language, setLanguage] = useState<ProjectLanguage>(getInitialLanguage);
   const copy = portfolioCopyByLanguage[language];
   const localizedCompanyItems = companyItems.map((item) =>
     getLocalizedCompanyItem(item, language)
@@ -728,10 +728,6 @@ export default function PortfolioPage() {
       currentIndex === featuredProjectItems.length - 1 ? 0 : currentIndex + 1
     );
   };
-
-  useEffect(() => {
-    setLanguage(getLanguageFromBrowser());
-  }, []);
 
   useEffect(() => {
     const sectionIds = [...portfolioSectionIds];

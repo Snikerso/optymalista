@@ -5,14 +5,14 @@ import { Icon } from "@/components/atoms/Icon";
 import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import { trackEvent } from "@/lib/analytics";
 import {
-  getLanguageFromBrowser,
+  getInitialLanguage,
   getLocalizedHref,
   type SiteLanguage,
 } from "@/lib/language";
 import { getLocalizedProject, projectDetailsBySlug } from "@/data/projectDetails";
 import { getTechnologyLabel } from "@/data/technologies";
 import { getPortfolioTypeLabel } from "@/types";
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
 
 const featuredProjects = [
@@ -200,17 +200,13 @@ const buildLinkedInBrief = ({
 export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [isBriefCopied, setIsBriefCopied] = useState(false);
-  const [language, setLanguage] = useState<SiteLanguage>("pl");
+  const [language, setLanguage] = useState<SiteLanguage>(getInitialLanguage);
   const activeProject = getLocalizedProject(
     featuredProjects[activeProjectIndex],
     language
   );
   const activeProjectImage = activeProject.gallery[0];
   const copy = copyByLanguage[language];
-
-  useEffect(() => {
-    setLanguage(getLanguageFromBrowser());
-  }, []);
 
   const showPreviousProject = () => {
     setActiveProjectIndex((currentIndex) =>

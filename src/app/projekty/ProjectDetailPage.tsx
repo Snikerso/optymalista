@@ -9,10 +9,10 @@ import {
   type ProjectLanguage,
 } from "@/data/projectDetails";
 import { getTechnologyLabel } from "@/data/technologies";
-import { getLanguageFromBrowser, getLocalizedHref } from "@/lib/language";
+import { getInitialLanguage, getLocalizedHref } from "@/lib/language";
 import { siteUrl } from "@/lib/seo";
 import { getPortfolioTypeLabel } from "@/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const copyByLanguage = {
   pl: {
@@ -50,15 +50,11 @@ export const ProjectDetailPage = ({
 }: {
   project: ProjectDetail;
 }) => {
-  const [language, setLanguage] = useState<ProjectLanguage>("pl");
+  const [language, setLanguage] = useState<ProjectLanguage>(getInitialLanguage);
   const localizedProject = getLocalizedProject(project, language);
   const copy = copyByLanguage[language];
   const portfolioPath =
     getLocalizedHref("/portfolio/#projekty", language) ?? "/portfolio/#projekty";
-
-  useEffect(() => {
-    setLanguage(getLanguageFromBrowser());
-  }, []);
 
   const projectJsonLd = {
     "@context": "https://schema.org",

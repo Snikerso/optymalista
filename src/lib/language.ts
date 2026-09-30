@@ -9,6 +9,10 @@ export const getLanguage = (language?: string | null): SiteLanguage =>
 export const supportedLanguages = ["pl", "en"] as const satisfies readonly Locale[];
 
 export const getLanguageFromBrowser = (): SiteLanguage => {
+  if (typeof window === "undefined") {
+    return "pl";
+  }
+
   const params = new URLSearchParams(window.location.search);
   const queryLanguage = params.get("lang");
 
@@ -22,6 +26,8 @@ export const getLanguageFromBrowser = (): SiteLanguage => {
     return "pl";
   }
 };
+
+export const getInitialLanguage = (): SiteLanguage => getLanguageFromBrowser();
 
 export const saveLanguagePreference = (language: SiteLanguage) => {
   try {

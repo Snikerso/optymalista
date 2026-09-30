@@ -14,17 +14,25 @@ type LanguageSwitcherProps = {
   onLanguageChange?: (language: SiteLanguage) => void;
 };
 
+const getCurrentHref = () => {
+  if (typeof window === "undefined") {
+    return "/";
+  }
+
+  return `${window.location.pathname}${window.location.search}${window.location.hash}`;
+};
+
 export const LanguageSwitcher = ({
   language,
   onLanguageChange,
 }: LanguageSwitcherProps) => {
   const [hrefs, setHrefs] = useState<Record<SiteLanguage, string>>({
-    pl: "#",
-    en: "#",
+    pl: getLocalizedHref(getCurrentHref(), "pl") ?? "#",
+    en: getLocalizedHref(getCurrentHref(), "en") ?? "#",
   });
 
   useEffect(() => {
-    const currentHref = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    const currentHref = getCurrentHref();
 
     setHrefs({
       pl: getLocalizedHref(currentHref, "pl") ?? "#",

@@ -44,7 +44,7 @@ const copyByLanguage = {
     proofItems: [
       "Enterprise e-commerce: Royal Mint",
       "Mobile + backend: CleanStrategy",
-      "Checkout + Stripe: Moment Studio",
+      "Płatności Stripe: Moment Studio",
       "Platforma kursowa + analityka: Juli Jogi",
     ],
     pathsTitle: "Wybierz najkrótszą ścieżkę",
@@ -60,17 +60,6 @@ const copyByLanguage = {
         title: "Problem, proces i efekt",
         text: "Najpierw pokazuję, jaki problem był do rozwiązania, co zbudowałem i jaki był rezultat produktu.",
         href: "/portfolio/#wyroznione",
-      },
-    ],
-    cvTitle: "CV dopasowane do kontekstu",
-    cvLinks: [
-      {
-        label: "CV po polsku",
-        href: "/resume/empik-frontend-developer/pl",
-      },
-      {
-        label: "CV po angielsku",
-        href: "/resume/empik-frontend-developer/en",
       },
     ],
     featuredEyebrow: "Wyróżnione projekty",
@@ -102,7 +91,7 @@ const copyByLanguage = {
     proofItems: [
       "Enterprise e-commerce: Royal Mint",
       "Mobile + backend: CleanStrategy",
-      "Checkout + Stripe: Moment Studio",
+      "Stripe checkout: Moment Studio",
       "Course platform + analytics: Juli Jogi",
     ],
     pathsTitle: "Choose the shortest path",
@@ -118,17 +107,6 @@ const copyByLanguage = {
         title: "Problem, process and result",
         text: "A product-first route through the problem, what I built and what changed for the project.",
         href: "/portfolio/#wyroznione",
-      },
-    ],
-    cvTitle: "Resume matched to context",
-    cvLinks: [
-      {
-        label: "Polish CV",
-        href: "/resume/empik-frontend-developer/pl",
-      },
-      {
-        label: "English CV",
-        href: "/resume/empik-frontend-developer/en",
       },
     ],
     featuredEyebrow: "Featured projects",
@@ -256,23 +234,6 @@ export default function Home() {
             <div key={item} className="rounded-md bg-gray-100 px-3 py-2">
               <p className="text-sm font-bold text-gray-800">{item}</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="flex min-w-0 flex-col gap-3 rounded-md border-2 border-black p-4">
-        <h2 className="text-xl font-bold">{copy.cvTitle}</h2>
-        <div className="flex flex-wrap gap-2">
-          {copy.cvLinks.map((link) => (
-            <TrackedLink
-              key={link.href}
-              href={link.href}
-              eventName="cv_open"
-              eventParams={{ source: "home", label: link.label, language }}
-              className="rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
-            >
-              {link.label}
-            </TrackedLink>
           ))}
         </div>
       </section>

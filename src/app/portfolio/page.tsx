@@ -669,11 +669,6 @@ const portfolioCopyByLanguage = {
       "Jestem Paweł Drojecki. Projektuję i buduję aplikacje webowe, mobile oraz zaplecze techniczne produktów, które mają działać nie tylko w demo, ale też w prawdziwym użyciu.",
     introSecond:
       "Mam doświadczenie w projektach edukacyjnych, e-commerce, aplikacjach fact-checkingowych, stronach brandowych i systemach legacy. Lubię moment, w którym niejasny pomysł zmienia się w konkretny interfejs, sprawny backend i produkt, który użytkownik rozumie bez instrukcji.",
-    cvTitle: "CV dopasowane do rozmowy",
-    cvLinks: [
-      { label: "CV po polsku", href: "/resume/empik-frontend-developer/pl" },
-      { label: "CV po angielsku", href: "/resume/empik-frontend-developer/en" },
-    ],
     companies: "Firmy",
     companiesDescription: "Miejsca, w których pracowałem i pracuję.",
     stack: "Stack",
@@ -714,11 +709,6 @@ const portfolioCopyByLanguage = {
       "I am Paweł Drojecki. I design and build web applications, mobile products and technical backends that need to work beyond a demo.",
     introSecond:
       "My experience spans education, e-commerce, fact-checking tools, brand websites and legacy systems. I enjoy turning unclear product ideas into concrete interfaces, reliable backend flows and software users can understand without instructions.",
-    cvTitle: "Resume matched to the conversation",
-    cvLinks: [
-      { label: "Polish CV", href: "/resume/empik-frontend-developer/pl" },
-      { label: "English CV", href: "/resume/empik-frontend-developer/en" },
-    ],
     companies: "Companies",
     companiesDescription: "Places where I have worked and where I work now.",
     stack: "Stack",
@@ -864,24 +854,6 @@ export default function PortfolioPage() {
             <FaLinkedin size={18} />
             LinkedIn
           </TrackedAnchor>
-          <div className="rounded-md border-2 border-black p-3">
-            <h2 className="text-sm font-bold uppercase text-gray-500">
-              {copy.cvTitle}
-            </h2>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {copy.cvLinks.map((link) => (
-                <TrackedLink
-                  key={link.href}
-                  href={link.href}
-                  eventName="cv_open"
-                  eventParams={{ source: "portfolio_intro", label: link.label, language }}
-                  className="rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
-                >
-                  {link.label}
-                </TrackedLink>
-              ))}
-            </div>
-          </div>
         </section>
 
         <FeaturedProjectsCarousel

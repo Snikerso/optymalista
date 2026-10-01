@@ -27,8 +27,8 @@ export const LanguageSwitcher = ({
   onLanguageChange,
 }: LanguageSwitcherProps) => {
   const [hrefs, setHrefs] = useState<Record<SiteLanguage, string>>({
-    pl: getLocalizedHref(getCurrentHref(), "pl") ?? "#",
-    en: getLocalizedHref(getCurrentHref(), "en") ?? "#",
+    pl: getLocalizedHref("/", "pl") ?? "#",
+    en: getLocalizedHref("/", "en") ?? "#",
   });
 
   useEffect(() => {

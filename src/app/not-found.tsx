@@ -7,6 +7,7 @@ import Link from "next/link";
 export default function NotFound() {
   const availablePages = [
     { href: "/", label: "Strona główna" },
+    { href: "/projekty", label: "Projekty" },
     { href: "/portfolio", label: "Portfolio" },
     { href: "/materialy", label: "Materiały" },
     { href: "/filaments", label: "Filamenty" },

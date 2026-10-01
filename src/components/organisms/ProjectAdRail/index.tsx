@@ -7,13 +7,8 @@ import {
   projectDetails,
   type ProjectLanguage,
 } from "@/data/projectDetails";
-import {
-  getInitialLanguage,
-  getLanguage,
-  getLocalizedHref,
-  languageChangeEventName,
-  languageStorageKey,
-} from "@/lib/language";
+import { getLocalizedHref } from "@/lib/language";
+import { useSiteLanguage } from "@/lib/useSiteLanguage";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -58,7 +53,7 @@ const shuffleProjects = () => {
 };
 
 export const ProjectAdRail = () => {
-  const [language, setLanguage] = useState<ProjectLanguage>(getInitialLanguage);
+  const language = useSiteLanguage();
   const [advertisedProjects, setAdvertisedProjects] = useState(
     projectDetails.slice(0, PROJECTS_TO_SHOW)
   );
@@ -66,28 +61,6 @@ export const ProjectAdRail = () => {
 
   useEffect(() => {
     setAdvertisedProjects(shuffleProjects());
-  }, []);
-
-  useEffect(() => {
-    const syncLanguage = () => setLanguage(getInitialLanguage());
-    const syncLanguageFromStorage = (event: StorageEvent) => {
-      if (event.key === languageStorageKey) {
-        setLanguage(getLanguage(event.newValue));
-      }
-    };
-    const syncLanguageFromEvent = (event: Event) => {
-      setLanguage(getLanguage((event as CustomEvent<string>).detail));
-    };
-
-    window.addEventListener("popstate", syncLanguage);
-    window.addEventListener("storage", syncLanguageFromStorage);
-    window.addEventListener(languageChangeEventName, syncLanguageFromEvent);
-
-    return () => {
-      window.removeEventListener("popstate", syncLanguage);
-      window.removeEventListener("storage", syncLanguageFromStorage);
-      window.removeEventListener(languageChangeEventName, syncLanguageFromEvent);
-    };
   }, []);
 
   return (

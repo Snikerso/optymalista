@@ -4,11 +4,11 @@ import {
   TrackedAnchor,
   TrackedLink,
 } from "@/components/analytics/TrackedLink";
-import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import {
   PortfolioItem,
   type PortfolioItemProps,
 } from "@/components/molecules/PortfolioItem";
+import { TechStackTable } from "@/components/organisms/TechStackTable";
 import { Icon } from "@/components/atoms/Icon";
 import {
   getLocalizedProject,
@@ -18,12 +18,17 @@ import {
 import {
   getTechnologyLabel,
   Technologies,
-  technologyGroups,
 } from "@/data/technologies";
-import { getInitialLanguage, getLocalizedHref } from "@/lib/language";
+import { getLocalizedHref } from "@/lib/language";
+import { useSiteLanguage } from "@/lib/useSiteLanguage";
 import { getPortfolioTypeLabel, PortfolioType } from "@/types";
 import { useEffect, useState } from "react";
-import { FaArrowLeft, FaArrowRight, FaLinkedin } from "react-icons/fa";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaLinkedin,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 type LocalizedPortfolioItem = PortfolioItemProps & {
   translated?: Partial<
@@ -593,9 +598,48 @@ const companyItems = [
   },
 ];
 
-const visibleSkillsCount = 4;
-const featuredProjectItems = projectItems.filter(
+const prioritizedProjectSlugs = [
+  "royal-mint",
+  "juli-jogi",
+  "moment-studio",
+  "swarmcheck",
+] as const;
+
+const getPortfolioProjectSlug = (project: LocalizedPortfolioItem) =>
+  project.caseStudyLink?.replace(/^\/projekty\//, "").replace(/\/$/, "") ?? "";
+
+const getPortfolioProjectOrder = (
+  project: LocalizedPortfolioItem,
+  currentIndex: number
+) => {
+  const priority = prioritizedProjectSlugs.indexOf(
+    getPortfolioProjectSlug(project) as (typeof prioritizedProjectSlugs)[number]
+  );
+
+  return priority === -1
+    ? prioritizedProjectSlugs.length + currentIndex
+    : priority;
+};
+
+const orderedProjectItems = projectItems
+  .map((project, index) => ({
+    project,
+    order: getPortfolioProjectOrder(project, index),
+  }))
+  .sort(
+    (firstProject, secondProject) =>
+      firstProject.order - secondProject.order
+  )
+  .map(({ project }) => project);
+
+const featuredProjectItems = orderedProjectItems.filter(
   (project) => project.status === "Wyróżniony"
+);
+
+const linkedInMessageUrl = "https://www.linkedin.com/messaging/compose/";
+const whatsAppNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(
+  /\D/g,
+  ""
 );
 
 const portfolioSectionIds = [
@@ -605,36 +649,43 @@ const portfolioSectionIds = [
   "projekty",
   "doswiadczenie",
   "stack",
+  "kontakt",
 ] as const;
 
 const portfolioCopyByLanguage = {
   pl: {
-    nav: ["Intro", "Wyróżnione", "Firmy", "Projekty", "Doświadczenie", "Stack"],
+    nav: [
+      "Intro",
+      "Wyróżnione",
+      "Firmy",
+      "Projekty",
+      "Doświadczenie",
+      "Stack",
+      "Kontakt",
+    ],
     title: "Portfolio",
     eyebrow: "React · Next.js · Nest.js · Product development",
     intro:
       "Jestem Paweł Drojecki. Projektuję i buduję aplikacje webowe, mobile oraz zaplecze techniczne produktów, które mają działać nie tylko w demo, ale też w prawdziwym użyciu.",
     introSecond:
       "Mam doświadczenie w projektach edukacyjnych, e-commerce, aplikacjach fact-checkingowych, stronach brandowych i systemach legacy. Lubię moment, w którym niejasny pomysł zmienia się w konkretny interfejs, sprawny backend i produkt, który użytkownik rozumie bez instrukcji.",
-    pathsTitle: "Najkrótsza ścieżka",
-    recruiterPath: "Dla rekrutera: projekty, doświadczenie, stack i CV",
-    clientPath: "Dla klienta: problem, proces i efekt",
     cvTitle: "CV dopasowane do rozmowy",
     cvLinks: [
-      { label: "CV Frontend", href: "/resume/empik-frontend-developer/pl" },
-      {
-        label: "CV React Native",
-        href: "/resume/netguru-react-native-developer-freelance/pl",
-      },
-      {
-        label: "Resume EN",
-        href: "/resume/netguru-react-native-developer-freelance/en",
-      },
+      { label: "CV po polsku", href: "/resume/empik-frontend-developer/pl" },
+      { label: "CV po angielsku", href: "/resume/empik-frontend-developer/en" },
     ],
     companies: "Firmy",
     companiesDescription: "Miejsca, w których pracowałem i pracuję.",
     stack: "Stack",
     stackDescription: "Technologie i obszary, z którymi pracuję najczęściej.",
+    hireEyebrow: "Kontakt",
+    hireTitle: "Porozmawiajmy o współpracy",
+    hireText:
+      "Jeśli masz produkt, sklep, aplikację albo trudny frontend do ogarnięcia, odezwij się do mnie bezpośrednio.",
+    whatsAppMessage:
+      "Cześć Paweł, chcę pogadać o współpracy przy projekcie.",
+    send: "Wyślij wiadomość",
+    proofCta: "Sprawdź dowody",
     experience: "Doświadczenie",
     projects: "Projekty",
     featuredEyebrow: "Case studies",
@@ -649,29 +700,38 @@ const portfolioCopyByLanguage = {
     positions: "pozycji",
   },
   en: {
-    nav: ["Intro", "Featured", "Companies", "Projects", "Experience", "Stack"],
+    nav: [
+      "Intro",
+      "Featured",
+      "Companies",
+      "Projects",
+      "Experience",
+      "Stack",
+      "Contact",
+    ],
     title: "Portfolio",
     eyebrow: "React · Next.js · Nest.js · Product development",
     intro:
       "I am Paweł Drojecki. I design and build web applications, mobile products and technical backends that need to work beyond a demo.",
     introSecond:
       "My experience spans education, e-commerce, fact-checking tools, brand websites and legacy systems. I enjoy turning unclear product ideas into concrete interfaces, reliable backend flows and software users can understand without instructions.",
-    pathsTitle: "Shortest path",
-    recruiterPath: "For recruiters: projects, experience, stack and resume",
-    clientPath: "For clients: problem, process and result",
     cvTitle: "Resume matched to the conversation",
     cvLinks: [
-      { label: "Frontend resume", href: "/resume/empik-frontend-developer/en" },
-      {
-        label: "React Native resume",
-        href: "/resume/netguru-react-native-developer-freelance/en",
-      },
       { label: "Polish CV", href: "/resume/empik-frontend-developer/pl" },
+      { label: "English CV", href: "/resume/empik-frontend-developer/en" },
     ],
     companies: "Companies",
     companiesDescription: "Places where I have worked and where I work now.",
     stack: "Stack",
     stackDescription: "Technologies and areas I work with most often.",
+    hireEyebrow: "Contact",
+    hireTitle: "Talk about collaboration",
+    hireText:
+      "If you have a product, store, mobile app or difficult frontend that needs care, message me directly.",
+    whatsAppMessage:
+      "Hi Paweł, I would like to talk about working together on a project.",
+    send: "Send message",
+    proofCta: "Check the evidence",
     experience: "Experience",
     projects: "Projects",
     featuredEyebrow: "Case studies",
@@ -687,35 +747,36 @@ const portfolioCopyByLanguage = {
   },
 } satisfies Record<ProjectLanguage, Record<string, string | string[] | { label: string; href: string }[]>>;
 
+const getContactUrl = (language: ProjectLanguage) => {
+  if (!whatsAppNumber) {
+    return linkedInMessageUrl;
+  }
+
+  const message = portfolioCopyByLanguage[language].whatsAppMessage;
+  return `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(message)}`;
+};
+
 export default function PortfolioPage() {
-  const [expandedSkillGroups, setExpandedSkillGroups] = useState<string[]>([]);
   const [activeSection, setActiveSection] = useState<string>(
     portfolioSectionIds[0],
   );
   const [activeFeaturedIndex, setActiveFeaturedIndex] = useState(0);
-  const [language, setLanguage] = useState<ProjectLanguage>(getInitialLanguage);
+  const language = useSiteLanguage();
   const copy = portfolioCopyByLanguage[language];
+  const hasWhatsAppContact = Boolean(whatsAppNumber);
   const localizedCompanyItems = companyItems.map((item) =>
     getLocalizedCompanyItem(item, language)
   );
   const localizedExperienceItems = experienceItems.map((item) =>
     getLocalizedPortfolioItem(item, language)
   );
-  const localizedProjectItems = projectItems.map((item) =>
+  const localizedProjectItems = orderedProjectItems.map((item) =>
     getLocalizedPortfolioItem(item, language)
   );
   const portfolioNavItems = portfolioSectionIds.map((id, index) => ({
     id,
     label: copy.nav[index],
   }));
-
-  const toggleSkillGroup = (title: string) => {
-    setExpandedSkillGroups((currentGroups) =>
-      currentGroups.includes(title)
-        ? currentGroups.filter((groupTitle) => groupTitle !== title)
-        : [...currentGroups, title]
-    );
-  };
 
   const showPreviousFeaturedProject = () => {
     setActiveFeaturedIndex((currentIndex) =>
@@ -788,10 +849,6 @@ export default function PortfolioPage() {
       />
       <div className="flex flex-col gap-12">
         <section id="intro" className="flex scroll-mt-28 flex-col gap-2">
-          <LanguageSwitcher
-            language={language}
-            onLanguageChange={setLanguage}
-          />
           <h1 className="text-2xl font-bold">{copy.title}</h1>
           <p className="text-sm font-bold uppercase text-gray-500">
             {copy.eyebrow}
@@ -809,24 +866,6 @@ export default function PortfolioPage() {
             <FaLinkedin size={18} />
             LinkedIn
           </TrackedAnchor>
-          <div className="grid gap-3 pt-3 sm:grid-cols-2">
-            <TrackedLink
-              href={getLocalizedHref("/portfolio/#projekty", language) ?? "/portfolio/#projekty"}
-              eventName="portfolio_path_select"
-              eventParams={{ path: "recruiter", language }}
-              className="rounded-md border-2 border-black p-3 font-bold hover:bg-gray-50"
-            >
-              {copy.recruiterPath}
-            </TrackedLink>
-            <TrackedLink
-              href={getLocalizedHref("/portfolio/#wyroznione", language) ?? "/portfolio/#wyroznione"}
-              eventName="portfolio_path_select"
-              eventParams={{ path: "client", language }}
-              className="rounded-md border-2 border-black p-3 font-bold hover:bg-gray-50"
-            >
-              {copy.clientPath}
-            </TrackedLink>
-          </div>
           <div className="rounded-md border-2 border-black p-3">
             <h2 className="text-sm font-bold uppercase text-gray-500">
               {copy.cvTitle}
@@ -928,17 +967,53 @@ export default function PortfolioPage() {
               {copy.stackDescription}
             </p>
           </div>
-          <div className="grid gap-3 md:grid-cols-2">
-            {technologyGroups.map((group) => (
-              <SkillGroup
-                key={group.title}
-                title={group.title}
-                skills={group.skills}
-                isExpanded={expandedSkillGroups.includes(group.title)}
-                onToggle={() => toggleSkillGroup(group.title)}
-                language={language}
-              />
-            ))}
+          <TechStackTable language={language} />
+        </section>
+
+        <section
+          id="kontakt"
+          className="min-w-0 scroll-mt-28 rounded-md border-2 border-black p-4 sm:p-6"
+        >
+          <div className="flex flex-col gap-2">
+            <p className="text-sm font-bold uppercase text-gray-500">
+              {copy.hireEyebrow}
+            </p>
+            <h2 className="text-3xl font-bold leading-tight">
+              {copy.hireTitle}
+            </h2>
+            <p className="max-w-2xl text-sm leading-6 text-gray-700">
+              {copy.hireText}
+            </p>
+          </div>
+
+          <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-gray-200 pt-4">
+            <TrackedAnchor
+              href={getContactUrl(language)}
+              target="_blank"
+              rel="noreferrer"
+              eventName={hasWhatsAppContact ? "whatsapp_open" : "linkedin_open"}
+              eventParams={{ source: "portfolio_contact", language }}
+              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
+            >
+              {hasWhatsAppContact ? (
+                <FaWhatsapp size={18} />
+              ) : (
+                <FaLinkedin size={18} />
+              )}
+              {copy.send}
+            </TrackedAnchor>
+            <TrackedLink
+              href={getLocalizedHref("/projekty", language) ?? "/projekty"}
+              eventName="cta_click"
+              eventParams={{
+                source: "portfolio_contact",
+                label: "projects",
+                language,
+              }}
+              className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
+            >
+              {copy.proofCta}
+            </TrackedLink>
           </div>
         </section>
       </div>
@@ -1003,7 +1078,7 @@ const FeaturedProjectsCarousel = ({
     language
   );
   const baseProjectDetails = Object.values(projectDetailsBySlug).find(
-    (project) => featuredProject.caseStudyLink === `/projekty/${project.slug}/`,
+    (project) => featuredProject.caseStudyLink === `/projekty/${project.slug}/`
   );
   const activeProjectDetails = baseProjectDetails
     ? getLocalizedProject(baseProjectDetails, language)
@@ -1100,43 +1175,43 @@ const FeaturedProjectsCarousel = ({
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-            {baseProjectDetails && (
-              <TrackedLink
-                href={
-                  getLocalizedHref(
-                    `/projekty/${baseProjectDetails.slug}/`,
-                    language
-                  ) ?? `/projekty/${baseProjectDetails.slug}/`
-                }
-                eventName="case_study_open"
-                eventParams={{
-                  source: "portfolio_featured",
-                  project: baseProjectDetails.slug,
-                  language,
-                }}
-                className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
-              >
-                <span>{copy.caseStudy}</span>
-                <Icon iconName="openTab" size={16} />
-              </TrackedLink>
-            )}
-            <div className="flex gap-1">
-              {featuredProjectItems.map((project, index) => (
-                <button
-                  key={project.title}
-                  type="button"
-                  aria-label={`${copy.showFeaturedProject} ${
-                    getLocalizedPortfolioItem(project, language).title
-                  }`}
-                  onClick={() => onSelect(index)}
-                  className={`h-2.5 rounded-full transition-all ${
-                    activeIndex === index
-                      ? "w-8 bg-accent"
-                      : "w-2.5 bg-gray-300 hover:bg-gray-500"
-                  }`}
-                />
-              ))}
-            </div>
+              {baseProjectDetails && (
+                <TrackedLink
+                  href={
+                    getLocalizedHref(
+                      `/projekty/${baseProjectDetails.slug}/`,
+                      language
+                    ) ?? `/projekty/${baseProjectDetails.slug}/`
+                  }
+                  eventName="case_study_open"
+                  eventParams={{
+                    source: "portfolio_featured",
+                    project: baseProjectDetails.slug,
+                    language,
+                  }}
+                  className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
+                >
+                  <span>{copy.caseStudy}</span>
+                  <Icon iconName="openTab" size={16} />
+                </TrackedLink>
+              )}
+              <div className="flex gap-1">
+                {featuredProjectItems.map((project, index) => (
+                  <button
+                    key={project.title}
+                    type="button"
+                    aria-label={`${copy.showFeaturedProject} ${
+                      getLocalizedPortfolioItem(project, language).title
+                    }`}
+                    onClick={() => onSelect(index)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      activeIndex === index
+                        ? "w-8 bg-accent"
+                        : "w-2.5 bg-gray-300 hover:bg-gray-500"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -1171,92 +1246,3 @@ const PortfolioSection = ({
   </section>
 );
 
-const SkillGroup = ({
-  title,
-  skills,
-  isExpanded,
-  onToggle,
-  language,
-}: {
-  title: string;
-  skills: Technologies[];
-  isExpanded: boolean;
-  onToggle: () => void;
-  language: ProjectLanguage;
-}) => {
-  const hiddenSkillsCount = skills.length - visibleSkillsCount;
-  const visibleSkills = isExpanded
-    ? skills
-    : skills.slice(0, visibleSkillsCount);
-  const groupTitle = getTechnologyGroupTitle(title, language);
-  const skillCopy = language === "en"
-    ? {
-        showLess: "Show less",
-        showMore: `+${hiddenSkillsCount} more`,
-      }
-    : {
-        showLess: "Pokaż mniej",
-        showMore: `+${hiddenSkillsCount} więcej`,
-      };
-
-  return (
-    <div className="flex flex-col gap-3 rounded-md border-2 border-black p-4">
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-sm font-bold uppercase text-gray-500">{groupTitle}</h3>
-        {hiddenSkillsCount > 0 && (
-          <button
-            type="button"
-            onClick={onToggle}
-            className="rounded-md bg-accent px-2 py-1 text-xs font-bold text-black hover:bg-accent/80"
-          >
-            {isExpanded ? skillCopy.showLess : skillCopy.showMore}
-          </button>
-        )}
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {visibleSkills.map((skill) => (
-          <span
-            key={skill}
-            className="rounded-md bg-gray-100 px-2 py-1 text-sm font-medium text-gray-800"
-          >
-            {getTechnologyLabel(skill, language)}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const technologyGroupTitleByLanguage: Record<string, Record<ProjectLanguage, string>> = {
-  "Frontend": {
-    pl: "Frontend",
-    en: "Frontend",
-  },
-  "Frontend tooling": {
-    pl: "Narzędzia frontendowe",
-    en: "Frontend tooling",
-  },
-  "Mobile i wearables": {
-    pl: "Mobile i wearables",
-    en: "Mobile and wearables",
-  },
-  "Backend i API": {
-    pl: "Backend i API",
-    en: "Backend and API",
-  },
-  "Cloud, DevOps i auth": {
-    pl: "Cloud, DevOps i auth",
-    en: "Cloud, DevOps and auth",
-  },
-  "Edukacja i produkt": {
-    pl: "Edukacja i produkt",
-    en: "Education and product",
-  },
-  "Dane, UX i inne": {
-    pl: "Dane, UX i inne",
-    en: "Data, UX and other",
-  },
-};
-
-const getTechnologyGroupTitle = (title: string, language: ProjectLanguage) =>
-  technologyGroupTitleByLanguage[title]?.[language] ?? title;

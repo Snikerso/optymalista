@@ -967,6 +967,26 @@ export const projectDetails: ProjectDetail[] = [
   },
 ];
 
+const prioritizedProjectSlugs = [
+  "royal-mint",
+  "juli-jogi",
+  "moment-studio",
+  "swarmcheck",
+] as const;
+
+const getProjectOrder = (project: ProjectDetail) => {
+  const priority = prioritizedProjectSlugs.indexOf(
+    project.slug as (typeof prioritizedProjectSlugs)[number]
+  );
+
+  return priority === -1 ? prioritizedProjectSlugs.length : priority;
+};
+
+export const orderedProjectDetails = [...projectDetails].sort(
+  (firstProject, secondProject) =>
+    getProjectOrder(firstProject) - getProjectOrder(secondProject)
+);
+
 export const projectDetailsBySlug = projectDetails.reduce<
   Record<string, ProjectDetail>
 >((projectsBySlug, project) => {

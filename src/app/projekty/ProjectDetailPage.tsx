@@ -2,17 +2,16 @@
 
 import { TrackedAnchor } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
-import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import {
   getLocalizedProject,
   type ProjectDetail,
   type ProjectLanguage,
 } from "@/data/projectDetails";
 import { getTechnologyLabel } from "@/data/technologies";
-import { getInitialLanguage, getLocalizedHref } from "@/lib/language";
+import { getLocalizedHref } from "@/lib/language";
+import { useSiteLanguage } from "@/lib/useSiteLanguage";
 import { siteUrl } from "@/lib/seo";
 import { getPortfolioTypeLabel } from "@/types";
-import { useState } from "react";
 
 const copyByLanguage = {
   pl: {
@@ -50,7 +49,7 @@ export const ProjectDetailPage = ({
 }: {
   project: ProjectDetail;
 }) => {
-  const [language, setLanguage] = useState<ProjectLanguage>(getInitialLanguage);
+  const language = useSiteLanguage();
   const localizedProject = getLocalizedProject(project, language);
   const copy = copyByLanguage[language];
   const portfolioPath =
@@ -78,7 +77,6 @@ export const ProjectDetailPage = ({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
       />
-      <LanguageSwitcher language={language} onLanguageChange={setLanguage} />
       <a
         href={portfolioPath}
         className="inline-flex w-fit items-center gap-2 text-sm font-bold hover:text-accent"

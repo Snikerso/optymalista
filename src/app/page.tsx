@@ -2,12 +2,11 @@
 
 import { TrackedAnchor, TrackedLink } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
-import { LanguageSwitcher } from "@/components/atoms/LanguageSwitcher";
 import {
-  getInitialLanguage,
   getLocalizedHref,
   type SiteLanguage,
 } from "@/lib/language";
+import { useSiteLanguage } from "@/lib/useSiteLanguage";
 import { getLocalizedProject, projectDetailsBySlug } from "@/data/projectDetails";
 import { getTechnologyLabel } from "@/data/technologies";
 import { getPortfolioTypeLabel } from "@/types";
@@ -66,16 +65,12 @@ const copyByLanguage = {
     cvTitle: "CV dopasowane do kontekstu",
     cvLinks: [
       {
-        label: "CV Frontend",
+        label: "CV po polsku",
         href: "/resume/empik-frontend-developer/pl",
       },
       {
-        label: "CV React Native",
-        href: "/resume/netguru-react-native-developer-freelance/pl",
-      },
-      {
-        label: "CV English",
-        href: "/resume/netguru-react-native-developer-freelance/en",
+        label: "CV po angielsku",
+        href: "/resume/empik-frontend-developer/en",
       },
     ],
     featuredEyebrow: "Wyróżnione projekty",
@@ -129,16 +124,12 @@ const copyByLanguage = {
     cvTitle: "Resume matched to context",
     cvLinks: [
       {
-        label: "Frontend resume",
-        href: "/resume/empik-frontend-developer/en",
-      },
-      {
-        label: "React Native resume",
-        href: "/resume/netguru-react-native-developer-freelance/en",
-      },
-      {
         label: "Polish CV",
         href: "/resume/empik-frontend-developer/pl",
+      },
+      {
+        label: "English CV",
+        href: "/resume/empik-frontend-developer/en",
       },
     ],
     featuredEyebrow: "Featured projects",
@@ -171,7 +162,7 @@ const getContactUrl = (language: SiteLanguage) => {
 
 export default function Home() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [language, setLanguage] = useState<SiteLanguage>(getInitialLanguage);
+  const language = useSiteLanguage();
   const activeProject = getLocalizedProject(
     featuredProjects[activeProjectIndex],
     language
@@ -195,10 +186,6 @@ export default function Home() {
   return (
     <div className="flex min-h-[60vh] w-full min-w-0 flex-col justify-center gap-10">
       <section className="flex min-w-0 flex-col gap-6">
-        <LanguageSwitcher
-          language={language}
-          onLanguageChange={setLanguage}
-        />
         <div className="flex flex-col gap-3">
           <p className="text-sm font-bold uppercase text-gray-500">
             {copy.eyebrow}

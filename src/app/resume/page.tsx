@@ -1,9 +1,6 @@
-import { resumeTargets } from "@/data/resumeTargets";
-import Link from "next/link";
-
 export const metadata = {
   title: "Resume Generator",
-  description: "Targeted resume generator for Paweł Drojecki.",
+  description: "Targeted resumes for Paweł Drojecki are coming soon.",
   robots: {
     index: false,
     follow: false,
@@ -18,45 +15,12 @@ export default function ResumeIndexPage() {
           Resume generator
         </p>
         <h1 className="text-3xl font-bold leading-tight">
-          Targeted resumes from portfolio evidence
+          CV wkrótce
         </h1>
         <p className="text-sm leading-6 text-gray-700">
-          Generator składa CV z danych portfolio i profilu konkretnej oferty.
-          Każdy target ma własne priorytety, słowa kluczowe i listę luk, których
-          nie należy dopowiadać bez dodatkowych dowodów.
+          Ta sekcja jest chwilowo wyłączona. Dopasowane CV wrócą tutaj wkrótce.
         </p>
       </section>
-
-      <div className="grid gap-4">
-        {resumeTargets.map((target) => (
-          <div
-            key={target.slug}
-            className="rounded-md border-2 border-black p-4"
-          >
-            <div className="flex flex-col gap-1">
-              <h2 className="text-xl font-bold">{target.role}</h2>
-              <p className="text-sm font-bold text-gray-700">
-                {target.company} · {target.contract}
-              </p>
-              <p className="text-sm text-gray-600">{target.summary}</p>
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Link
-                href={`/resume/${target.slug}/en`}
-                className="rounded-md border border-black px-3 py-2 text-sm font-bold transition-colors hover:bg-accent"
-              >
-                English
-              </Link>
-              <Link
-                href={`/resume/${target.slug}/pl`}
-                className="rounded-md border border-black px-3 py-2 text-sm font-bold transition-colors hover:bg-accent"
-              >
-                Polski
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

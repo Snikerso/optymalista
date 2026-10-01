@@ -1,6 +1,5 @@
 import { Footer } from "@/components/organisms/Footer";
 import { Header } from "@/components/organisms/Header";
-import { ProjectAdRail } from "@/components/organisms/ProjectAdRail";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { defaultDescription, siteUrl } from "@/lib/seo";
@@ -107,7 +106,6 @@ export default function RootLayout({
         />
         <div className="flex flex-col w-full">
           <Header />
-          <ProjectAdRail />
           <main className="flex-1 h-full">{children}</main>
           <Footer />
           <CookieConsent />

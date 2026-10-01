@@ -88,7 +88,6 @@ const copyByLanguage = {
     whatsAppMessage:
       "Cześć Paweł, chcę pogadać o współpracy przy projekcie.",
     send: "Wyślij wiadomość",
-    proofCta: "Sprawdź dowody",
   },
   en: {
     eyebrow: "Frontend / Fullstack / Product",
@@ -147,7 +146,6 @@ const copyByLanguage = {
     whatsAppMessage:
       "Hi Paweł, I would like to talk about working together on a project.",
     send: "Send message",
-    proofCta: "Check the evidence",
   },
 } satisfies Record<SiteLanguage, Record<string, unknown>>;
 
@@ -444,18 +442,6 @@ export default function Home() {
             )}
             {copy.send}
           </TrackedAnchor>
-          <TrackedLink
-            href={getLocalizedHref("/portfolio", language) ?? "/portfolio"}
-            eventName="cta_click"
-            eventParams={{
-              source: "home_contact",
-              label: "portfolio",
-              language,
-            }}
-            className="rounded-md border-2 border-black px-4 py-2 font-bold hover:text-accent"
-          >
-            {copy.proofCta}
-          </TrackedLink>
         </div>
       </section>
     </div>

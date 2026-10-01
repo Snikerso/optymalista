@@ -121,7 +121,7 @@ export const ProjectsPageContent = () => {
     <div className="flex min-h-screen w-full flex-col gap-10 pb-12">
       <section className="flex flex-col gap-5">
         <div className="flex flex-col gap-3">
-          <p className="text-sm font-bold uppercase text-gray-500">
+          <p className="font-ibm text-sm font-bold uppercase text-gray-500">
             {copy.eyebrow}
           </p>
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
@@ -135,7 +135,7 @@ export const ProjectsPageContent = () => {
           aria-label={copy.categoryBanner}
           className="rounded-md border-2 border-black bg-gray-50 p-3 sm:p-4"
         >
-          <h2 className="text-sm font-bold uppercase text-gray-500">
+          <h2 className="font-ibm text-sm font-bold uppercase text-gray-500">
             {copy.categoryBanner}
           </h2>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -241,7 +241,7 @@ const ProjectCard = ({
           {localizedProject.categories.map((category) => (
             <span
               key={category}
-              className="rounded-md bg-gray-100 px-3 py-2 text-sm font-bold uppercase text-gray-700"
+              className="rounded-md bg-gray-100 px-3 py-2 font-ibm text-sm font-bold uppercase text-gray-700"
             >
               {getPortfolioTypeLabel(category, language)}
             </span>
@@ -249,7 +249,7 @@ const ProjectCard = ({
         </div>
 
         <section className="flex flex-col gap-2">
-          <h4 className="text-xs font-bold uppercase text-gray-500">
+          <h4 className="font-ibm text-xs font-bold uppercase text-gray-500">
             {copy.technologies}
           </h4>
           <div className="flex flex-wrap gap-2">
@@ -265,7 +265,7 @@ const ProjectCard = ({
         </section>
 
         <section className="flex flex-col gap-2">
-          <h4 className="text-xs font-bold uppercase text-gray-500">
+          <h4 className="font-ibm text-xs font-bold uppercase text-gray-500">
             {copy.proof}
           </h4>
           <ul className="flex flex-col gap-3 text-base leading-7 text-gray-700">
@@ -335,7 +335,7 @@ const ProjectCard = ({
           />
         ) : null}
         {isFeaturedProject(project.slug) ? (
-          <span className="absolute left-3 top-3 rounded-md bg-accent px-2 py-1 text-xs font-bold uppercase text-black">
+          <span className="absolute left-3 top-3 rounded-md bg-accent px-2 py-1 font-ibm text-xs font-bold uppercase text-black">
             {copy.featured}
           </span>
         ) : null}

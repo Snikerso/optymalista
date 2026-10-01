@@ -108,7 +108,7 @@ export const ProjectDetailPage = ({
           {localizedProject.categories.map((category) => (
             <span
               key={category}
-              className="rounded-md bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-700"
+              className="rounded-md bg-gray-100 px-2 py-1 font-ibm text-xs font-bold uppercase text-gray-700"
             >
               {getPortfolioTypeLabel(category, language)}
             </span>
@@ -151,7 +151,7 @@ export const ProjectDetailPage = ({
 
       {localizedProject.insideStory ? (
         <section className="flex flex-col gap-3 rounded-md border-2 border-black bg-gray-50 p-4 sm:p-5">
-          <p className="text-sm font-bold uppercase text-gray-500">
+          <p className="font-ibm text-sm font-bold uppercase text-gray-500">
             {copy.insideStory}
           </p>
           <p className="text-base leading-8 text-gray-800">
@@ -282,7 +282,7 @@ const ProjectVisual = ({
         <span className="h-2.5 w-2.5 rounded-full bg-white/50" />
         <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
       </div>
-      <span className="rounded-md bg-white/15 px-2 py-1 text-xs font-bold uppercase">
+      <span className="rounded-md bg-white/15 px-2 py-1 font-ibm text-xs font-bold uppercase">
         Preview
       </span>
     </div>

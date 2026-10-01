@@ -88,7 +88,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
               {title}
             </h2>
             {status && (
-              <span className="rounded-md bg-accent px-2 py-1 text-xs font-bold uppercase text-black">
+              <span className="rounded-md bg-accent px-2 py-1 font-ibm text-xs font-bold uppercase text-black">
                 {status}
               </span>
             )}
@@ -148,7 +148,7 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
             {visibleTypes.map((type) => (
               <span
                 key={type}
-                className="rounded-md bg-gray-100 px-2 py-1 text-xs font-bold uppercase text-gray-700"
+                className="rounded-md bg-gray-100 px-2 py-1 font-ibm text-xs font-bold uppercase text-gray-700"
               >
                 {getPortfolioTypeLabel(type, language)}
               </span>

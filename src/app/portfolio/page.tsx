@@ -838,7 +838,7 @@ export default function PortfolioPage() {
       <div className="flex flex-col gap-12">
         <section id="intro" className="flex scroll-mt-28 flex-col gap-2">
           <h1 className="text-2xl font-bold">{copy.title}</h1>
-          <p className="text-sm font-bold uppercase text-gray-500">
+          <p className="font-ibm text-sm font-bold uppercase text-gray-500">
             {copy.eyebrow}
           </p>
           <p className="text-md leading-7">{copy.intro}</p>
@@ -945,7 +945,7 @@ export default function PortfolioPage() {
           className="min-w-0 scroll-mt-28 rounded-md border-2 border-black p-4 sm:p-6"
         >
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-bold uppercase text-gray-500">
+            <p className="font-ibm text-sm font-bold uppercase text-gray-500">
               {copy.hireEyebrow}
             </p>
             <h2 className="text-3xl font-bold leading-tight">
@@ -1050,7 +1050,7 @@ const FeaturedProjectsCarousel = ({
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-1">
-          <p className="text-xs font-bold uppercase text-gray-500">
+          <p className="font-ibm text-xs font-bold uppercase text-gray-500">
             {copy.featuredEyebrow}
           </p>
           <h2 className="text-xl font-bold">{copy.featuredTitle}</h2>
@@ -1085,7 +1085,7 @@ const FeaturedProjectsCarousel = ({
               {activeProject.types.map((type) => (
                 <span
                   key={type}
-                  className="rounded-md bg-accent px-2 py-1 text-xs font-bold uppercase text-black"
+                  className="rounded-md bg-accent px-2 py-1 font-ibm text-xs font-bold uppercase text-black"
                 >
                   {getPortfolioTypeLabel(type, language)}
                 </span>

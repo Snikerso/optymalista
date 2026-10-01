@@ -4,13 +4,20 @@ import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { defaultDescription, siteUrl } from "@/lib/seo";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   display: "swap",
   subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
+});
+
+const ibmPlexSans = IBM_Plex_Sans({
+  display: "swap",
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-ibm-plex-sans",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -98,7 +105,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pl">
-      <body className={inter.variable}>
+      <body className={`${inter.variable} ${ibmPlexSans.variable}`}>
         <GoogleAnalytics />
         <script
           type="application/ld+json"

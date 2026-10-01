@@ -164,10 +164,10 @@ export const TechStackTable = ({ language }: { language: ProjectLanguage }) => {
                 <th
                   key={group.title}
                   scope="col"
-                  className="w-[14.285%] border-b-2 border-r-2 border-black bg-accent px-3 py-3 align-top text-xs font-bold uppercase leading-5 text-black last:border-r-0"
+                  className="w-[14.285%] border-b-2 border-r-2 border-black bg-accent px-3 py-3 align-top font-ibm text-xs font-bold uppercase leading-5 text-black last:border-r-0"
                 >
                   <span>{getGroupTitle(group.title, language)}</span>
-                  <span className="mt-1 block text-[0.68rem] font-bold uppercase leading-4 text-black/65">
+                  <span className="mt-1 block font-ibm text-[0.68rem] font-bold uppercase leading-4 text-black/65">
                     {language === "en"
                       ? `${group.skills.length} skills`
                       : `${group.skills.length} umiejętności`}

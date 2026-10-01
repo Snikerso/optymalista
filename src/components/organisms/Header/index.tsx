@@ -24,8 +24,8 @@ export const Header = () => {
   const language = useSiteLanguage();
 
   return (
-    <header className="flex items-center justify-between p-3 sm:p-2.5">
-      <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3">
+    <header className="flex items-center justify-between px-5 py-3 sm:px-12 sm:py-2.5">
+      <div className="mx-auto flex w-full max-w-[var(--max-width)] items-center justify-between gap-3">
         <Link href={"/"} className="no-underline">
           <Logo color="black" />
         </Link>

@@ -8,6 +8,12 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "Arial", "Helvetica", "sans-serif"],
+        ibm: [
+          "var(--font-ibm-plex-sans)",
+          "Arial",
+          "Helvetica",
+          "sans-serif",
+        ],
       },
     },
   },

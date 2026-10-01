@@ -66,7 +66,7 @@ export const CookieConsent = () => {
       className="fixed bottom-4 left-1/2 z-50 flex w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 flex-col gap-3 rounded-md border-2 border-black bg-white p-4 shadow-[4px_4px_0_0_#000] sm:flex-row sm:items-center sm:justify-between"
     >
       <div className="flex flex-col gap-1">
-        <h2 className="text-sm font-bold uppercase text-gray-500">
+        <h2 className="font-ibm text-sm font-bold uppercase text-gray-500">
           Pliki cookies
         </h2>
         <p className="text-sm leading-6 text-gray-700">

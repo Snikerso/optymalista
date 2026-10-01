@@ -81,7 +81,7 @@ export function ResumePageContent({
       <section className="flex flex-col gap-5 border-b-2 border-black pb-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-bold uppercase text-gray-500">
+            <p className="font-ibm text-sm font-bold uppercase text-gray-500">
               {copy.eyebrow}
             </p>
             <h1 className="text-4xl font-bold leading-tight">
@@ -108,7 +108,7 @@ export function ResumePageContent({
         </div>
 
         <div className="rounded-md border-2 border-black bg-gray-50 p-4">
-          <p className="text-sm font-bold uppercase text-gray-500">
+          <p className="font-ibm text-sm font-bold uppercase text-gray-500">
             {resume.target.company} · {resume.target.role}
           </p>
           <p className="mt-2 text-sm leading-6 text-gray-700">
@@ -123,7 +123,7 @@ export function ResumePageContent({
       <section className="grid gap-3 sm:grid-cols-3">
         {resume.skillGroups.map((group) => (
           <div key={group.title} className="rounded-md border-2 border-black p-4">
-            <h2 className="text-sm font-bold uppercase text-gray-500">
+            <h2 className="font-ibm text-sm font-bold uppercase text-gray-500">
               {group.title}
             </h2>
             <ul className="mt-3 flex flex-wrap gap-2">

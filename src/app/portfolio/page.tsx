@@ -1046,7 +1046,7 @@ const FeaturedProjectsCarousel = ({
   return (
     <section
       id="wyroznione"
-      className="flex scroll-mt-28 flex-col gap-4 rounded-md border-2 border-black bg-white p-4 sm:p-5"
+      className="flex scroll-mt-28 flex-col gap-5"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-1">
@@ -1078,7 +1078,7 @@ const FeaturedProjectsCarousel = ({
         </div>
       </div>
 
-      <article className="flex flex-col gap-4 rounded-md bg-gray-50 p-4">
+      <article className="flex flex-col gap-4 bg-gray-50 p-4">
         <div className="relative overflow-hidden rounded-md border-2 border-black bg-white">
           <div className="flex items-start justify-between gap-3">
             <div className="absolute z-10 flex flex-wrap gap-2 p-4">

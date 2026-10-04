@@ -2,8 +2,11 @@ import { getTechnologyLabel, Technologies } from "@/data/technologies";
 import type { Locale } from "@/lib/language";
 import { getPortfolioTypeLabel, PortfolioType } from "@/types";
 import React from "react";
+import Image from "next/image";
 import { TrackedAnchor, TrackedLink } from "../analytics/TrackedLink";
 import { Icon } from "../atoms/Icon";
+import { getLocalizedProject, projectDetailsBySlug } from "@/data/projectDetails";
+import { ProjectVideo } from "./ProjectVideo";
 
 export type PortfolioItemLanguage = Locale;
 
@@ -26,6 +29,7 @@ export type PortfolioItemProps = {
   caseStudyLink?: string;
   highlights?: string[];
   language?: PortfolioItemLanguage;
+  mediaProjectSlug?: string;
 };
 
 const copyByLanguage = {
@@ -70,8 +74,12 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
   caseStudyLink,
   highlights,
   language = "pl",
+  mediaProjectSlug,
 }) => {
   const copy = copyByLanguage[language];
+  const mediaProject = mediaProjectSlug && projectDetailsBySlug[mediaProjectSlug]
+    ? getLocalizedProject(projectDetailsBySlug[mediaProjectSlug], language)
+    : undefined;
   const visibleTypes = types.filter(
     (type) => type !== PortfolioType.WORK_EXPERIENCE
   );
@@ -131,6 +139,41 @@ export const PortfolioItem: React.FC<PortfolioItemProps> = ({
         )}
       </div>
       <p className="text-sm leading-6 text-gray-800">{description}</p>
+      {mediaProject && (
+        <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {mediaProject.gallery.filter((image) => image.imageSrc).map((image) => (
+              <figure
+                key={image.imageSrc}
+                className="overflow-hidden rounded-md border border-gray-300"
+              >
+                <a
+                  href={image.imageSrc}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block focus-visible:outline focus-visible:outline-4 focus-visible:outline-accent"
+                  aria-label={`${image.title} — ${language === "pl" ? "otwórz w pełnym rozmiarze" : "open full size"}`}
+                >
+                  <Image
+                    src={image.imageSrc!}
+                    alt={image.imageAlt ?? image.title}
+                    unoptimized
+                    width={390}
+                    height={390}
+                    className="aspect-square w-full bg-black object-contain"
+                  />
+                </a>
+                <figcaption className="p-2 text-center text-sm font-bold">
+                  {image.title}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          {mediaProject.video && (
+            <ProjectVideo video={mediaProject.video} language={language} />
+          )}
+        </div>
+      )}
       {highlights && highlights.length > 0 && (
         <ul className="flex flex-col gap-2 text-sm leading-6 text-gray-700">
           {highlights.map((highlight) => (

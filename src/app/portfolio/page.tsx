@@ -283,6 +283,7 @@ const experienceItems: LocalizedPortfolioItem[] = [
 const projectItems: LocalizedPortfolioItem[] = [
   {
     id: "projekt-knitting-counter-pro",
+    mediaProjectSlug: "knitting-counter-pro",
     title: "Knitting Counter Pro",
     role: "Garmin Connect IQ developer / product builder",
     status: "In progress",

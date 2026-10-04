@@ -2,6 +2,7 @@
 
 import { TrackedAnchor } from "@/components/analytics/TrackedLink";
 import { Icon } from "@/components/atoms/Icon";
+import { ProjectVideo } from "@/components/molecules/ProjectVideo";
 import {
   getLocalizedProject,
   type ProjectDetail,
@@ -116,6 +117,10 @@ export const ProjectDetailPage = ({
         </div>
       </header>
 
+      {localizedProject.video && (
+        <ProjectVideo video={localizedProject.video} language={language} />
+      )}
+
       <section className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
           <h2 className="text-xl font-bold">{copy.photos}</h2>
@@ -128,15 +133,24 @@ export const ProjectDetailPage = ({
               className="overflow-hidden rounded-md border-2 border-black bg-white"
             >
               {image.imageSrc ? (
-                <img
-                  src={image.imageSrc}
-                  alt={image.imageAlt ?? image.title}
-                  className={`aspect-[16/10] w-full bg-gray-100 ${
-                    image.imageFit === "contain"
-                      ? "object-contain"
-                      : "object-cover"
-                  }`}
-                />
+                <a
+                  href={image.imageSrc}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${image.imageAlt ?? image.title} — ${language === "pl" ? "otwórz w pełnym rozmiarze" : "open full size"}`}
+                  className="block focus-visible:outline focus-visible:outline-4 focus-visible:outline-accent"
+                >
+                  <img
+                    src={image.imageSrc}
+                    alt={image.imageAlt ?? image.title}
+                    loading="lazy"
+                    className={`aspect-[16/10] w-full bg-gray-100 ${
+                      image.imageFit === "contain"
+                        ? "object-contain"
+                        : "object-cover"
+                    }`}
+                  />
+                </a>
               ) : (
                 <ProjectVisual title={image.title} theme={image.theme} />
               )}

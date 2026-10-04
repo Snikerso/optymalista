@@ -10,6 +10,11 @@ export type ProjectDetail = {
   summary: string;
   lead: string;
   insideStory?: string;
+  video?: {
+    src: string;
+    poster: string;
+    captions: Record<Locale, string>;
+  };
   categories: PortfolioType[];
   technologies: Technologies[];
   problem: string;
@@ -132,46 +137,62 @@ export const projectDetails: ProjectDetail[] = [
       ],
       gallery: [
         {
-          title: "Watch preview",
-          caption:
-            "A render of the Garmin watch app showing the main counter screen in device context.",
+          title: "Row counter",
+          caption: "Large side controls and the NEW ROUND button on the main screen.",
           theme: "mobile",
-          imageSrc: "/projects/knitting-counter-pro-watch.png",
-          imageAlt:
-            "Knitting Counter Pro displayed on a Garmin watch with the project counter screen.",
+          imageSrc: "/projects/knitting-counter-pro/main.png",
+          imageAlt: "Row counter — Garmin simulator screenshot.",
           imageFit: "contain",
         },
         {
-          title: "Progress screen",
-          caption:
-            "Progress view with daily goal, today's rows and the streak-day counter.",
+          title: "Project menu",
+          caption: "Access projects, rows and statistics from the project menu.",
           theme: "mobile",
-          imageSrc: "/projects/knitting-counter-pro-progress.png",
-          imageAlt:
-            "Knitting Counter Pro displayed on a Garmin watch with the progress screen.",
+          imageSrc: "/projects/knitting-counter-pro/menu.png",
+          imageAlt: "Project menu — Garmin simulator screenshot.",
+          imageFit: "contain",
+        },
+        {
+          title: "Daily progress",
+          caption: "Daily goal, today’s rows and streak days in one view.",
+          theme: "mobile",
+          imageSrc: "/projects/knitting-counter-pro/progress.png",
+          imageAlt: "Daily progress — Garmin simulator screenshot.",
           imageFit: "contain",
         },
       ],
     },
+    video: {
+      src: "/projects/knitting-counter-pro/overview.mp4",
+      poster: "/projects/knitting-counter-pro/video-poster.jpg",
+      captions: {
+        pl: "/projects/knitting-counter-pro/captions-pl.vtt",
+        en: "/projects/knitting-counter-pro/captions-en.vtt",
+      },
+    },
     gallery: [
       {
-        title: "Watch preview",
-        caption:
-          "Render aplikacji na zegarku Garmin pokazujący główny ekran licznika w kontekście urządzenia.",
+        title: "Licznik rzędów",
+        caption: "Duże boczne przyciski i przycisk NEW ROUND na głównym ekranie.",
         theme: "mobile",
-        imageSrc: "/projects/knitting-counter-pro-watch.png",
-        imageAlt:
-          "Knitting Counter Pro pokazany na zegarku Garmin z ekranem licznika projektu.",
+        imageSrc: "/projects/knitting-counter-pro/main.png",
+        imageAlt: "Licznik rzędów — zrzut z symulatora Garmin.",
         imageFit: "contain",
       },
       {
-        title: "Progress screen",
-        caption:
-          "Widok postępu z daily goal, dzisiejszymi rzędami i licznikiem streak days.",
+        title: "Menu projektu",
+        caption: "Dostęp do projektów, rzędów i statystyk z menu projektu.",
         theme: "mobile",
-        imageSrc: "/projects/knitting-counter-pro-progress.png",
-        imageAlt:
-          "Knitting Counter Pro pokazany na zegarku Garmin z ekranem postępu.",
+        imageSrc: "/projects/knitting-counter-pro/menu.png",
+        imageAlt: "Menu projektu — zrzut z symulatora Garmin.",
+        imageFit: "contain",
+      },
+      {
+        title: "Postęp dzienny",
+        caption: "Cel dzienny, dzisiejsze rzędy i seria dni w jednym widoku.",
+        theme: "mobile",
+        imageSrc: "/projects/knitting-counter-pro/progress.png",
+        imageAlt: "Postęp dzienny — zrzut z symulatora Garmin.",
         imageFit: "contain",
       },
     ],

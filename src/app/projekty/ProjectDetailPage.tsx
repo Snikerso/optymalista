@@ -44,7 +44,7 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
             <a href={image.imageSrc} target="_blank" rel="noreferrer" aria-label={`${image.imageAlt ?? image.title} — ${pl ? "otwórz w pełnym rozmiarze" : "open full size"}`} className="block overflow-hidden rounded-lg bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black">
               <Image src={image.imageSrc!} alt={image.imageAlt ?? image.title} width={1000} height={625} unoptimized className={`aspect-[8/5] w-full ${image.imageFit === "contain" ? "object-contain" : "object-cover"}`} />
             </a>
-            <figcaption className="mt-2 text-xs leading-5 text-gray-500">{image.title}</figcaption>
+            <figcaption className="mt-2 text-xs leading-5 text-gray-500"><strong className="font-semibold">{image.title}.</strong> {image.caption}</figcaption>
           </figure>
         ))}
       </section>}
@@ -56,7 +56,6 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
           <div><h2 className="mb-2 font-semibold text-black">{pl ? "Rozwiązanie" : "Solution"}</h2><p>{content.solution}</p></div>
           {content.insideStory && <p>{content.insideStory}</p>}
           {content.technicalDecisions?.length && <ProjectList title={pl ? "Decyzje techniczne" : "Technical decisions"} items={content.technicalDecisions} />}
-          {images.map((image) => <p key={image.imageSrc}><strong>{image.title}.</strong> {image.caption}</p>)}
         </div>
       </details>
     </article>

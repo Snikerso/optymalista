@@ -4,6 +4,13 @@ const windowsFonts = {
   regular: "C:/Windows/Fonts/arial.ttf",
   bold: "C:/Windows/Fonts/arialbd.ttf",
 };
+const macFonts = {
+  regular: "/System/Library/Fonts/Supplemental/Arial.ttf",
+  bold: "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+};
+const availableFonts = [windowsFonts, macFonts].find(
+  (fonts) => fs.existsSync(fonts.regular) && fs.existsSync(fonts.bold)
+);
 
 export const theme = {
   page: {
@@ -23,12 +30,12 @@ export const theme = {
     chip: "#eef4ff",
     chipText: "#1d4ed8",
   },
-  fonts: fs.existsSync(windowsFonts.regular)
+  fonts: availableFonts
     ? {
         regularName: "Regular",
         boldName: "Bold",
-        regularPath: windowsFonts.regular,
-        boldPath: windowsFonts.bold,
+        regularPath: availableFonts.regular,
+        boldPath: availableFonts.bold,
       }
     : {
         regularName: "Helvetica",

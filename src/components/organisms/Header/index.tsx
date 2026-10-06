@@ -25,11 +25,11 @@ export const Header = () => {
 
   return (
     <header className="flex items-center justify-between px-5 py-3 sm:px-12 sm:py-2.5">
-      <div className="mx-auto flex w-full max-w-[var(--max-width)] items-center justify-between gap-3">
+      <div className="mx-auto flex w-full max-w-[var(--max-width)] flex-wrap items-center justify-between gap-3">
         <Link href={"/"} className="no-underline">
           <Logo color="black" />
         </Link>
-        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+        <div className="flex w-full items-center justify-between gap-2 sm:w-auto sm:gap-4">
           <nav className="flex gap-2 text-xs sm:gap-5 sm:text-sm">
             {links.map((link) => (
               <NavLink key={link.href} href={link.href}>

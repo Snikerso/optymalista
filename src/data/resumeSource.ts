@@ -16,19 +16,22 @@ export type ResumeEvidence = {
 
 export type ResumeProfile = {
   name: string;
+  photo?: string;
   headline: string;
   location: string;
   email?: string;
   links: { label: string; href: string }[];
   bio: string;
   languages: string[];
+  research?: string;
+  interests?: string;
   evidence: ResumeEvidence[];
 };
 
 export type ResumeLanguage = "en" | "pl";
 
 export type ResumeProfileTranslation = Partial<
-  Pick<ResumeProfile, "headline" | "location" | "bio" | "languages">
+  Pick<ResumeProfile, "headline" | "location" | "bio" | "languages" | "research" | "interests">
 > & {
   evidence?: Record<string, Partial<Omit<ResumeEvidence, "title" | "type">>>;
 };

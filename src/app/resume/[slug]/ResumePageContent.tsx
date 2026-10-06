@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ResumeLanguage } from "@/data/resumeSource";
 import { resumeTargets } from "@/data/resumeTargets";
 import { generateResumeForTarget } from "@/lib/resumeGenerator";
@@ -80,6 +81,17 @@ export function ResumePageContent({
     <div className="resume-page flex flex-col gap-8">
       <section className="flex flex-col gap-5 border-b-2 border-black pb-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          {resume.profile.photo && (
+            <Image
+              src={resume.profile.photo}
+              alt={resume.profile.name}
+              width={120}
+              height={150}
+              priority
+              unoptimized
+              className="h-[150px] w-[120px] shrink-0 rounded-lg object-cover"
+            />
+          )}
           <div className="flex flex-col gap-2">
             <p className="font-ibm text-sm font-bold uppercase text-gray-500">
               {copy.eyebrow}
@@ -142,6 +154,16 @@ export function ResumePageContent({
 
       <ResumeSection title={copy.experience} items={resume.experience} />
       <ResumeSection title={copy.projects} items={resume.projects} />
+
+      {resume.target.includeAdditionalDetails !== false && (resume.profile.research || resume.profile.interests) && (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-xl font-bold">
+            {language === "pl" ? "Dane naukowe i zainteresowania" : "Scientific data and interests"}
+          </h2>
+          {resume.profile.research && <p>{resume.profile.research}</p>}
+          {resume.profile.interests && <p>{resume.profile.interests}</p>}
+        </section>
+      )}
 
       <section className="grid gap-4 border-t-2 border-gray-200 pt-6 md:grid-cols-2">
         <div className="flex flex-col gap-3">

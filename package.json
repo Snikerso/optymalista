@@ -11,6 +11,8 @@
     "resume:pdf:en": "node scripts/generate_resume_pdf.mjs netguru-react-native-developer-freelance en",
     "resume:pdf:pl": "node scripts/generate_resume_pdf.mjs netguru-react-native-developer-freelance pl",
     "resume:pdf:empik:pl": "node scripts/generate_resume_pdf.mjs empik-frontend-developer pl",
+    "resume:pdf:creotech:pl": "node scripts/generate_resume_pdf.mjs creotech-pdgs-fullstack-developer pl",
+    "resume:pdf:creotech:en": "node scripts/generate_resume_pdf.mjs creotech-pdgs-fullstack-developer en",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

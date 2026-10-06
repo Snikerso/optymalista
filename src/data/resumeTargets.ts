@@ -7,6 +7,8 @@ export type ResumeTarget = {
   company: string;
   role: string;
   sourceUrl: string;
+  sourceUrls?: string[];
+  reviewedAt?: string;
   publishedAt: string;
   contract: string;
   location: string;
@@ -22,6 +24,8 @@ export type ResumeTarget = {
   skillGroups?: { title: string; skills: string[] }[];
   coverNote?: string;
   projectTitles?: string[];
+  experienceTitles?: string[];
+  includeAdditionalDetails?: boolean;
 };
 
 type ResumeTargetTranslation = Partial<

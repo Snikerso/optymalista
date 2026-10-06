@@ -196,7 +196,11 @@ export const generateResumeForTarget = (
   const profile = getResumeProfile(language);
   const content = contentByLanguage[language];
   const rankedEvidence = rankEvidence(profile, target);
-  const experience = rankedEvidence
+  const experience = target.experienceTitles
+    ? target.experienceTitles
+        .map((title) => profile.evidence.find((item) => item.title === title && item.type === "experience"))
+        .filter((item): item is ResumeEvidence => Boolean(item))
+    : rankedEvidence
     .filter((item) => item.type === "experience")
     .slice(0, 4);
   const projects = selectProjectEvidence(profile, rankedEvidence, target);

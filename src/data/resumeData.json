@@ -1,6 +1,7 @@
 {
   "profile": {
     "name": "Paweł Drojecki",
+    "photo": "/images/resume/pawel-drojecki-cv.png",
     "headline": "Frontend / Fullstack / Product Developer",
     "location": "Poznań, Poland / remote",
     "links": [
@@ -14,7 +15,10 @@
       }
     ],
     "bio": "I design and build web, mobile and product applications from interface to backend. I most often work with React, Next.js, React Native, Nest.js, Node.js and TypeScript, combining implementation with product thinking, integrations, analytics and delivery ownership.",
-    "languages": ["Polish: native", "English: professional working proficiency"],
+    "languages": [
+      "Polish: native",
+      "English: professional working proficiency"
+    ],
     "evidence": [
       {
         "title": "CleanStrategy",
@@ -36,7 +40,12 @@
           "Built the supporting Nest.js and MongoDB backend so mobile and web clients can evolve in parallel.",
           "Owned product logic and key user paths, with a focus on fast iteration and practical everyday usage."
         ],
-        "links": [{ "label": "Case study", "href": "/projekty/cleanstrategy/" }]
+        "links": [
+          {
+            "label": "Case study",
+            "href": "/projekty/cleanstrategy/"
+          }
+        ]
       },
       {
         "title": "The Royal Mint",
@@ -60,7 +69,12 @@
           "Debugged, optimized and modernized UI code while keeping existing commercial flows stable.",
           "Supported Google Analytics work and frontend improvements for product and purchase experiences."
         ],
-        "links": [{ "label": "Case study", "href": "/projekty/royal-mint/" }]
+        "links": [
+          {
+            "label": "Case study",
+            "href": "/projekty/royal-mint/"
+          }
+        ]
       },
       {
         "title": "Swarmcheck",
@@ -76,14 +90,22 @@
           "Express.js",
           "D3.js",
           "Microsoft Azure",
-          "RBAC"
+          "RBAC",
+          "Python",
+          "gRPC"
         ],
         "bullets": [
+          "Developed an automated fact-checker in Python and implemented gRPC communication.",
           "Implemented a custom RBAC authorization system and backend endpoints for controlled data workflows.",
           "Built React interfaces and D3.js graph visualizations for exploring relationships between arguments.",
           "Worked across frontend and backend responsibilities in a product with data, access and collaboration concerns."
         ],
-        "links": [{ "label": "Case study", "href": "/projekty/swarmcheck/" }]
+        "links": [
+          {
+            "label": "Case study",
+            "href": "/projekty/swarmcheck/"
+          }
+        ]
       },
       {
         "title": "Moment Studio",
@@ -105,7 +127,12 @@
           "Built the frontend, Nest.js backend, MongoDB product model, Stripe payments and transactional email flow.",
           "Translated brand direction into responsive, product-focused commerce interfaces."
         ],
-        "links": [{ "label": "Case study", "href": "/projekty/moment-studio/" }]
+        "links": [
+          {
+            "label": "Case study",
+            "href": "/projekty/moment-studio/"
+          }
+        ]
       },
       {
         "title": "Jambo",
@@ -126,7 +153,12 @@
           "Translated Figma designs into responsive React/Next.js commerce views.",
           "Prepared project materials and requirements for visual implementation work."
         ],
-        "links": [{ "label": "Case study", "href": "/projekty/jambo/" }]
+        "links": [
+          {
+            "label": "Case study",
+            "href": "/projekty/jambo/"
+          }
+        ]
       },
       {
         "title": "Will Code Academy",
@@ -147,9 +179,41 @@
           "Led practical programming lessons and mentored beginner developers.",
           "Designed teaching methods that simplify difficult programming concepts."
         ],
-        "links": [{ "label": "Website", "href": "https://willcodeacademy.com/" }]
+        "links": [
+          {
+            "label": "Website",
+            "href": "https://willcodeacademy.com/"
+          }
+        ]
+      },
+      {
+        "title": "Juli Jogi",
+        "role": "Backend developer / DevOps",
+        "period": "Sep 2026 - present",
+        "type": "project",
+        "summary": "Yoga course platform with frontend, backend and user/content workflows.",
+        "technologies": [
+          "Next.js",
+          "React.js",
+          "TypeScript",
+          "Nest.js",
+          "MongoDB",
+          "Resend"
+        ],
+        "bullets": [
+          "Designed the Next.js frontend / Nest.js backend architecture, MongoDB data layer and Resend communication integrations.",
+          "Prepared course and lesson workflows, HLS video streaming and a test environment for further development."
+        ],
+        "links": [
+          {
+            "label": "Case study",
+            "href": "/projekty/juli-jogi/"
+          }
+        ]
       }
-    ]
+    ],
+    "research": "During my studies, I processed fMRI imaging data and eye-tracking data.",
+    "interests": "In my spare time, I develop my electronics skills and expand my knowledge of physics."
   },
   "locales": {
     "pl": {
@@ -170,7 +234,12 @@
               "Zbudowałem wspierający backend w Nest.js i MongoDB, aby klienci mobilni i webowi mogli rozwijać się równolegle.",
               "Odpowiadałem za logikę produktu i kluczowe ścieżki użytkownika, z naciskiem na szybką iterację i praktyczne codzienne użycie."
             ],
-            "links": [{ "label": "Case study", "href": "/projekty/cleanstrategy/" }]
+            "links": [
+              {
+                "label": "Case study",
+                "href": "/projekty/cleanstrategy/"
+              }
+            ]
           },
           "The Royal Mint": {
             "role": "Frontend Web Developer",
@@ -181,18 +250,29 @@
               "Debugowałem, optymalizowałem i modernizowałem kod UI, utrzymując stabilność istniejących ścieżek komercyjnych.",
               "Wspierałem prace przy Google Analytics oraz ulepszenia frontendu dla doświadczeń produktowych i zakupowych."
             ],
-            "links": [{ "label": "Case study", "href": "/projekty/royal-mint/" }]
+            "links": [
+              {
+                "label": "Case study",
+                "href": "/projekty/royal-mint/"
+              }
+            ]
           },
           "Swarmcheck": {
             "role": "Fullstack Developer",
             "location": "Zdalnie",
             "summary": "Aplikacja webowa do uporządkowanej argumentacji, fact-checkingu i pracy z danymi.",
             "bullets": [
+              "Rozwijałem automatyczny fact-checker w Pythonie i implementowałem komunikację gRPC.",
               "Wdrożyłem autorski system autoryzacji RBAC i endpointy backendowe dla kontrolowanych przepływów danych.",
               "Budowałem interfejsy React i wizualizacje grafowe D3.js do eksplorowania relacji między argumentami.",
               "Pracowałem na styku frontendu i backendu w produkcie obejmującym dane, dostęp i współpracę."
             ],
-            "links": [{ "label": "Case study", "href": "/projekty/swarmcheck/" }]
+            "links": [
+              {
+                "label": "Case study",
+                "href": "/projekty/swarmcheck/"
+              }
+            ]
           },
           "Moment Studio": {
             "role": "Fullstack developer",
@@ -201,7 +281,12 @@
               "Zbudowałem frontend, backend Nest.js, model produktów w MongoDB, płatności Stripe i przepływ wiadomości transakcyjnych.",
               "Przełożyłem kierunek marki na responsywne, produktowe interfejsy commerce."
             ],
-            "links": [{ "label": "Case study", "href": "/projekty/moment-studio/" }]
+            "links": [
+              {
+                "label": "Case study",
+                "href": "/projekty/moment-studio/"
+              }
+            ]
           },
           "Jambo": {
             "role": "Frontend developer",
@@ -210,7 +295,12 @@
               "Przekładałem projekty Figma na responsywne widoki commerce w React/Next.js.",
               "Przygotowywałem materiały projektowe i wymagania dla prac nad implementacją wizualną."
             ],
-            "links": [{ "label": "Case study", "href": "/projekty/jambo/" }]
+            "links": [
+              {
+                "label": "Case study",
+                "href": "/projekty/jambo/"
+              }
+            ]
           },
           "Will Code Academy": {
             "role": "Instruktor",
@@ -220,9 +310,24 @@
               "Prowadziłem praktyczne lekcje programowania i mentorowałem początkującym developerom.",
               "Projektowałem metody nauczania upraszczające trudne pojęcia programistyczne."
             ],
-            "links": [{ "label": "Strona", "href": "https://willcodeacademy.com/" }]
+            "links": [
+              {
+                "label": "Strona",
+                "href": "https://willcodeacademy.com/"
+              }
+            ]
+          },
+          "Juli Jogi": {
+            "period": "wrz 2026 - obecnie",
+            "summary": "Platforma kursów jogi z frontendem, backendem oraz obsługą treści i użytkowników.",
+            "bullets": [
+              "Projektowałem architekturę Next.js / Nest.js, warstwę danych MongoDB i integracje komunikacyjne Resend.",
+              "Przygotowywałem strukturę kursów i lekcji, streaming HLS oraz środowisko testowe do dalszego rozwoju."
+            ]
           }
-        }
+        },
+        "research": "Podczas studiów zajmowałem się przetwarzaniem danych obrazowych fMRI oraz danych eyetrackingowych.",
+        "interests": "Hobbystycznie rozwijam umiejętności w elektronice i poszerzam wiedzę z fizyki."
       },
       "targets": {
         "netguru-react-native-developer-freelance": {
@@ -305,6 +410,89 @@
             "Źródła portfolio nie wspominają wprost o CI/CD.",
             "Źródła portfolio nie wspominają wprost o Cloudflare/CDN.",
             "Źródła portfolio nie wspominają wprost o pracy z AI coding assistants."
+          ]
+        },
+        "creotech-pdgs-fullstack-developer": {
+          "contract": "Umowa o pracę, pełen etat",
+          "location": "Kraków / zdalnie",
+          "workMode": "Zdalnie",
+          "rate": "nie podano",
+          "summary": "Rozwój PDGS dla obserwacji Ziemi: przepływy danych, aplikacje webowe, API, utrzymanie i wdrożenia. Wariant oparty na ofertach Regular i Senior oraz udokumentowanym doświadczeniu fullstack.",
+          "headline": "Fullstack Developer - React / TypeScript / Node.js",
+          "resumeSummary": "Fullstack Developer z zawodowym doświadczeniem webowym od 2021 roku. W Swarmcheck rozwijałem automatyczny fact-checker w Pythonie, komunikację gRPC, endpointy backendowe, autoryzację RBAC i interfejsy React / D3.js. Buduję backendy Nest.js / MongoDB i aplikacje React / Next.js oraz utrzymuję kod enterprise React / TypeScript w The Royal Mint. Na studiach przetwarzałem dane obrazowe fMRI i dane eyetrackingowe. Chciałbym dołączyć do Creotech, ponieważ od dawna marzę o pracy w branży kosmicznej. Hobbystycznie rozwijam również swoje umiejętności w elektronice i wiedzę z fizyki.",
+          "skillGroups": [
+            {
+              "title": "Frontend",
+              "skills": [
+                "React.js",
+                "Next.js",
+                "TypeScript",
+                "JavaScript",
+                "HTML5",
+                "CSS",
+                "Tailwind CSS",
+                "Responsywne interfejsy"
+              ]
+            },
+            {
+              "title": "Backend i API",
+              "skills": [
+                "Python",
+                "Django",
+                "Node.js",
+                "Nest.js",
+                "Express.js",
+                "REST API",
+                "gRPC",
+                "Autoryzacja RBAC",
+                "Docker",
+                "AWS S3",
+                "Microsoft Azure"
+              ]
+            },
+            {
+              "title": "Dane i wizualizacja",
+              "skills": [
+                "MongoDB",
+                "PostgreSQL",
+                "Modelowanie danych",
+                "Wizualizacje grafów D3.js",
+                "Automatyczny fact-checking",
+                "Przetwarzanie danych fMRI i eyetrackingowych"
+              ]
+            },
+            {
+              "title": "Integracje produktowe",
+              "skills": [
+                "Płatności Stripe",
+                "E-maile transakcyjne Resend",
+                "Streaming wideo HLS",
+                "Google Analytics"
+              ]
+            },
+            {
+              "title": "Mobile i rozwój aplikacji",
+              "skills": [
+                "React Native",
+                "Expo",
+                "Architektura aplikacji",
+                "Diagnostyka błędów i utrzymanie",
+                "Współpraca zdalna"
+              ]
+            }
+          ],
+          "coverNote": "Wnoszę React / TypeScript, automatyczny fact-checking w Pythonie, gRPC, autoryzację backendową i produkty oparte na MongoDB. Praca akademicka z danymi fMRI i eyetrackingowymi daje dodatkowy kontakt z danymi naukowymi. Chcę przenieść te kompetencje do PDGS i poznać domenę EO.",
+          "priorities": [
+            "Swarmcheck na pierwszym miejscu: endpointy backendowe, RBAC, React i wizualizacje danych D3.js.",
+            "CleanStrategy i Moment Studio jako dowód samodzielnego łączenia frontendu, backendu i MongoDB.",
+            "The Royal Mint jako doświadczenie utrzymania enterprise, diagnozowania błędów i współpracy zdalnej.",
+            "Automatyczny fact-checker w Pythonie i gRPC wzmacniają dopasowanie backendowe; ekspercki Python i wymagania infrastrukturalne Senior nadal wymagają potwierdzenia."
+          ],
+          "honestGaps": [
+            "Doświadczenie z architekturą mikroserwisów wymaga potwierdzenia; Python, gRPC i PostgreSQL są potwierdzone przez kandydata.",
+            "GitLab CI/CD, testy automatyczne i Linux wymagają potwierdzenia.",
+            "Kubernetes, MinIO oraz infrastruktura jako kod nie są wprost potwierdzone; Docker i AWS S3 są potwierdzone przez kandydata.",
+            "Brak udokumentowanego doświadczenia PDGS/EO, STAC, GeoTIFF/COG, bibliotek geoprzestrzennych i silników workflow."
           ]
         }
       }
@@ -453,6 +641,130 @@
         "Portfolio source does not explicitly mention Cloudflare/CDN.",
         "Portfolio source does not explicitly mention AI coding assistants."
       ]
+    },
+    {
+      "slug": "creotech-pdgs-fullstack-developer",
+      "company": "Creotech Instruments S.A.",
+      "role": "PDGS Fullstack Developer",
+      "sourceUrl": "https://creotech.pl/job_offer/pdgs-fullstack-developer-regular/",
+      "sourceUrls": [
+        "https://creotech.pl/job_offer/pdgs-fullstack-developer-regular/",
+        "https://creotech.pl/job_offer/senior-pdgs-fullstack-developer/"
+      ],
+      "publishedAt": "",
+      "reviewedAt": "2026-10-06",
+      "contract": "Employment contract, full-time",
+      "location": "Kraków / remote",
+      "workMode": "Remote",
+      "rate": "not stated",
+      "summary": "PDGS development for Earth Observation: data workflows, web applications, APIs, maintenance and deployment. Prepared using the Regular and Senior offers, with positioning based on documented fullstack experience.",
+      "headline": "Fullstack Developer - React / TypeScript / Node.js",
+      "resumeSummary": "Fullstack Developer with professional web development experience since 2021. At Swarmcheck, I developed a Python automated fact-checker, gRPC communication, backend endpoints, RBAC authorization and React / D3.js interfaces. I build Nest.js / MongoDB backends and React / Next.js applications, and maintain enterprise React / TypeScript code for The Royal Mint. My academic work included fMRI imaging and eye-tracking data processing. I would like to join Creotech, as working in the space industry has long been an ambition of mine. In my spare time, I also develop my electronics skills and expand my knowledge of physics.",
+      "skillGroups": [
+        {
+          "title": "Frontend",
+          "skills": [
+            "React.js",
+            "Next.js",
+            "TypeScript",
+            "JavaScript",
+            "HTML5",
+            "CSS",
+            "Tailwind CSS",
+            "Responsive interfaces"
+          ]
+        },
+        {
+          "title": "Backend and APIs",
+          "skills": [
+            "Python",
+            "Django",
+            "Node.js",
+            "Nest.js",
+            "Express.js",
+            "REST APIs",
+            "gRPC",
+            "RBAC authorization",
+            "Docker",
+            "AWS S3",
+            "Microsoft Azure"
+          ]
+        },
+        {
+          "title": "Data and visualization",
+          "skills": [
+            "MongoDB",
+            "PostgreSQL",
+            "Data modeling",
+            "D3.js graph visualization",
+            "Automated fact-checking",
+            "fMRI / eye-tracking data processing"
+          ]
+        },
+        {
+          "title": "Product integrations",
+          "skills": [
+            "Stripe payments",
+            "Resend transactional email",
+            "HLS video streaming",
+            "Google Analytics"
+          ]
+        },
+        {
+          "title": "Mobile and delivery",
+          "skills": [
+            "React Native",
+            "Expo",
+            "Application architecture",
+            "Debugging and maintenance",
+            "Remote collaboration"
+          ]
+        }
+      ],
+      "coverNote": "I bring React / TypeScript web development, Python automated fact-checking, gRPC, backend authorization and MongoDB product delivery. Academic fMRI and eye-tracking data processing provides additional experience with scientific datasets. I want to transfer these skills to PDGS and learn the EO domain.",
+      "projectTitles": [
+        "Swarmcheck",
+        "Juli Jogi",
+        "CleanStrategy",
+        "Moment Studio"
+      ],
+      "experienceTitles": [
+        "Swarmcheck",
+        "The Royal Mint"
+      ],
+      "requiredTechnologies": [
+        "React.js",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "MongoDB",
+        "Microsoft Azure"
+      ],
+      "keywords": [
+        "fullstack",
+        "backend",
+        "data",
+        "authorization",
+        "react",
+        "typescript",
+        "node",
+        "mongodb",
+        "remote",
+        "visualization"
+      ],
+      "priorities": [
+        "Lead with Swarmcheck: backend endpoints, custom RBAC, React and D3.js data visualization.",
+        "Show independent frontend/backend product delivery through CleanStrategy and Moment Studio.",
+        "Use The Royal Mint for enterprise maintenance, debugging and remote collaboration.",
+        "Python automated fact-checking and gRPC strengthen the backend match; expert Python and the Senior infrastructure requirements still need confirmation."
+      ],
+      "honestGaps": [
+        "Microservices architecture experience needs confirmation; Python, gRPC and PostgreSQL are confirmed by the candidate.",
+        "GitLab CI/CD, automated testing and Linux experience need confirmation.",
+        "Kubernetes, MinIO and infrastructure as code are not explicitly documented; Docker and AWS S3 are confirmed by the candidate.",
+        "No documented PDGS/EO experience, STAC, GeoTIFF/COG, geospatial libraries or workflow engines."
+      ],
+      "includeAdditionalDetails": false
     }
   ]
 }

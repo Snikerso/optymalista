@@ -1,8 +1,10 @@
-export const renderHeader = (ctx, resume) => {
+export const renderHeader = (ctx, resume, { photoPath } = {}) => {
   const { drawBox, drawText, theme } = ctx;
   const topY = theme.page.margin;
   const panelHeight = 84;
-  const leftWidth = 315;
+  const photoWidth = photoPath ? 56 : 0;
+  const textX = theme.page.margin + 16 + (photoPath ? photoWidth + 12 : 0);
+  const leftWidth = photoPath ? 247 : 315;
   const rightWidth = 178;
   const rightX = theme.page.width - theme.page.margin - rightWidth;
 
@@ -23,8 +25,20 @@ export const renderHeader = (ctx, resume) => {
     radius: 3,
   });
 
+  if (photoPath) {
+    const photoX = theme.page.margin + 12;
+    ctx.doc.save();
+    ctx.doc.roundedRect(photoX, topY + 2, photoWidth, 70, 4).clip();
+    ctx.doc.image(photoPath, photoX, topY + 2, {
+      cover: [photoWidth, 70],
+      align: "center",
+      valign: "center",
+    });
+    ctx.doc.restore();
+  }
+
   drawText(resume.profile.name, {
-    x: theme.page.margin + 16,
+    x: textX,
     y: topY + 2,
     width: leftWidth,
     size: 26,
@@ -57,7 +71,7 @@ export const renderHeader = (ctx, resume) => {
   });
 
   drawText(resume.headline, {
-    x: theme.page.margin + 16,
+    x: textX,
     y: topY + 48,
     width: leftWidth,
     size: 11,

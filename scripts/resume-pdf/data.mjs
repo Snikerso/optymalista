@@ -233,7 +233,11 @@ export const generateResumeForTarget = (targetSlug, requestedLanguage = "en") =>
     sections: content.sections,
     techLabel: content.techLabel,
     skillGroups: target.skillGroups ?? content.skillGroups,
-    experience: rankedEvidence
+    experience: target.experienceTitles
+      ? target.experienceTitles
+          .map((title) => profile.evidence.find((item) => item.title === title && item.type === "experience"))
+          .filter(Boolean)
+      : rankedEvidence
       .filter((item) => item.type === "experience")
       .slice(0, 4),
     projects: selectProjectEvidence(profile, rankedEvidence, target),

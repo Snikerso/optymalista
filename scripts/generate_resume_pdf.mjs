@@ -89,7 +89,11 @@ const main = async () => {
     ].join(", "),
   });
 
-  renderHeader(ctx, resume);
+  renderHeader(ctx, resume, {
+    photoPath: resume.profile.photo
+      ? path.join(root, "public", resume.profile.photo)
+      : undefined,
+  });
   ctx.drawText(resume.summary, { size: 8.7, lineGap: 1 });
 
   renderSection(ctx, resume.sections.skills, () => {
@@ -111,6 +115,13 @@ const main = async () => {
   renderSection(ctx, resume.sections.languages, () => {
     ctx.drawText(resume.profile.languages.join(" / "), { size: 9.2 });
   });
+
+  if (resume.target.includeAdditionalDetails !== false && (resume.profile.research || resume.profile.interests)) {
+    renderSection(ctx, language === "pl" ? "Dane naukowe i zainteresowania" : "Scientific data and interests", () => {
+      if (resume.profile.research) ctx.drawText(resume.profile.research, { size: 8.7 });
+      if (resume.profile.interests) ctx.drawText(resume.profile.interests, { size: 8.7 });
+    });
+  }
 
   await ctx.finish();
   console.log(outputPath);

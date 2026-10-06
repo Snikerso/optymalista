@@ -10,6 +10,7 @@ export type ProjectDetail = {
   summary: string;
   lead: string;
   insideStory?: string;
+  heroImage?: { src: string; alt: string };
   video?: {
     src: string;
     poster: string;
@@ -89,7 +90,7 @@ export const projectDetails: ProjectDetail[] = [
     effects: [
       "Aplikacja działa na zegarku i zapisuje postęp lokalnie bez uprawnień sieciowych.",
       "Interfejs ma vintage charakter, duży licznik i łatwe do trafienia przyciski na bokach tarczy.",
-      "Menu projektu pokazuje dzisiejszy postęp względem celu oraz aktualny streak.",
+      "Ustawienia projektu pokazuje dzisiejszy postęp względem celu oraz aktualny streak.",
     ],
     proofPoints: [
       "Projekt testowany w symulatorze Garmin oraz na kilku modelach zegarków.",
@@ -138,62 +139,58 @@ export const projectDetails: ProjectDetail[] = [
       gallery: [
         {
           title: "Row counter",
-          caption: "Large side controls and the NEW ROUND button on the main screen.",
+          caption: "Release 1.2.4 artwork: a large counter, side controls and a new stage action.",
           theme: "mobile",
-          imageSrc: "/projects/knitting-counter-pro/main.png",
-          imageAlt: "Row counter — Garmin simulator screenshot.",
+          imageSrc: "/projects/knitting-counter-pro/release-1.2.4/screen-01-main-watch.jpg",
+          imageAlt: "Row counter — release 1.2.4 artwork.",
           imageFit: "contain",
         },
         {
-          title: "Project menu",
-          caption: "Access projects, rows and statistics from the project menu.",
+          title: "Project settings",
+          caption: "Add stages, review stage history and reset the counter from project settings.",
           theme: "mobile",
-          imageSrc: "/projects/knitting-counter-pro/menu.png",
-          imageAlt: "Project menu — Garmin simulator screenshot.",
+          imageSrc: "/projects/knitting-counter-pro/release-1.2.4/screen-02-project-settings-watch.jpg",
+          imageAlt: "Project settings — release 1.2.4 artwork.",
           imageFit: "contain",
         },
         {
           title: "Daily progress",
           caption: "Daily goal, today’s rows and streak days in one view.",
           theme: "mobile",
-          imageSrc: "/projects/knitting-counter-pro/progress.png",
-          imageAlt: "Daily progress — Garmin simulator screenshot.",
+          imageSrc: "/projects/knitting-counter-pro/release-1.2.4/screen-03-statistics-watch.jpg",
+          imageAlt: "Daily progress — release 1.2.4 artwork.",
           imageFit: "contain",
         },
       ],
     },
     externalLink: "https://apps.garmin.com/pl-PL/apps/b72b1688-cd52-4bb3-9d7b-b9effc1ac8ec",
-    video: {
-      src: "/projects/knitting-counter-pro/overview.mp4",
-      poster: "/projects/knitting-counter-pro/video-poster.jpg",
-      captions: {
-        pl: "/projects/knitting-counter-pro/captions-pl.vtt",
-        en: "/projects/knitting-counter-pro/captions-en.vtt",
-      },
+    heroImage: {
+      src: "/projects/knitting-counter-pro/release-1.2.4/hero.png",
+      alt: "Knitting Counter Pro — release 1.2.4",
     },
     gallery: [
       {
         title: "Licznik rzędów",
-        caption: "Duże boczne przyciski i przycisk NEW ROUND na głównym ekranie.",
+        caption: "Grafika wydania 1.2.4: duży licznik, boczne przyciski i tworzenie nowego etapu.",
         theme: "mobile",
-        imageSrc: "/projects/knitting-counter-pro/main.png",
-        imageAlt: "Licznik rzędów — zrzut z symulatora Garmin.",
+        imageSrc: "/projects/knitting-counter-pro/release-1.2.4/screen-01-main-watch.jpg",
+        imageAlt: "Licznik rzędów — grafika wydania 1.2.4.",
         imageFit: "contain",
       },
       {
-        title: "Menu projektu",
-        caption: "Dostęp do projektów, rzędów i statystyk z menu projektu.",
+        title: "Ustawienia projektu",
+        caption: "Dodawanie etapów, historia etapów i resetowanie licznika w ustawieniach projektu.",
         theme: "mobile",
-        imageSrc: "/projects/knitting-counter-pro/menu.png",
-        imageAlt: "Menu projektu — zrzut z symulatora Garmin.",
+        imageSrc: "/projects/knitting-counter-pro/release-1.2.4/screen-02-project-settings-watch.jpg",
+        imageAlt: "Ustawienia projektu — grafika wydania 1.2.4.",
         imageFit: "contain",
       },
       {
         title: "Postęp dzienny",
         caption: "Cel dzienny, dzisiejsze rzędy i seria dni w jednym widoku.",
         theme: "mobile",
-        imageSrc: "/projects/knitting-counter-pro/progress.png",
-        imageAlt: "Postęp dzienny — zrzut z symulatora Garmin.",
+        imageSrc: "/projects/knitting-counter-pro/release-1.2.4/screen-03-statistics-watch.jpg",
+        imageAlt: "Statystyki postępu — grafika wydania 1.2.4.",
         imageFit: "contain",
       },
     ],

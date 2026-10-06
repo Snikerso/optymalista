@@ -33,7 +33,9 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         <p className="mt-4 text-sm leading-6 text-gray-500">{content.technologies.map((technology) => getTechnologyLabel(technology, language)).join(" · ")}</p>
         {content.externalLink && <TrackedAnchor href={content.externalLink} target="_blank" rel="noreferrer" eventName="external_project_open" eventParams={{ project: content.slug, language }} className="mt-5 inline-block font-semibold underline underline-offset-4">{pl ? "Otwórz projekt" : "Open project"} ↗</TrackedAnchor>}
       </header>
-      {content.video && <ProjectVideo video={content.video} language={language} />}
+      {content.heroImage ? (
+        <Image src={content.heroImage.src} alt={content.heroImage.alt} width={1440} height={720} unoptimized priority className="h-auto w-full rounded-lg" />
+      ) : content.video && <ProjectVideo video={content.video} language={language} />}
       <div className="grid gap-8 border-t border-gray-200 pt-8 md:grid-cols-2">
         <ProjectList title={pl ? "Mój zakres prac" : "My contribution"} items={content.responsibilities} />
         <ProjectList title={pl ? "Efekty" : "Results"} items={content.effects} />

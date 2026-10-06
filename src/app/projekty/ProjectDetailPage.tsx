@@ -44,7 +44,7 @@ export const ProjectDetailPage = ({ project }: { project: ProjectDetail }) => {
         {images.map((image) => (
           <figure key={image.imageSrc}>
             <a href={image.imageSrc} target="_blank" rel="noreferrer" aria-label={`${image.imageAlt ?? image.title} — ${pl ? "otwórz w pełnym rozmiarze" : "open full size"}`} className="block overflow-hidden rounded-lg bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black">
-              <Image src={image.imageSrc!} alt={image.imageAlt ?? image.title} width={1000} height={625} unoptimized className={`aspect-[8/5] w-full ${image.imageFit === "contain" ? "object-contain" : "object-cover"}`} />
+              <Image src={image.imageSrc!} alt={image.imageAlt ?? image.title} width={image.imageOrientation === "portrait" ? 1206 : 1000} height={image.imageOrientation === "portrait" ? 2622 : 625} unoptimized className={`${image.imageOrientation === "portrait" ? "h-auto max-h-[640px]" : "aspect-[8/5]"} w-full ${image.imageFit === "contain" ? "object-contain" : "object-cover"}`} />
             </a>
             <figcaption className="mt-2 text-xs leading-5 text-gray-500"><strong className="font-semibold">{image.title}.</strong> {image.caption}</figcaption>
           </figure>

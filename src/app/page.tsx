@@ -41,13 +41,6 @@ const copyByLanguage = {
       "Najczęściej pracuję z React.js, Next.js, React Native, Node.js, Nest.js i TypeScriptem. Łączę frontend z backendem, integracjami, analityką, DevOpsem i myśleniem produktowym, żeby dowozić rozwiązania gotowe do realnego użycia.",
     primaryCta: "Porozmawiajmy o współpracy",
     portfolioCta: "Zobacz portfolio",
-    proofEyebrow: "Dowody zamiast deklaracji",
-    proofItems: [
-      "Enterprise e-commerce: Royal Mint",
-      "Mobile + backend: CleanStrategy",
-      "Płatności Stripe: Moment Studio",
-      "Platforma kursowa + analityka: Juli Jogi",
-    ],
     pathsTitle: "Wybierz najkrótszą ścieżkę",
     paths: [
       {
@@ -88,13 +81,6 @@ const copyByLanguage = {
       "I usually work with React.js, Next.js, React Native, Node.js, Nest.js and TypeScript. I connect frontend, backend, integrations, analytics, DevOps and product thinking to ship useful working software.",
     primaryCta: "Talk about collaboration",
     portfolioCta: "View portfolio",
-    proofEyebrow: "Evidence over claims",
-    proofItems: [
-      "Enterprise e-commerce: Royal Mint",
-      "Mobile + backend: CleanStrategy",
-      "Stripe checkout: Moment Studio",
-      "Course platform + analytics: Juli Jogi",
-    ],
     pathsTitle: "Choose the shortest path",
     paths: [
       {
@@ -257,27 +243,6 @@ export default function Home() {
             </TrackedLink>
           ))}
         </div>
-      </section>
-
-      <section className="mt-10 flex min-w-0 flex-col gap-3 rounded-md border-2 border-black p-4">
-        <p className="font-ibm text-sm font-bold uppercase text-gray-500">
-          {copy.proofEyebrow}
-        </p>
-        <div className="grid gap-2 sm:grid-cols-2">
-          {copy.proofItems.map((item) => (
-            <div key={item} className="rounded-md bg-gray-100 px-3 py-2">
-              <p className="text-sm font-bold text-gray-800">{item}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-10 grid min-w-0 gap-3 sm:grid-cols-3">
-        {["Web apps", "Mobile apps", "Backend & DevOps"].map((item) => (
-          <div key={item} className="rounded-md border-2 border-black p-4">
-            <p className="font-ibm text-sm font-bold uppercase text-gray-600">{item}</p>
-          </div>
-        ))}
       </section>
 
       <section className="mt-12 min-w-0" aria-label="Case studies">

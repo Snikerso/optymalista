@@ -67,7 +67,7 @@ const copyByLanguage = {
     hireEyebrow: "Kontakt",
     hireTitle: "Porozmawiajmy o współpracy",
     hireText:
-      "Jeśli masz produkt, sklep, aplikację albo trudny frontend do ogarnięcia, odezwij się do mnie bezpośrednio.",
+      "Szukasz wsparcia przy aplikacji lub chcesz porozmawiać o projekcie? Napisz do mnie.",
     whatsAppMessage:
       "Cześć Paweł, chcę pogadać o współpracy przy projekcie.",
     send: "Wyślij wiadomość",
@@ -107,7 +107,7 @@ const copyByLanguage = {
     hireEyebrow: "Contact",
     hireTitle: "Talk about collaboration",
     hireText:
-      "If you have a product, store, mobile app or difficult frontend that needs care, message me directly.",
+      "Need help with an app or want to discuss a project? Get in touch.",
     whatsAppMessage:
       "Hi Paweł, I would like to talk about working together on a project.",
     send: "Send message",
@@ -270,26 +270,23 @@ export default function Home() {
 
       <section
         id="zatrudnij-mnie"
-        className="mt-10 min-w-0 scroll-mt-28 rounded-md border-2 border-black p-4 sm:p-6"
+        className="mt-16 flex min-w-0 scroll-mt-28 flex-col gap-6 border-t border-gray-200 pt-10 sm:flex-row sm:items-center sm:justify-between"
       >
         <div className="flex flex-col gap-2">
-          <p className="font-ibm text-sm font-bold uppercase text-gray-500">
-            {copy.hireEyebrow}
-          </p>
-          <h2 className="text-3xl font-bold leading-tight">{copy.hireTitle}</h2>
-          <p className="max-w-2xl text-sm leading-6 text-gray-700">
+          <h2 className="text-2xl font-semibold tracking-tight">{copy.hireTitle}</h2>
+          <p className="max-w-lg text-sm leading-6 text-gray-600">
             {copy.hireText}
           </p>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-gray-200 pt-4">
+        <div className="shrink-0">
           <TrackedAnchor
             href={getContactUrl(language)}
             target="_blank"
             rel="noreferrer"
             eventName={hasWhatsAppContact ? "whatsapp_open" : "linkedin_open"}
             eventParams={{ source: "home_contact", language }}
-            className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 font-bold text-black hover:bg-accent/80"
+            className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-accent/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
           >
             {hasWhatsAppContact ? (
               <FaWhatsapp size={18} />

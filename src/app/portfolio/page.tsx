@@ -286,7 +286,7 @@ const projectItems: LocalizedPortfolioItem[] = [
     mediaProjectSlug: "knitting-counter-pro",
     title: "Knitting Counter Pro",
     role: "Garmin Connect IQ developer / product builder",
-    status: "In progress",
+    status: "Opublikowany",
     description:
       "Aplikacja na zegarki Garmin do liczenia rzędów w robótkach ręcznych, z projektami, rundami, daily goal, streakiem i vintage interfejsem dopasowanym do okrągłej tarczy.",
     types: [PortfolioType.WATCH_APP],
@@ -299,17 +299,18 @@ const projectItems: LocalizedPortfolioItem[] = [
     highlights: [
       "Problem: licznik rzędów musiał działać szybko na nadgarstku, bez telefonu i bez gubienia kontekstu projektów.",
       "Rozwiązanie: aplikacja Garmin Connect IQ z lokalnym zapisem, rundami, daily goal, streakiem i dużymi łukowymi przyciskami.",
-      "Efekt: dopracowany licznik w stylu vintage, testowany na kilku modelach zegarka i przygotowany pod publikację w Garmin Connect IQ Store.",
+      "Efekt: dopracowany licznik w stylu vintage, testowany na kilku modelach zegarka i opublikowany w Garmin Connect IQ Store.",
     ],
+    link: "https://apps.garmin.com/pl-PL/apps/b72b1688-cd52-4bb3-9d7b-b9effc1ac8ec",
     caseStudyLink: "/projekty/knitting-counter-pro/",
     translated: {
-      status: "In progress",
+      status: "Published",
       description:
         "A Garmin watch app for counting knitting rows, with projects, rounds, daily goal, streak tracking and a vintage interface adapted to a round watch face.",
       highlights: [
         "Problem: the row counter needed to work quickly on the wrist, without a phone and without losing project context.",
         "Solution: a Garmin Connect IQ app with local storage, rounds, daily goal, streak tracking and large curved buttons.",
-        "Result: a polished vintage-style counter tested on several watch models and prepared for Garmin Connect IQ Store publication.",
+        "Result: a polished vintage-style counter tested on several watch models and published in Garmin Connect IQ Store.",
       ],
     },
   },

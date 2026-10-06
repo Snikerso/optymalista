@@ -94,7 +94,7 @@ export const projectDetails: ProjectDetail[] = [
     proofPoints: [
       "Projekt testowany w symulatorze Garmin oraz na kilku modelach zegarków.",
       "Aplikacja nie wymaga internetu ani uprawnień sieciowych.",
-      "Zakres funkcji przygotowany pod publikację w Garmin Connect IQ Store.",
+      "Aplikacja opublikowana w Garmin Connect IQ Store.",
     ],
     technicalDecisions: [
       "Lokalny zapis stanu zamiast zależności od telefonu lub backendu.",
@@ -128,7 +128,7 @@ export const projectDetails: ProjectDetail[] = [
       proofPoints: [
         "Tested in the Garmin simulator and on several watch models.",
         "The app does not require internet access or network permissions.",
-        "The feature scope is prepared for Garmin Connect IQ Store publication.",
+        "The app is published in Garmin Connect IQ Store.",
       ],
       technicalDecisions: [
         "Local state storage instead of relying on a phone or backend.",
@@ -162,6 +162,7 @@ export const projectDetails: ProjectDetail[] = [
         },
       ],
     },
+    externalLink: "https://apps.garmin.com/pl-PL/apps/b72b1688-cd52-4bb3-9d7b-b9effc1ac8ec",
     video: {
       src: "/projects/knitting-counter-pro/overview.mp4",
       poster: "/projects/knitting-counter-pro/video-poster.jpg",

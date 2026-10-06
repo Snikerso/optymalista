@@ -9,7 +9,6 @@ import {
 import { useSiteLanguage } from "@/lib/useSiteLanguage";
 import { getLocalizedProject, projectDetailsBySlug } from "@/data/projectDetails";
 import { getTechnologyLabel } from "@/data/technologies";
-import { getPortfolioTypeLabel } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -281,129 +280,25 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="mt-10 flex min-w-0 flex-col gap-4 rounded-md border-2 border-black p-4 sm:p-5">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex flex-col gap-1">
-            <p className="font-ibm text-sm font-bold uppercase text-gray-500">
-              {copy.featuredEyebrow}
-            </p>
-            <h2 className="text-2xl font-bold">{copy.featuredTitle}</h2>
-            <p className="text-sm leading-6 text-gray-600">
-              {copy.featuredText}
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              aria-label={copy.previousProject}
-              onClick={showPreviousProject}
-              className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-white hover:bg-accent"
-            >
-              <FaArrowLeft size={14} />
-            </button>
-            <button
-              type="button"
-              aria-label={copy.nextProject}
-              onClick={showNextProject}
-              className="flex h-10 w-10 items-center justify-center rounded-md border-2 border-black bg-accent hover:bg-accent/80"
-            >
-              <FaArrowRight size={14} />
-            </button>
+      <section className="mt-12 min-w-0" aria-label="Case studies">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <h2 className="text-2xl font-semibold">{copy.featuredTitle}</h2>
+          <div className="flex items-center gap-3">
+            <span className="text-xs tabular-nums text-gray-500" aria-live="polite">{activeProjectIndex + 1} / {featuredProjects.length}</span>
+            <button type="button" aria-label={copy.previousProject} onClick={showPreviousProject} className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 hover:bg-gray-100"><FaArrowLeft size={12} /></button>
+            <button type="button" aria-label={copy.nextProject} onClick={showNextProject} className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 hover:bg-gray-100"><FaArrowRight size={12} /></button>
           </div>
         </div>
-
-        <article className="flex min-w-0 flex-col gap-4 rounded-md bg-gray-50 p-3 sm:p-4">
-          <div className="relative overflow-hidden rounded-md border-2 border-black bg-white">
-            <div className="flex items-start justify-between gap-3">
-              <div className="absolute z-10 flex flex-wrap gap-2 p-4">
-                {activeProject.categories.map((category) => (
-                  <span
-                    key={category}
-                    className="rounded-md bg-accent px-2 py-1 font-ibm text-xs font-bold uppercase text-black"
-                  >
-                    {getPortfolioTypeLabel(category, language)}
-                  </span>
-                ))}
-              </div>
-            </div>
-            {activeProjectImage?.imageSrc ? (
-              <img
-                src={activeProjectImage.imageSrc}
-                alt={activeProjectImage.imageAlt ?? activeProject.title}
-                className={
-                  activeProjectImage.imageFit === "contain"
-                    ? "mx-auto block h-auto max-h-[22rem] max-w-full bg-white object-contain"
-                    : "block aspect-[16/10] w-full bg-white object-cover"
-                }
-              />
-            ) : null}
-          </div>
-
-          <div className="grid min-w-0 gap-4 md:grid-cols-[1fr_1.1fr] md:items-start">
-            <div className="flex flex-col gap-3">
-              <div className="flex flex-col gap-1">
-                <h3 className="text-2xl font-bold leading-tight">
-                  {activeProject.title}
-                </h3>
-                <p className="text-sm font-bold text-gray-600">
-                  {activeProject.role}
-                </p>
-              </div>
-              <p className="text-sm leading-6 text-gray-800">
-                {activeProject.summary}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-wrap gap-2">
-                {activeProject.technologies.slice(0, 5).map((technology) => (
-                  <span
-                    key={technology}
-                    className="rounded-md border border-gray-300 bg-white px-2 py-1 text-xs font-medium text-gray-800"
-                  >
-                    {getTechnologyLabel(technology, language)}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3">
-              <TrackedLink
-                href={
-                  getLocalizedHref(
-                    `/projekty/${activeProject.slug}/`,
-                    language
-                  ) ?? `/projekty/${activeProject.slug}/`
-                }
-                eventName="case_study_open"
-                eventParams={{
-                  source: "home_featured",
-                  project: activeProject.slug,
-                  language,
-                }}
-                className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-bold text-black hover:bg-accent/80"
-              >
-                <span>{copy.caseStudyCta}</span>
-                <Icon iconName="openTab" size={16} />
-              </TrackedLink>
-              <div className="flex gap-1">
-                {featuredProjects.map((project, index) => (
-                  <button
-                    key={project.slug}
-                    type="button"
-                    aria-label={`${copy.showProject} ${
-                      getLocalizedProject(project, language).title
-                    }`}
-                    onClick={() => setActiveProjectIndex(index)}
-                    className={`h-2.5 rounded-full transition-all ${
-                      activeProjectIndex === index
-                        ? "w-8 bg-accent"
-                        : "w-2.5 bg-gray-300 hover:bg-gray-500"
-                    }`}
-                  />
-                ))}
-              </div>
-              </div>
-            </div>
+        <article className="grid items-center gap-6 md:grid-cols-[1.2fr_1fr]">
+          {activeProjectImage?.imageSrc && <TrackedLink href={getLocalizedHref(`/projekty/${activeProject.slug}/`, language) ?? `/projekty/${activeProject.slug}/`} eventName="case_study_open" eventParams={{source:"home_featured_image",project:activeProject.slug,language}} className="overflow-hidden rounded-lg bg-gray-50">
+            <Image src={activeProjectImage.imageSrc} alt={activeProjectImage.imageAlt ?? activeProject.title} width={800} height={500} unoptimized className={`aspect-[8/5] w-full ${activeProjectImage.imageFit === "contain" ? "object-contain" : "object-cover"}`} />
+          </TrackedLink>}
+          <div>
+            <h3 className="text-2xl font-semibold">{activeProject.title}</h3>
+            <p className="mt-1 text-sm text-gray-500">{activeProject.role}</p>
+            <p className="mt-4 text-sm leading-6 text-gray-700">{activeProject.summary}</p>
+            <p className="mt-3 text-xs leading-5 text-gray-500">{activeProject.technologies.slice(0,5).map((technology) => getTechnologyLabel(technology,language)).join(" · ")}</p>
+            <TrackedLink href={getLocalizedHref(`/projekty/${activeProject.slug}/`,language) ?? `/projekty/${activeProject.slug}/`} eventName="case_study_open" eventParams={{source:"home_featured",project:activeProject.slug,language}} className="mt-5 inline-block text-sm font-semibold underline underline-offset-4">{copy.caseStudyCta} ↗</TrackedLink>
           </div>
         </article>
       </section>

@@ -7,6 +7,7 @@ import { Technologies, getTechnologyLabel } from "@/data/technologies";
 import { getLocalizedHref } from "@/lib/language";
 import { useSiteLanguage } from "@/lib/useSiteLanguage";
 import { PortfolioType } from "@/types";
+import { TechStackTable } from "@/components/organisms/TechStackTable";
 import { ProjectList } from "@/app/projekty/ProjectsPageContent";
 
 type LocalizedPortfolioItem = PortfolioItemProps & {
@@ -348,6 +349,7 @@ export default function PortfolioPage() {
         <nav aria-label={copy.quickNavAria} className="mt-6 flex flex-wrap gap-6 text-sm font-semibold">
           <a href="#projekty" className="underline underline-offset-4">{copy.projects}</a>
           <a href="#doswiadczenie" className="underline underline-offset-4">{copy.experience}</a>
+          <a href="#stack" className="underline underline-offset-4">{language === "pl" ? "Technologie" : "Tech stack"}</a>
           <a href="#kontakt" className="underline underline-offset-4">{language === "pl" ? "Kontakt" : "Contact"}</a>
         </nav>
       </section>
@@ -364,7 +366,10 @@ export default function PortfolioPage() {
                 <h3 className="font-semibold">{item.title}</h3>
                 <span className="text-sm text-gray-500">{[item.startDate, item.endDate].filter(Boolean).map((date) => date instanceof Date ? date.toLocaleDateString(language === "pl" ? "pl-PL" : "en-GB", { month: "short", year: "numeric" }) : date).join(" – ")}{!item.endDate && (language === "pl" ? " – obecnie" : " – present")}</span>
               </div>
-              <p className="mt-1 text-sm text-gray-500">{item.role}</p>
+              <p className="mt-1 text-sm text-gray-500">
+                {item.companyLink ? <a href={item.companyLink} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-black">{(item.role ?? "").split(" · ")[0]} ↗</a> : (item.role ?? "").split(" · ")[0]}
+                {(item.role ?? "").includes(" · ") && ` · ${(item.role ?? "").split(" · ").slice(1).join(" · ")}`}
+              </p>
               <p className="mt-3 max-w-3xl text-sm leading-6 text-gray-700">{item.description}</p>
               {(item.highlights?.length || item.technologies.length > 0) && <details className="mt-3 text-sm text-gray-600">
                 <summary className="w-fit cursor-pointer">{language === "pl" ? "Szczegóły" : "Details"}</summary>
@@ -377,6 +382,10 @@ export default function PortfolioPage() {
             </article>
           ))}
         </div>
+      </section>
+      <section id="stack" className="scroll-mt-24">
+        <h2 className="mb-6 text-2xl font-semibold">{language === "pl" ? "Technologie" : "Tech stack"}</h2>
+        <TechStackTable language={language} />
       </section>
       <section id="kontakt" className="scroll-mt-24 border-t border-gray-200 pt-8">
         <h2 className="text-2xl font-semibold">{copy.hireTitle}</h2>

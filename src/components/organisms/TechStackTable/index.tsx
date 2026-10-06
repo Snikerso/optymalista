@@ -5,11 +5,9 @@ import {
   getTechnologyDescription,
   getTechnologyLabel,
   technologyGroups,
-  Technologies,
 } from "@/data/technologies";
 import type { ProjectLanguage } from "@/data/projectDetails";
 import { getLocalizedHref } from "@/lib/language";
-import { FaInfoCircle } from "react-icons/fa";
 
 const groupTitleByLanguage: Record<string, Record<ProjectLanguage, string>> = {
   Frontend: {
@@ -44,10 +42,6 @@ const groupTitleByLanguage: Record<string, Record<ProjectLanguage, string>> = {
 
 const getGroupTitle = (title: string, language: ProjectLanguage) =>
   groupTitleByLanguage[title]?.[language] ?? title;
-
-const maxSkillRows = Math.max(
-  ...technologyGroups.map((group) => group.skills.length)
-);
 
 const projectTooltipLinks = [
   { label: "Knitting Counter Pro", slug: "knitting-counter-pro" },
@@ -98,111 +92,23 @@ const renderDescriptionWithProjectLinks = (
   });
 };
 
-const TechnologyCellContent = ({
-  groupIndex,
-  language,
-  rowIndex,
-  skill,
-}: {
-  groupIndex: number;
-  language: ProjectLanguage;
-  rowIndex: number;
-  skill: Technologies;
-}) => {
-  const label = getTechnologyLabel(skill, language);
-  const description = getTechnologyDescription(skill, language);
-  const opensAbove = rowIndex >= maxSkillRows - 3;
-  const alignsRight = groupIndex >= technologyGroups.length - 2;
-  const tooltipPositionClass = [
-    opensAbove ? "bottom-6" : "top-6",
-    alignsRight ? "right-0" : "left-0",
-  ].join(" ");
-
-  if (!description) {
-    return label;
-  }
-
-  return (
-    <span className="relative inline-flex items-center gap-2">
-      <span>{label}</span>
-      <span className="group relative inline-flex">
-        <span
-          aria-label={description}
-          className="inline-flex h-4 w-4 cursor-help items-center justify-center text-gray-500 outline-none transition-colors hover:text-black focus-visible:text-black"
-          role="img"
-          tabIndex={0}
-        >
-          <FaInfoCircle aria-hidden="true" className="h-3.5 w-3.5" />
-        </span>
-        <span
-          className={`${tooltipPositionClass} pointer-events-auto absolute z-20 w-72 max-w-[calc(100vw-2rem)] rounded-md border border-black bg-white p-3 text-xs font-medium leading-5 text-gray-900 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100`}
-        >
-          {renderDescriptionWithProjectLinks(description, language)}
-        </span>
-      </span>
-    </span>
-  );
-};
-
-export const TechStackTable = ({ language }: { language: ProjectLanguage }) => {
-  const skillRows = Array.from({ length: maxSkillRows }, (_, rowIndex) =>
-    technologyGroups.map((group) => group.skills[rowIndex])
-  );
-
-  return (
-    <div className="overflow-hidden rounded-md border-2 border-black bg-white">
-      <div className="overflow-x-auto">
-        <table className="min-w-[76rem] border-collapse text-left">
-          <caption className="sr-only">
-            {language === "en"
-              ? "Technology stack grouped by category"
-              : "Stack technologiczny pogrupowany według kategorii"}
-          </caption>
-          <thead>
-            <tr>
-              {technologyGroups.map((group) => (
-                <th
-                  key={group.title}
-                  scope="col"
-                  className="w-[14.285%] border-b-2 border-r-2 border-black bg-accent px-3 py-3 align-top font-ibm text-xs font-bold uppercase leading-5 text-black last:border-r-0"
-                >
-                  <span>{getGroupTitle(group.title, language)}</span>
-                  <span className="mt-1 block font-ibm text-[0.68rem] font-bold uppercase leading-4 text-black/65">
-                    {language === "en"
-                      ? `${group.skills.length} skills`
-                      : `${group.skills.length} umiejętności`}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {skillRows.map((row, rowIndex) => (
-              <tr key={rowIndex} className="odd:bg-white even:bg-gray-50">
-                {row.map((skill, groupIndex) => (
-                  <td
-                    key={`${technologyGroups[groupIndex].title}-${rowIndex}`}
-                    className="border-r border-t border-gray-300 px-3 py-2 align-top text-sm font-semibold leading-5 text-gray-900 last:border-r-0"
-                  >
-                    {skill ? (
-                      <TechnologyCellContent
-                        groupIndex={groupIndex}
-                        language={language}
-                        rowIndex={rowIndex}
-                        skill={skill}
-                      />
-                    ) : (
-                      <span aria-hidden="true" className="text-gray-300">
-                        -
-                      </span>
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
+export const TechStackTable = ({ language }: { language: ProjectLanguage }) => (
+  <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+    {technologyGroups.map((group) => (
+      <section key={group.title} className="border-t border-gray-200 pt-4">
+        <h3 className="mb-3 text-sm font-semibold">{getGroupTitle(group.title, language)}</h3>
+        <ul className="flex flex-wrap gap-x-3 gap-y-2 text-sm text-gray-600">
+          {group.skills.map((skill) => {
+            const description = getTechnologyDescription(skill, language);
+            return <li key={skill}>
+              {description ? <details className="group">
+                <summary className="cursor-pointer list-none underline decoration-gray-300 underline-offset-4 hover:text-black">{getTechnologyLabel(skill, language)}</summary>
+                <p className="mt-2 max-w-sm rounded-md bg-gray-50 p-3 text-xs leading-6">{renderDescriptionWithProjectLinks(description, language)}</p>
+              </details> : getTechnologyLabel(skill, language)}
+            </li>;
+          })}
+        </ul>
+      </section>
+    ))}
+  </div>
+);

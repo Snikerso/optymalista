@@ -183,5 +183,5 @@ Po wdrożeniu sprawdź w prywatnym oknie:
 3. Kliknięcia CTA i case studies wysyłają istniejące zdarzenia.
 4. Po cofnięciu zgody nowe zdarzenia nie są wysyłane.
 
-Mapę `https://drojecki.pro/sitemap.xml` zgłoś w Google Search Console.
+Mapę `https://www.drojecki.pro/sitemap.xml` zgłoś w Google Search Console.
 Mapa pomija daty modyfikacji, których nie da się ustalić z danych treści.

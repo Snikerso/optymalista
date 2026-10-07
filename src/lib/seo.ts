@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const siteUrl = "https://drojecki.pro";
+export const siteUrl = "https://www.drojecki.pro";
 
 export const defaultDescription =
   "Portfolio Pawła Drojeckiego: React, Next.js, Nest.js, aplikacje webowe, mobile, e-commerce, backend i product development.";

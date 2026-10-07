@@ -10,7 +10,7 @@ export type BlogPostEntry = {
 export const blogPosts: BlogPostEntry[] = [
   {
     title: "ConnectIQComponents: reusable UI components for Garmin",
-    link: "/blog/biblioteka-komponentow-garmin/",
+    link: "/blog/garmin-component-library/",
     tags: ["Garmin", "Connect IQ", "Monkey C", "Open source"],
     description:
       "8 Monkey C components, a shared theme and integration through Git submodules or Monkey Barrel. Used in TeaStop and Knitting Counter Pro.",

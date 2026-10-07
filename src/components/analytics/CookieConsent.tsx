@@ -1,12 +1,9 @@
 "use client";
 
 import { gaMeasurementId } from "@/lib/analyticsConfig";
+import { consentStorageKey as storageKey, consentChangeEvent, consentSettingsEvent, type CookieConsentValue } from "@/lib/consent";
 import { trackEvent } from "@/lib/analytics";
 import { useEffect, useState } from "react";
-
-const storageKey = "pd-cookie-consent";
-
-type CookieConsentValue = "accepted" | "rejected";
 
 const updateGoogleConsent = (value: CookieConsentValue) => {
   if (typeof window.gtag !== "function") {
@@ -22,17 +19,15 @@ const updateGoogleConsent = (value: CookieConsentValue) => {
     analytics_storage: analyticsStorage,
   });
 
-  if (value === "accepted") {
-    window.gtag("config", gaMeasurementId, {
-      anonymize_ip: true,
-    });
-  }
+
 };
 
 export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const showSettings = () => setIsVisible(true);
+    window.addEventListener(consentSettingsEvent, showSettings);
     try {
       const storedConsent = window.localStorage.getItem(storageKey);
 
@@ -42,6 +37,7 @@ export const CookieConsent = () => {
     } catch (error) {
       setIsVisible(true);
     }
+    return () => window.removeEventListener(consentSettingsEvent, showSettings);
   }, []);
 
   const saveConsent = (value: CookieConsentValue) => {
@@ -49,7 +45,10 @@ export const CookieConsent = () => {
       window.localStorage.setItem(storageKey, value);
     } catch (error) {}
 
+    window.analyticsConsentGranted = value === "accepted";
+    (window as unknown as Record<string, unknown>)[`ga-disable-${gaMeasurementId}`] = value !== "accepted";
     updateGoogleConsent(value);
+    window.dispatchEvent(new Event(consentChangeEvent));
     trackEvent("cookie_consent_update", {
       value,
     });

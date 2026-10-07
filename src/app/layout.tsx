@@ -66,8 +66,6 @@ export const metadata: Metadata = {
     images: [
       {
         url: new URL("/projects/royal-mint-gold-coins-desktop.png", siteUrl),
-        width: 1200,
-        height: 630,
         alt: "Paweł Drojecki portfolio",
       },
     ],

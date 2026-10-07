@@ -1,4 +1,5 @@
 "use client";
+import { consentSettingsEvent } from "@/lib/consent";
 import { NavLink } from "@/components/atoms/NavLink";
 import { FaLinkedin } from "react-icons/fa";
 
@@ -13,6 +14,7 @@ export const Footer = () => {
       <nav className="flex flex-wrap gap-4 text-sm font-bold">
         <NavLink href="/portfolio">PORTFOLIO</NavLink>
         <NavLink href="/blog">BLOG</NavLink>
+        <button type="button" onClick={() => window.dispatchEvent(new Event(consentSettingsEvent))}>USTAWIENIA COOKIES</button>
       </nav>
 
       <div className="flex flex-wrap gap-4 text-sm font-bold">

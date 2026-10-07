@@ -12,6 +12,7 @@ type AnalyticsParams = Record<string, string | number | boolean | undefined>;
 
 declare global {
   interface Window {
+    analyticsConsentGranted?: boolean;
     gtag?: (
       command: "event" | "consent" | "config",
       eventName: AnalyticsEventName | "update" | string,
@@ -24,7 +25,7 @@ export const trackEvent = (
   eventName: AnalyticsEventName,
   params: AnalyticsParams = {}
 ) => {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") {
+  if (typeof window === "undefined" || window.analyticsConsentGranted !== true || typeof window.gtag !== "function") {
     return;
   }
 

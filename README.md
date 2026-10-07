@@ -161,3 +161,27 @@ npm run build
 ```
 
 Projekt jest skonfigurowany jako statyczny export przez `output: "export"` w `next.config.js`.
+
+## Google Analytics 4 — konfiguracja i weryfikacja
+
+Identyfikator pomiaru: `NEXT_PUBLIC_GA_MEASUREMENT_ID` (domyślnie `G-9MN4EKHQBV`).
+Pusta wartość wyłącza integrację. Przy statycznym eksporcie zmiana wymaga nowego buildu.
+
+Skrypt Google ładuje się dopiero po akceptacji analityki. Odrzucenie lub cofnięcie
+zgody blokuje zdarzenia. Zgodę można zmienić przez „USTAWIENIA COOKIES” w stopce.
+Konfiguracja uruchamia się raz; odsłony przy przejściach między stronami obsługuje
+GA4 przez pomiar zaawansowany. W panelu GA4 dla strumienia WWW włącz
+„Wyświetlenia strony” → „Zmiany strony na podstawie zdarzeń historii przeglądarki”.
+Nie dodawaj równoległego tagu GA4 w Google Tag Managerze dla tej samej usługi.
+Dokumentacja: https://developers.google.com/analytics/devguides/collection/ga4/views
+
+Po wdrożeniu sprawdź w prywatnym oknie:
+
+1. Przed zgodą i po odrzuceniu brak żądań `gtag/js` i `g/collect` w Network.
+2. Po akceptacji pojawia się jedna odsłona; przejścia do portfolio i projektu
+   dodają po jednej odsłonie w raporcie Czas rzeczywisty / DebugView.
+3. Kliknięcia CTA i case studies wysyłają istniejące zdarzenia.
+4. Po cofnięciu zgody nowe zdarzenia nie są wysyłane.
+
+Mapę `https://drojecki.pro/sitemap.xml` zgłoś w Google Search Console.
+Mapa pomija daty modyfikacji, których nie da się ustalić z danych treści.

@@ -19,7 +19,7 @@ export const createPageMetadata = ({
   imagePath,
 }: PageMetadataInput): Metadata => {
   const url = new URL(path, siteUrl).toString();
-  const image = imagePath ? new URL(imagePath, siteUrl).toString() : undefined;
+  const image = new URL(imagePath ?? "/projects/royal-mint-gold-coins-desktop.png", siteUrl).toString();
 
   return {
     title,
@@ -38,8 +38,6 @@ export const createPageMetadata = ({
         ? [
             {
               url: image,
-              width: 1200,
-              height: 630,
               alt: title,
             },
           ]

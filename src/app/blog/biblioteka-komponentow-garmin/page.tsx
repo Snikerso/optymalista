@@ -1,89 +1,84 @@
-import Link from "next/link";
+import { BlogArticle } from "@/components/templates/BlogArticle";
+import { blogPosts } from "@/data/blogPosts";
 import { createPageMetadata, siteUrl } from "@/lib/seo";
 
-const title = "Zbudowałem własną bibliotekę komponentów dla Garmina";
-const description = "ConnectIQComponents: reużywalne komponenty interfejsu dla Garmin Connect IQ, konfigurowalne motywy i składanie UI inspirowane Reactem. Biblioteka open source w Monkey C, używana w TeaStop.";
 const path = "/blog/biblioteka-komponentow-garmin/";
+const post = blogPosts.find((entry) => entry.link === path)!;
 const repository = "https://github.com/Snikerso/ConnectIQComponents";
 
-export const metadata = createPageMetadata({ title, description, path });
-
+export const metadata = createPageMetadata({ title: post.title, description: post.description!, path });
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: title,
-  description,
-  datePublished: "2026-10-07",
-  dateModified: "2026-10-07",
-  inLanguage: "pl",
+  "@context": "https://schema.org", "@type": "BlogPosting",
+  headline: post.title, description: post.description,
+  datePublished: "2026-10-07", dateModified: "2026-10-07", inLanguage: "pl",
   author: { "@type": "Person", name: "Paweł Drojecki", url: siteUrl },
   mainEntityOfPage: new URL(path, siteUrl).toString(),
 };
-
-const buttonExample = `var theme = new ConnectIQComponents.Theme({
-    :accent => 0xB3DFAC,
-    :foreground => 0xF5F3E9
+const example = `var theme = new ConnectIQComponents.Theme({
+    :accent => 0xB3DFAC
 });
-
 var button = new ConnectIQComponents.Button({
     :text => "Parz herbatę",
     :x => 80, :y => 220,
     :width => 200, :height => 50,
     :style => {:radius => 25},
     :onPress => method(:startBrewing)
-}, theme);`;
+}, theme);
+
+// W onUpdate(dc) widoku:
+button.draw(dc, 0, 0);
+
+// Po zmianie stanu aplikacji:
+button.setProps({:text => "Gotowe"});
+WatchUi.requestUpdate();`;
+const components = [
+  ["Button / OutlineButton", "Przycisk wypełniony lub z obrysem; obsługuje akcję onPress."],
+  ["Panel / Label", "Zaokrąglona powierzchnia i tekst skracany do dostępnej szerokości."],
+  ["Badge / Divider", "Kapsułka z tekstem i separator poziomy lub pionowy."],
+  ["ProgressBar / ProgressRing", "Postęp od 0 do 1: pasek lub segmentowy pierścień."],
+];
 
 export default function GarminComponentsPost() {
   return (
-    <article className="mx-auto flex max-w-3xl flex-col gap-8 pb-12">
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Link href="/blog/" className="w-fit text-sm text-gray-600 hover:underline">← Wszystkie wpisy</Link>
-      <header className="flex flex-col gap-4">
-        <p className="text-sm text-gray-500"><time dateTime="2026-10-07">7 października 2026</time> · Paweł Drojecki</p>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
-        <p className="text-lg leading-8 text-gray-700">Pracując nad aplikacjami na zegarki Garmin, zbudowałem ConnectIQComponents — własną bibliotekę reużywalnych komponentów UI w Monkey C. Chciałem składać ekrany z gotowych elementów, zmieniać ich wygląd przez wspólny motyw i używać tego samego kodu w kolejnych projektach.</p>
-        <a href={repository} target="_blank" rel="noreferrer" className="w-fit font-semibold underline underline-offset-4">Zobacz bibliotekę na GitHubie ↗</a>
-      </header>
-
-      <section className="flex flex-col gap-3 text-base leading-8 text-gray-700">
-        <h2 className="text-2xl font-semibold text-black">Od rysowania ekranów do wspólnych komponentów</h2>
-        <p>Przy KnittingCounter i TeaStop zacząłem zauważać powtarzające się elementy: zaokrąglone przyciski, karty, etykiety, kapsułki z liczbami i wskaźniki postępu. Każdy ekran potrzebował podobnej geometrii, kolorów i sposobu rysowania tekstu. Utrzymywanie tych elementów osobno oznaczało kolejne miejsca do poprawienia przy zmianie wyglądu.</p>
-        <p>Wyodrębniłem je do osobnego projektu. Komponenty nie potrzebują danych o herbacie, rzędach robótki ani zapisie stanu aplikacji. Dostają parametry, motyw i opcjonalną akcję, a aplikacja decyduje, co mają pokazywać i co ma się wydarzyć po kliknięciu.</p>
-      </section>
-
-      <section className="flex flex-col gap-3 text-base leading-8 text-gray-700">
-        <h2 className="text-2xl font-semibold text-black">Podejście znane z Reacta, dostosowane do Monkey C</h2>
-        <p>Inspiracją było składanie interfejsu w React: komponent ma parametry podobne do propsów, może zawierać inne komponenty i reagować na zdarzenia. Wspólny motyw ustala kolory, fonty i odstępy, a lokalne style pozwalają zmienić wygląd pojedynczego elementu.</p>
-        <p>To implementacja korzystająca z API rysowania Connect IQ. Parametry przekazuję jako słowniki Monkey C, składam elementy metodą <code>add()</code>, a treść zmieniam przez <code>setProps()</code>. Biblioteka nie zawiera JSX ani wirtualnego DOM; odświeżanie ekranu odbywa się przez mechanizm Garmin WatchUi.</p>
-        <pre className="max-w-full overflow-x-auto rounded-lg bg-gray-950 p-5 text-sm leading-6 text-gray-100"><code>{buttonExample}</code></pre>
-        <p>W tym przykładzie <code>startBrewing</code> jest metodą aplikacji. Biblioteka odpowiada za przycisk, a rozpoczęcie parzenia pozostaje po stronie TeaStop. Wymiary są podane w pikselach; rzeczywisty układ dopasowuję do rozmiaru ekranu zegarka.</p>
-      </section>
-
-      <section className="flex flex-col gap-3 text-base leading-8 text-gray-700">
-        <h2 className="text-2xl font-semibold text-black">Co zawiera biblioteka?</h2>
-        <ul className="list-disc space-y-2 pl-5">
-          <li><strong>Button i OutlineButton</strong> — akcje główne oraz przyciski z obrysem.</li>
-          <li><strong>Panel i Label</strong> — karty, kontenery i tekst dopasowany do dostępnej szerokości.</li>
-          <li><strong>Badge i Divider</strong> — kapsułki ze statystykami i separatory.</li>
-          <li><strong>ProgressBar i ProgressRing</strong> — pasek postępu oraz segmentowy pierścień, przydatny w timerze.</li>
-        </ul>
-        <p>Do tego dochodzą wspólny motyw, zagnieżdżanie komponentów, obsługa dotyku oraz adaptery dla WatchUi.View i przycisku SELECT. Wygląd można zmieniać bez kopiowania całej implementacji komponentu.</p>
-      </section>
-
-      <section className="flex flex-col gap-3 text-base leading-8 text-gray-700">
-        <h2 className="text-2xl font-semibold text-black">Pierwsze wykorzystanie: TeaStop</h2>
-        <p>Podłączyłem bibliotekę do TeaStop jako Git submodule przypięty do wersji 0.2.0. Rysuje teraz przyciski, karty listy herbat, separator w edytorze nazwy oraz pierścień postępu parzenia. Adapter mapuje kolorystykę TeaStop na motyw biblioteki i ponownie wykorzystuje instancje komponentów.</p>
-        <p>Istniejące delegaty nadal obsługują akcje, a logika odliczania, alarmów i zapisu danych pozostaje w aplikacji. Dzięki temu mogłem wymienić warstwę rysowania bez przebudowy całego przepływu parzenia.</p>
-        <p>Po integracji przeszły kompilacje dla Venu 3, fēnix 7S, Venu Sq 2 i Forerunner 965 oraz wszystkie 9 testów w symulatorze. To sprawdzenie kompilacji i zachowania kodu; pełna weryfikacja na fizycznych zegarkach jest kolejnym krokiem.</p>
-      </section>
-
-      <section className="flex flex-col gap-3 text-base leading-8 text-gray-700">
-        <h2 className="text-2xl font-semibold text-black">Publiczna i gotowa do kolejnych projektów</h2>
-        <p>Udostępniłem kod na GitHubie na licencji MIT. Bibliotekę można dołączyć jako źródła lub zbudować paczkę Monkey Barrel. Repozytorium zawiera dokumentację, działający przykład i testy, a wersje można przypinać tagami.</p>
-        <p>To wczesna wersja biblioteki, którą rozwijam na podstawie potrzeb rzeczywistych aplikacji. Największy efekt już teraz to wspólne miejsce na komponenty i ich wygląd — kolejny projekt nie musi zaczynać od rysowania każdego przycisku od zera.</p>
-        <a href={repository} target="_blank" rel="noreferrer" className="w-fit font-semibold text-black underline underline-offset-4">Kod, dokumentacja i przykłady ConnectIQComponents ↗</a>
-        <Link href="/projekty/knitting-counter-pro/" className="w-fit text-sm underline underline-offset-4">Zobacz też Knitting Counter Pro</Link>
-      </section>
-    </article>
+      <BlogArticle title={post.title} lead="Zbudowałem bibliotekę UI w Monkey C dla Garmin Connect IQ. Wydzieliłem powtarzające się elementy z aplikacji zegarkowych i podłączyłem je do TeaStop: przyciski, karty oraz pierścień timera korzystają teraz ze wspólnego kodu."
+        date="2026-10-07" dateLabel="7 października 2026" tags={post.tags}
+        action={{ href: repository, label: "Repozytorium na GitHubie" }}
+        sections={[{ id: "zakres", label: "Zakres biblioteki" }, { id: "api", label: "API i motywy" }, { id: "teastop", label: "Integracja z TeaStop" }, { id: "instalacja", label: "Instalacja" }]}>
+        <section id="zakres">
+          <h2>8 komponentów, jeden motyw</h2>
+          <p>W KnittingCounter i TeaStop powtarzałem kod rysujący przyciski, karty i wskaźniki. Przeniosłem te elementy do osobnego repozytorium <strong>ConnectIQComponents</strong>. Wersja 0.2.0 zawiera:</p>
+          <dl className="mt-5 divide-y divide-gray-200 border-y border-gray-200">{components.map(([name, detail]) => <div key={name} className="py-4"><dt className="font-ibm text-sm font-semibold text-black">{name}</dt><dd className="mt-1 text-sm leading-6 text-gray-600">{detail}</dd></div>)}</dl>
+          <p className="mt-5">Każdy komponent przyjmuje pozycję, wymiary, widoczność i lokalny styl. Motyw ustala kolory, font, odstępy i promień zaokrągleń. Komponent nie zna danych aplikacji ani sposobu ich zapisu.</p>
+        </section>
+        <section id="api">
+          <h2>Parametry i składanie inspirowane Reactem</h2>
+          <p>Przekazuję parametry w słowniku Monkey C. Metoda <code>add(child)</code> pozwala zagnieżdżać komponenty, a <code>setProps()</code> aktualizuje ich treść i wygląd. Wspólny motyw można nadpisać przez <code>:style</code> konkretnego elementu.</p>
+          <figure className="mt-5 min-w-0 overflow-hidden rounded-xl border border-gray-800 bg-gray-950">
+            <figcaption className="flex items-center justify-between border-b border-gray-800 px-5 py-3 font-ibm text-xs text-gray-400"><span>Przycisk z motywem i aktualizacją tekstu</span><span className="ml-4 shrink-0">Monkey C</span></figcaption>
+            <pre tabIndex={0} aria-label="Przykład kodu Monkey C" className="overflow-x-auto p-5 text-[13px] leading-6 text-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"><code>{example}</code></pre>
+          </figure>
+          <p className="mt-5"><code>startBrewing</code> to metoda aplikacji. Dotyk przekazuję do komponentu przez <code>press()</code> lub adapter <code>ComponentDelegate</code>. Renderowanie korzysta z Garmin Graphics i WatchUi; odświeżenie po zmianie stanu wywołuję jawnie. Układ ma wymiary w pikselach, więc dopasowanie do ekranu pozostaje po stronie aplikacji.</p>
+        </section>
+        <section id="teastop">
+          <h2>Co wymieniłem w TeaStop</h2>
+          <p>Dodałem bibliotekę jako Git submodule przypięty do <strong>v0.2.0</strong>. Adapter <code>TeaComponents.mc</code> mapuje kolory TeaStop na motyw biblioteki i ponownie wykorzystuje instancje komponentów podczas rysowania.</p>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7">
+            <li>Przyciski „+ Dodaj”, „Parz herbatę”, „Opcje” i korekty czasu używają Button lub OutlineButton.</li>
+            <li>Karty listy herbat używają Panel, a separator edytora nazwy — Divider.</li>
+            <li>Segmentowy wskaźnik parzenia używa ProgressRing.</li>
+          </ul>
+          <p className="mt-4">Delegaty TeaStop nadal obsługują akcje i trafienia dotyku. Odliczanie, alarmy i zapis sesji pozostały w aplikacji. Zmiana dotyczyła warstwy rysowania.</p>
+          <div className="mt-5 rounded-lg border-l-4 border-accent bg-gray-50 p-5 text-sm leading-7"><p className="font-semibold text-black">Weryfikacja integracji</p><p>Kompilacje: Venu 3, fēnix 7S, Venu Sq 2 i Forerunner 965. W symulatorze przeszło 9 testów: 7 regresji aplikacji i 2 testy adaptera UI. Sprawdziłem też uruchomienie TeaStop na symulatorze Venu 3. Testy na fizycznych zegarkach pozostają do wykonania.</p></div>
+        </section>
+        <section id="instalacja">
+          <h2>Jak użyć w kolejnym projekcie</h2>
+          <p>Repozytorium jest publiczne, na licencji MIT. Można dołączyć źródła lub zbudować paczkę Monkey Barrel. Przy integracji ze źródeł dodaję repozytorium jako submodule, przypinam tag i rozszerzam <code>monkey.jungle</code>:</p>
+          <pre tabIndex={0} aria-label="Konfiguracja ścieżek biblioteki" className="mt-5 overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-4 font-ibm text-sm leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-black"><code>base.sourcePath = source;vendor/ConnectIQComponents/source</code></pre>
+          <p className="mt-5">Biblioteka zawiera dokumentację, przykładową aplikację i testy. API jest jeszcze eksperymentalne — w aplikacji przypinam konkretną wersję, żeby aktualizacja zależności była świadomą zmianą.</p>
+        </section>
+      </BlogArticle>
+    </>
   );
 }

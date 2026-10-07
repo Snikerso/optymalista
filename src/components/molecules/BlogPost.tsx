@@ -1,45 +1,31 @@
-import { Icon } from "@/components/atoms/Icon";
-import { InlineLink } from "../atoms/InlineLink";
+import Link from "next/link";
+import type { BlogPostEntry } from "@/data/blogPosts";
 
-interface BlogPostProps {
-  title: string;
-  tags: string[];
-  link: string;
-  description?: string;
-  source: "portfolio" | "medium";
-  date?: string;
-}
-
-const BlogPost = ({ title, tags, link, description, source, date }: BlogPostProps) => {
+const BlogPost = ({ title, tags, link, description, source, date, index = 0 }: BlogPostEntry & { index?: number }) => {
+  const external = source === "medium";
   return (
-    <article className="relative flex w-full flex-col gap-4 rounded-md border-2 border-black p-5">
-      <div className="flex items-start gap-3">
-        {source === "medium" ? <Icon iconName="medium" size={28} /> : <span aria-hidden="true" className="text-xl font-bold">{ "</>" }</span>}
-        <div className="flex flex-col gap-2">
-          <h2 className="text-xl font-bold">{title}</h2>
-          {date && <time dateTime={date} className="text-sm text-gray-500">{date.split("-").reverse().join(".")}</time>}
-          <p className="text-sm leading-6 text-gray-600">
-            {description ?? "Krótki tekst techniczny o narzędziach i decyzjach, które sprawdzam przy budowaniu aplikacji."}
-          </p>
+    <article className="group border-t border-gray-200 first:border-t-0">
+      <Link href={link} target={external ? "_blank" : undefined} rel={external ? "noreferrer" : undefined}
+        className="grid gap-5 rounded-md py-7 outline-none transition-colors hover:bg-gray-50 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-4 sm:grid-cols-[56px_1fr] sm:gap-8 sm:px-4 sm:py-9">
+        <span aria-hidden="true" className="hidden pt-1 font-ibm text-sm tabular-nums text-gray-400 sm:block">{String(index + 1).padStart(2, "0")}</span>
+        <div className="min-w-0">
+          <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+            <span className="font-medium uppercase tracking-wider">{external ? "Medium · tekst zewnętrzny" : "Wpis z projektu"}</span>
+            {date && <><span aria-hidden="true">/</span><time dateTime={date}>{date.split("-").reverse().join(".")}</time></>}
+          </div>
+          <div className="flex items-start justify-between gap-5">
+            <h2 className="max-w-2xl text-xl font-semibold leading-snug tracking-tight group-hover:underline group-hover:decoration-accent group-hover:underline-offset-4 sm:text-2xl">{title}</h2>
+            <span aria-hidden="true" className="shrink-0 text-2xl text-gray-400 transition-transform group-hover:translate-x-1 group-hover:text-black">{external ? "↗" : "→"}</span>
+          </div>
+          {description && <p className="mt-3 max-w-2xl text-sm leading-7 text-gray-600 sm:text-base">{description}</p>}
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <ul aria-label="Tematy wpisu" className="flex flex-wrap gap-2">
+              {tags.map((tag) => <li key={tag} className="rounded-full border border-gray-200 bg-white px-3 py-1 text-xs text-gray-600">{tag}</li>)}
+            </ul>
+            <span className="text-xs font-medium text-gray-500">{external ? "Czytaj w Medium" : "Czytaj wpis"}</span>
+          </div>
         </div>
-      </div>
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag, index) => (
-            <span
-              key={index}
-              className="rounded-md bg-gray-200 px-2 py-1 text-sm text-gray-800"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <InlineLink isExternal={source === "medium"} href={link}>
-          {source === "medium" ? "Czytaj w Medium" : "Czytaj wpis"}
-        </InlineLink>
-      </div>
+      </Link>
     </article>
   );
 };

@@ -1,33 +1,17 @@
-"use client";
-
 import BlogPost from "@/components/molecules/BlogPost";
-import { PageTemplate } from "@/components/templates/PageTemplate";
 import { blogPosts } from "@/data/blogPosts";
 
 export default function BlogPage() {
   return (
-    <PageTemplate title="Blog" className="gap-10">
-      <section className="flex flex-col gap-3">
-        <p className="text-md leading-7 text-gray-700">
-          Notatki o narzędziach, programowaniu i rzeczach, które warto
-          przetestować w praktyce zamiast tylko o nich czytać.
-        </p>
+    <div className="mx-auto flex max-w-5xl flex-col gap-10 pb-12 sm:gap-14">
+      <header className="max-w-2xl">
+        <p className="mb-5 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-gray-500"><span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />Notatki z projektów</p>
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Blog</h1>
+        <p className="mt-4 text-base leading-7 text-gray-600 sm:text-lg sm:leading-8">Co buduję, jak to działa i jakie decyzje podejmuję w kodzie.</p>
+      </header>
+      <section aria-label="Wpisy blogowe" className="border-y border-gray-200">
+        {blogPosts.map((post, index) => <BlogPost key={post.link} {...post} index={index} />)}
       </section>
-
-      <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-bold">Wpisy</h2>
-        {blogPosts.map((post) => (
-          <BlogPost
-            key={post.link}
-            title={post.title}
-            tags={post.tags}
-            link={post.link}
-            source={post.source}
-            description={post.description}
-            date={post.date}
-          />
-        ))}
-      </section>
-    </PageTemplate>
+    </div>
   );
 }

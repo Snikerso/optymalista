@@ -9,11 +9,11 @@ export type BlogPostEntry = {
 
 export const blogPosts: BlogPostEntry[] = [
   {
-    title: "Zbudowałem własną bibliotekę komponentów dla Garmina",
+    title: "ConnectIQComponents: własne komponenty UI dla Garmina",
     link: "/blog/biblioteka-komponentow-garmin/",
     tags: ["Garmin", "Connect IQ", "Monkey C", "Open source"],
     description:
-      "ConnectIQComponents: reużywalne komponenty UI, wspólny motyw i podejście inspirowane Reactem. Od interfejsów zegarkowych do biblioteki używanej w TeaStop.",
+      "8 komponentów w Monkey C, wspólny motyw i integracja przez Git submodule lub Monkey Barrel. Bibliotekę wykorzystałem w TeaStop.",
     source: "portfolio",
     date: "2026-10-07",
   },
@@ -21,6 +21,7 @@ export const blogPosts: BlogPostEntry[] = [
     title: "Resend — easy tool to send mail",
     link: "https://optymalista.medium.com/resend-easy-tool-to-send-mail-8c2755da54ae",
     tags: ["Resend", "Mail", "Tool"],
+    description: "Wysyłanie wiadomości e-mail przez Resend — narzędzie, które wykorzystuję przy budowaniu aplikacji.",
     source: "medium",
   },
 ];

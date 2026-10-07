@@ -1,3 +1,4 @@
+import { blogPosts } from "@/data/blogPosts";
 import { projectDetails } from "@/data/projectDetails";
 import { siteUrl } from "@/lib/seo";
 import type { MetadataRoute } from "next";
@@ -21,6 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly" as const,
       priority: route.priority,
+    })),
+    ...blogPosts.filter((post) => post.source === "portfolio").map((post) => ({
+      url: new URL(post.link, siteUrl).toString(),
+      lastModified: post.date ? new Date(post.date) : lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
     ...projectDetails.map((project) => ({
       url: new URL(`/projekty/${project.slug}/`, siteUrl).toString(),

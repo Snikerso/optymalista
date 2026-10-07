@@ -21,7 +21,10 @@ export default function BlogPage() {
             key={post.link}
             title={post.title}
             tags={post.tags}
-            mediumLink={post.link}
+            link={post.link}
+            source={post.source}
+            description={post.description}
+            date={post.date}
           />
         ))}
       </section>
